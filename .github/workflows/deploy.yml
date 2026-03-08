@@ -34,14 +34,11 @@ jobs:
         if: steps.precheck.outputs.ready == 'true'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           set -e
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p "${SSH_PORT:-22}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
       - name: Ensure remote dir
         if: steps.precheck.outputs.ready == 'true'
@@ -52,7 +49,7 @@ jobs:
           SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
         run: |
           set -e
-          ssh -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "mkdir -p '$SSH_TARGET_DIR'"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "mkdir -p '$SSH_TARGET_DIR'"
 
       - name: Upload landing files
         if: steps.precheck.outputs.ready == 'true'
@@ -64,7 +61,7 @@ jobs:
         run: |
           set -e
           rsync -az --delete \
-            -e "ssh -p ${SSH_PORT:-22}" \
+            -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${SSH_PORT:-22}" \
             --include="index.html" \
             --include="style.css" \
             --include="script.js" \
@@ -83,4 +80,4 @@ jobs:
           SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
         run: |
           set -e
-          ssh -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "docker stack deploy -c '$SSH_TARGET_DIR/docker-compose.yml' gcsolar-landing"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "docker stack deploy -c '$SSH_TARGET_DIR/docker-compose.yml' gcsolar-landing"
