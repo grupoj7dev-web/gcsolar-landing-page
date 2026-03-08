@@ -24,9 +24,9 @@ O deploy roda via GitHub Actions em todo push na branch `main`.
 - `SSH_PRIVATE_KEY`: chave privada SSH (preferencialmente ED25519)
 - `SSH_PORT`: porta SSH (ex.: `22`)
 - `SSH_TARGET_DIR`: pasta de destino no servidor (ex.: `/var/www/gc.solar`)
-- `POST_DEPLOY_CMD` (opcional): comando para executar apos deploy (ex.: `sudo systemctl reload nginx`)
 
 ### Comportamento
 
 - Envia apenas os arquivos da landing.
 - Remove arquivos antigos no destino para manter o servidor sincronizado com o repositório.
+- Executa `docker stack deploy` no servidor para publicar em `gc.solar` via Traefik.

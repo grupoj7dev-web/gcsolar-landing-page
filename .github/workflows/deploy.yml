@@ -70,18 +70,16 @@ jobs:
             --include="script.js" \
             --include="image_copy-bg.png" \
             --include="printsistema.png" \
+            --include="docker-compose.yml" \
             --exclude="*" \
             ./ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR/"
 
-      - name: Post deploy command
+      - name: Deploy docker stack
         if: steps.precheck.outputs.ready == 'true'
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-          POST_DEPLOY_CMD: ${{ secrets.POST_DEPLOY_CMD }}
         run: |
           set -e
-          if [ -n "$POST_DEPLOY_CMD" ]; then
-            ssh -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "$POST_DEPLOY_CMD"
-          fi
+          ssh -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "docker stack deploy -c '$SSH_TARGET_DIR/docker-compose.yml' gcsolar-landing"
