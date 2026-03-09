@@ -1,0 +1,289 @@
+﻿.proposal-main {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 1rem 1.2rem 1.2rem;
+    display: grid;
+    gap: 0.82rem;
+    align-content: start;
+}
+
+.proposal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.proposal-head h1 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2rem;
+    line-height: 1.08;
+    margin-bottom: 0.12rem;
+}
+
+.proposal-head p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.head-actions {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-secondary,
+.btn-primary-solid {
+    border-radius: 12px;
+    padding: 0.62rem 0.95rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.btn-secondary {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+}
+
+.btn-primary-solid {
+    border: 0;
+    color: #fff;
+    background: linear-gradient(135deg, #15803d, #22c55e);
+    box-shadow: 0 10px 20px rgba(21, 128, 61, 0.22);
+}
+
+.btn-secondary:hover,
+.btn-primary-solid:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary-solid:hover {
+    box-shadow: 0 12px 24px rgba(21, 128, 61, 0.26);
+}
+
+.pdf-card {
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    background:
+        radial-gradient(900px 240px at 110% -40%, rgba(34, 197, 94, 0.05), transparent 58%),
+        var(--surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.pdf-card h2 {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+}
+
+.pdf-card p {
+    margin-top: 0.1rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.pdf-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.52rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.hidden-input {
+    display: none;
+}
+
+.pdf-status {
+    font-size: 0.84rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.proposal-form {
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.66rem;
+    background:
+        radial-gradient(900px 260px at 120% -45%, rgba(34, 197, 94, 0.05), transparent 62%),
+        var(--surface);
+}
+
+.field {
+    display: grid;
+    gap: 0.3rem;
+}
+
+.field label {
+    font-size: 0.74rem;
+    color: var(--muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field input,
+.field select {
+    height: 42px;
+    border-radius: 11px;
+    border: 1px solid var(--table-border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.9rem;
+    padding: 0 0.72rem;
+    outline: 0;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+
+.field input[readonly] {
+    background: var(--surface-soft);
+    color: var(--muted);
+    cursor: not-allowed;
+}
+
+.admin-block {
+    grid-column: 1 / -1;
+    margin-top: 0.2rem;
+    border-radius: 14px;
+    border: 1px dashed #99d2ae;
+    background: rgba(34, 197, 94, 0.07);
+    padding: 0.7rem;
+    display: grid;
+    gap: 0.6rem;
+}
+
+.admin-block h3 {
+    margin: 0;
+    font-size: 0.92rem;
+    font-family: "Montserrat", sans-serif;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.62rem;
+    align-items: end;
+}
+
+.check-line {
+    min-height: 42px;
+    border-radius: 11px;
+    border: 1px solid var(--table-border);
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+    padding: 0 0.7rem;
+    color: var(--text);
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.check-line input {
+    width: 16px;
+    height: 16px;
+}
+
+.validation-bar {
+    border-radius: 12px;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--table-border);
+    background: var(--surface-soft);
+    font-size: 0.87rem;
+    font-weight: 700;
+}
+
+.validation-bar.error {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.validation-bar.success {
+    border-color: #bbf7d0;
+    background: #ecfdf3;
+    color: #166534;
+}
+
+.validation-bar.warning {
+    border-color: #fdba74;
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.hidden {
+    display: none !important;
+}
+
+:root[data-theme="dark"] .pdf-card,
+:root[data-theme="dark"] .proposal-form {
+    border-color: #355246;
+    background:
+        radial-gradient(1000px 240px at 110% -50%, rgba(34, 197, 94, 0.1), transparent 58%),
+        #13231a;
+    box-shadow: 0 14px 30px rgba(5, 10, 8, 0.42);
+}
+
+:root[data-theme="dark"] .admin-block {
+    border-color: #2f6b46;
+    background: rgba(16, 39, 27, 0.9);
+}
+
+@media (max-width: 1180px) {
+    .proposal-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 960px) {
+    .proposal-head,
+    .pdf-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pdf-actions {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 760px) {
+    .proposal-main {
+        padding: 0.85rem 0.8rem 1rem;
+    }
+
+    .proposal-form,
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .head-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -1,0 +1,691 @@
+﻿/* Proposal View - Premium Orange Layout */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+:root {
+    --proposal-print-scale: 1;
+}
+
+.proposal-view-container {
+    padding: 30px;
+    background-color: #fcece4;
+    /* Light orange tint bg */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    /* More modern font */
+}
+
+.proposal-card {
+    background: white;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(255, 107, 0, 0.15);
+    /* Orange shadow tint */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header with Orange Curve/Brand */
+.proposal-header {
+    padding: 40px 50px;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8800 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+    padding-bottom: 60px;
+}
+
+.header-company-info h2 {
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 5px 0;
+    letter-spacing: 0.5px;
+}
+
+.header-company-info p {
+    margin: 2px 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.proposal-body {
+    padding: 40px 50px;
+    flex: 1;
+    margin-top: -20px;
+}
+
+.proposal-title-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.proposal-title-section h1 {
+    font-size: 34px;
+    color: #FF6B00;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.proposal-title-section .proposal-subtitle {
+    color: #666;
+    letter-spacing: 2px;
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Client Grid - Cleaner Look */
+.client-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2x2 grid for better spacing */
+    gap: 20px;
+    margin-bottom: 40px;
+    background: white;
+    border: 1px solid #ffdec2;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-group label {
+    font-size: 11px;
+    color: #FF6B00;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.info-group .value {
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2px;
+}
+
+/* COMPARISON COLUMNS - Improved separation */
+.comparison-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 40px;
+    align-items: stretch;
+}
+
+.comp-column {
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.comp-column:hover {
+    transform: translateY(-5px);
+}
+
+.col-header {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.col-body {
+    padding: 20px 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.data-box label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.value-pill {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    /* Centered values */
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Styles per Column */
+
+/* Gray Column - Subtle */
+.gray-col {
+    border-top: 5px solid #9e9e9e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.gray-col .col-header {
+    background-color: #f5f5f5;
+    color: #444;
+}
+
+.value-pill.gray {
+    background-color: #f9f9f9;
+    color: #555;
+    border: 1px solid #eee;
+}
+
+/* Orange Column - POP */
+.teal-col {
+    border-top: 5px solid #FF6B00;
+    box-shadow: 0 5px 20px rgba(255, 107, 0, 0.15);
+    transform: scale(1.02);
+    z-index: 2;
+    border: 1px solid #ffe0b2;
+}
+
+.teal-col .col-header {
+    background-color: #FF6B00;
+}
+
+.value-pill.teal {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+}
+
+/* Savings Column - Green/Orange Mix */
+.green-col {
+    border-top: 5px solid #2e7d32;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.green-col .col-header {
+    background-color: #2e7d32;
+}
+
+/* Keep green for savings semantic */
+.value-pill.light {
+    background-color: white;
+    border: 1px solid #eee;
+}
+
+/* Text Colors */
+.txt-green {
+    color: #2e7d32;
+    font-size: 18px;
+}
+
+.txt-green-light {
+    color: #4caf50;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e8f5e9;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+.txt-orange {
+    color: #ef6c00;
+    font-size: 18px;
+}
+
+.txt-orange-light {
+    color: #ff9800;
+    font-size: 12px;
+    font-weight: 600;
+    background: #fff3e0;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+.txt-red {
+    color: #c62828;
+    font-size: 18px;
+}
+
+.txt-red-light {
+    color: #ef5350;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffebee;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+.txt-darkred {
+    color: #b71c1c;
+    font-size: 18px;
+}
+
+.txt-darkred-light {
+    color: #d32f2f;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffebee;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+/* Total Banner */
+.total-savings-banner {
+    background: #FF6B00;
+    background: linear-gradient(90deg, #FF6B00 0%, #ff9100 100%);
+    color: white;
+    padding: 25px 40px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+}
+
+.total-savings-banner .label {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.total-savings-banner .value {
+    font-size: 38px;
+    font-weight: 900;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Extras */
+.tariff-explanation {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fffcf9;
+    border-radius: 12px;
+    border: 1px dashed #ffcc80;
+}
+
+.tariff-explanation h3 {
+    font-size: 14px;
+    color: #e65100;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.tariff-explanation p {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.flags-legend {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.flag-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #555;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+}
+
+.proposal-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 10px;
+    color: #bbb;
+    margin-top: auto;
+    background: #f9f9f9;
+}
+
+/* Actions */
+.screen-actions {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 99;
+}
+
+.btn-action {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action.primary {
+    background: #FF6B00;
+    color: white;
+    border-color: #FF6B00;
+}
+
+.btn-action.primary:hover {
+    background: #e65100;
+}
+
+.btn-action.success {
+    background: #25D366;
+    color: white;
+    border-color: #25D366;
+}
+
+.btn-action.success:hover {
+    background: #1da851;
+}
+
+.loading-state,
+.error-state {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    color: #374151;
+}
+
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    @page {
+        size: A4;
+        margin: 6mm;
+    }
+
+    html,
+    body {
+        width: 210mm !important;
+        height: 297mm !important;
+        overflow: hidden !important;
+    }
+
+    body,
+    .proposal-view-container {
+        background: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .proposal-card {
+        box-shadow: none;
+        margin: 0;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: 285mm !important;
+        overflow: hidden !important;
+        page-break-after: avoid;
+    }
+
+    .proposal-view-container {
+        transform: scale(var(--proposal-print-scale));
+        transform-origin: top left;
+        width: calc(100% / var(--proposal-print-scale)) !important;
+        margin: 0 !important;
+    }
+
+    /* Moderate header reduction */
+    .proposal-header {
+        padding: 25px 40px 35px 40px !important;
+    }
+
+    .header-company-info h2 {
+        font-size: 20px !important;
+        margin-bottom: 3px !important;
+    }
+
+    .header-company-info p {
+        font-size: 11px !important;
+        margin: 2px 0 !important;
+    }
+
+    .logo-text {
+        font-size: 20px !important;
+        padding: 4px 12px !important;
+    }
+
+    /* Moderate body padding */
+    .proposal-body {
+        padding: 28px 34px !important;
+        margin-top: -8px !important;
+    }
+
+    /* Moderate title section */
+    .proposal-title-section {
+        margin-bottom: 20px !important;
+    }
+
+    .proposal-title-section h1 {
+        font-size: 38px !important;
+        margin: 0 !important;
+    }
+
+    .proposal-title-section .proposal-subtitle {
+        font-size: 13px !important;
+        margin-top: 5px !important;
+    }
+
+    /* Moderate client grid */
+    .client-grid {
+        gap: 14px !important;
+        margin-bottom: 20px !important;
+        padding: 16px !important;
+    }
+
+    .info-group label {
+        font-size: 9px !important;
+        margin-bottom: 3px !important;
+    }
+
+    .info-group .value {
+        font-size: 13px !important;
+        padding-bottom: 2px !important;
+    }
+
+    /* Moderate comparison columns */
+    .comparison-container {
+        gap: 12px !important;
+        margin-bottom: 18px !important;
+    }
+
+    .col-header {
+        padding: 13px 8px !important;
+        font-size: 12px !important;
+        height: 52px !important;
+    }
+
+    .col-body {
+        padding: 13px 10px !important;
+        gap: 9px !important;
+    }
+
+    .data-box label {
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+    }
+
+    .value-pill {
+        padding: 6px 8px !important;
+        font-size: 13px !important;
+        gap: 2px !important;
+    }
+
+    .txt-green,
+    .txt-orange,
+    .txt-red,
+    .txt-darkred {
+        font-size: 15px !important;
+    }
+
+    .txt-green-light,
+    .txt-orange-light,
+    .txt-red-light,
+    .txt-darkred-light {
+        font-size: 10px !important;
+        padding: 2px 6px !important;
+        margin-top: 3px !important;
+    }
+
+    /* Moderate total banner */
+    .total-savings-banner {
+        padding: 14px 22px !important;
+        margin-top: 10px !important;
+    }
+
+    .total-savings-banner .label {
+        font-size: 13px !important;
+        letter-spacing: 0.8px !important;
+    }
+
+    .total-savings-banner .value {
+        font-size: 38px !important;
+    }
+
+    /* Moderate explanation */
+    .tariff-explanation {
+        display: block !important;
+        margin-top: 14px !important;
+        padding: 12px !important;
+        border: 1px solid #eee !important;
+        border-radius: 10px !important;
+    }
+
+    .tariff-explanation h3 {
+        font-size: 11px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .tariff-explanation p {
+        font-size: 10px !important;
+        margin-bottom: 8px !important;
+        line-height: 1.3 !important;
+    }
+
+    .flags-legend {
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .flag-item {
+        font-size: 9px !important;
+        padding: 4px 7px !important;
+    }
+
+    .tariff-explanation h3 {
+        font-size: 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .tariff-explanation p {
+        font-size: 10px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .flags-legend {
+        gap: 10px !important;
+    }
+
+    .flag-item {
+        font-size: 9px !important;
+        padding: 4px 8px !important;
+        gap: 4px !important;
+    }
+
+    .flag-item .dot {
+        width: 8px !important;
+        height: 8px !important;
+    }
+
+    /* Moderate footer */
+    .proposal-footer {
+        display: none !important;
+    }
+
+    /* Prevent page breaks */
+    .client-grid,
+    .comp-column,
+    .comparison-container,
+    .total-savings-banner,
+    .tariff-explanation {
+        page-break-inside: avoid !important;
+    }
+
+    .proposal-card {
+        page-break-after: avoid !important;
+        break-after: avoid-page !important;
+    }
+}
+

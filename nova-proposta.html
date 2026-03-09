@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC Solar | Nova Proposta</title>
+    <meta name="description" content="Tela de geração de proposta de desconto.">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("gcsolar_theme");
+                var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                var theme = saved || (dark ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (e) { }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="nova-proposta.css">
+</head>
+
+<body>
+    <div class="app-shell" id="appShell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo-link" aria-label="Ir para dashboard">
+                    <img src="logo6.png" alt="GC Solar" class="sidebar-logo sidebar-logo-full">
+                    <img src="gc_icon_final.png" alt="GC" class="sidebar-logo sidebar-logo-gc">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-currency-circle-dollar"></i><span>Financeiro</span></a>
+                <a href="assinantes.html" class="nav-item"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
+                <a href="cadastrar-rateio.html" class="nav-item"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
+                <a href="calcular-desconto.html" class="nav-item active"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
+                <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validação</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-handshake"></i><span>Parceiros</span></a>
+            </nav>
+        </aside>
+
+        <div class="content-wrap">
+            <header class="topbar">
+                <button class="toggle-btn" id="toggleSidebar" aria-label="Recolher menu lateral">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="topbar-actions">
+                    <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="settings-btn" id="settingsBtn" aria-label="Configurações">
+                        <i class="ph ph-gear-six"></i>
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">Sair</button>
+                </div>
+            </header>
+
+            <main class="proposal-main">
+                <section class="proposal-head">
+                    <div>
+                        <h1 id="proposalPageTitle">Nova Proposta</h1>
+                        <p id="proposalStatusText">Preencha os dados e salve para gerar a proposta.</p>
+                    </div>
+                    <div class="head-actions">
+                        <a class="btn-secondary" href="calcular-desconto.html">
+                            <i class="ph ph-arrow-left"></i>
+                            Voltar para lista
+                        </a>
+                        <button class="btn-primary-solid" id="saveProposalBtn" type="button">
+                            <i class="ph ph-floppy-disk"></i>
+                            <span id="saveProposalLabel">Salvar Proposta</span>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="card pdf-card">
+                    <div>
+                        <h2>Leitor de PDF (OCR)</h2>
+                        <p>Envie a fatura para tentar preencher os campos automaticamente.</p>
+                    </div>
+                    <div class="pdf-actions">
+                        <input id="pdfInput" type="file" accept="application/pdf" class="hidden-input">
+                        <button type="button" class="btn-secondary" id="pickPdfBtn">
+                            <i class="ph ph-upload-simple"></i>
+                            Selecionar PDF
+                        </button>
+                        <span id="pdfStatusText" class="pdf-status">Nenhum arquivo selecionado.</span>
+                    </div>
+                </section>
+
+                <form id="proposalForm" class="card proposal-form" novalidate>
+                    <div class="field">
+                        <label for="proposalCodeInput">Código da Proposta</label>
+                        <input id="proposalCodeInput" name="proposalCode" type="text" readonly>
+                    </div>
+                    <div class="field">
+                        <label for="clientNameInput">Cliente</label>
+                        <input id="clientNameInput" name="clientName" type="text" required>
+                    </div>
+                    <div class="field">
+                        <label for="cnpjInput">CNPJ / CPF</label>
+                        <input id="cnpjInput" name="cnpj" type="text" required>
+                    </div>
+                    <div class="field">
+                        <label for="installationIdInput">Nº da Instalação (UC)</label>
+                        <input id="installationIdInput" name="installationId" type="text" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="distributorInput">Distribuidora</label>
+                        <input id="distributorInput" name="distributor" type="text" value="Equatorial">
+                    </div>
+                    <div class="field">
+                        <label for="networkTypeInput">Rede</label>
+                        <select id="networkTypeInput" name="networkType">
+                            <option value="monofasico">Monofásico</option>
+                            <option value="bifasico" selected>Bifásico</option>
+                            <option value="trifasico">Trifásico</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="discountPercentInput">Desconto J7 (%)</label>
+                        <input id="discountPercentInput" name="discountPercent" type="number" min="0" max="100" step="0.01" value="20">
+                    </div>
+                    <div class="field">
+                        <label for="gdRuleInput">Regra GD</label>
+                        <select id="gdRuleInput" name="gdRule">
+                            <option value="GD1" selected>GD1</option>
+                            <option value="GD2">GD2</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="generationModeInput">Modalidade de Geração</label>
+                        <select id="generationModeInput" name="generationMode">
+                            <option value="remoto" selected>Remoto (Mesma Titularidade)</option>
+                            <option value="compartilhado">Compartilhado (Titularidade Diferente)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="monthlyConsumptionInput">Consumo Mensal (kWh)</label>
+                        <input id="monthlyConsumptionInput" name="monthlyConsumption" type="number" min="0" step="0.01" value="0" required>
+                    </div>
+                    <div class="field">
+                        <label for="currentRateInput">Preço Atual (R$/kWh)</label>
+                        <input id="currentRateInput" name="currentRate" type="number" min="0" step="0.0001" value="0" required>
+                    </div>
+                    <div class="field">
+                        <label for="publicLightingInput">Iluminação Pública (R$)</label>
+                        <input id="publicLightingInput" name="publicLighting" type="number" min="0" step="0.01" value="0" required>
+                    </div>
+                    <div class="field">
+                        <label for="minCostInput">Custo Mínimo (R$)</label>
+                        <input id="minCostInput" name="minCost" type="number" min="0" step="0.01" value="0" readonly>
+                    </div>
+
+                    <div class="field">
+                        <label for="flagGreenCostInput">Bandeira Verde (R$/kWh)</label>
+                        <input id="flagGreenCostInput" name="flagGreenCost" type="number" step="0.00001" value="0" readonly>
+                    </div>
+                    <div class="field">
+                        <label for="flagYellowCostInput">Bandeira Amarela (R$/kWh)</label>
+                        <input id="flagYellowCostInput" name="flagYellowCost" type="number" step="0.00001" value="0.02885" readonly>
+                    </div>
+                    <div class="field">
+                        <label for="flagRedICostInput">Bandeira Vermelha I (R$/kWh)</label>
+                        <input id="flagRedICostInput" name="flagRedICost" type="number" step="0.00001" value="0.05463" readonly>
+                    </div>
+                    <div class="field">
+                        <label for="flagRedIICostInput">Bandeira Vermelha II (R$/kWh)</label>
+                        <input id="flagRedIICostInput" name="flagRedIICost" type="number" step="0.00001" value="0.086477" readonly>
+                    </div>
+
+                    <section class="admin-block hidden" id="adminBlock">
+                        <h3>Regras Administrativas (GD2 / Compartilhado)</h3>
+                        <div class="admin-grid">
+                            <label class="check-line">
+                                <input id="returnFioBInput" name="returnFioB" type="checkbox">
+                                Devolver Fio B
+                            </label>
+                            <label class="check-line">
+                                <input id="returnPisCofinsInput" name="returnPisCofins" type="checkbox">
+                                Devolver PIS/COFINS
+                            </label>
+                            <div class="field">
+                                <label for="pisCofinsPctInput">PIS/COFINS (%)</label>
+                                <input id="pisCofinsPctInput" name="pisCofinsPct" type="number" min="0" step="0.01" value="0">
+                            </div>
+                            <label class="check-line">
+                                <input id="returnIcmsInput" name="returnIcms" type="checkbox">
+                                Devolver ICMS
+                            </label>
+                            <div class="field">
+                                <label for="icmsPctInput">ICMS (%)</label>
+                                <input id="icmsPctInput" name="icmsPct" type="number" min="0" step="0.01" value="0">
+                            </div>
+                        </div>
+                    </section>
+                </form>
+
+                <section class="validation-bar hidden" id="validationBar"></section>
+                <section class="validation-bar warning hidden" id="warningBar"></section>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script type="module" src="nova-proposta.js"></script>
+</body>
+
+</html>
+
+

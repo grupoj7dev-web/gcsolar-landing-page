@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC Solar | Assinantes</title>
+    <meta name="description" content="Gestão de assinantes da GC Solar.">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("gcsolar_theme");
+                var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                var theme = saved || (dark ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (e) { }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="assinantes.css">
+</head>
+
+<body>
+    <div class="app-shell" id="appShell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo-link" aria-label="Ir para dashboard">
+                    <img src="logo6.png" alt="GC Solar" class="sidebar-logo sidebar-logo-full">
+                    <img src="gc_icon_final.png" alt="GC" class="sidebar-logo sidebar-logo-gc">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-currency-circle-dollar"></i><span>Financeiro</span></a>
+                <a href="assinantes.html" class="nav-item active"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
+                <a href="cadastrar-rateio.html" class="nav-item"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
+                <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
+                <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validação</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-handshake"></i><span>Parceiros</span></a>
+            </nav>
+        </aside>
+
+        <div class="content-wrap">
+            <header class="topbar">
+                <button class="toggle-btn" id="toggleSidebar" aria-label="Recolher menu lateral">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="topbar-actions">
+                    <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="settings-btn" id="settingsBtn" aria-label="Configurações">
+                        <i class="ph ph-gear-six"></i>
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">Sair</button>
+                </div>
+            </header>
+
+            <main class="subscribers-main">
+                <section class="subscribers-head">
+                    <div>
+                        <h1>Assinantes</h1>
+                        <p id="subscribersUpdatedAt">Atualizando lista...</p>
+                    </div>
+                    <div class="head-actions">
+                        <button class="btn-secondary" id="refreshBtn">
+                            <i class="ph ph-arrows-clockwise"></i>
+                            Atualizar Lista
+                        </button>
+                        <button class="btn-primary-solid" id="newSubscriberBtn">
+                            <i class="ph ph-plus"></i>
+                            Novo Assinante
+                        </button>
+                    </div>
+                </section>
+
+                <section class="stats-grid">
+                    <article class="stat-card">
+                        <p class="stat-label">Total de Assinantes</p>
+                        <p class="stat-value" id="statTotal">-</p>
+                        <p class="stat-meta" id="statTrend">+0% tendência</p>
+                    </article>
+                    <article class="stat-card">
+                        <p class="stat-label">Assinantes Ativos</p>
+                        <p class="stat-value" id="statAtivos">-</p>
+                        <p class="stat-meta">Contratos vigentes</p>
+                    </article>
+                    <article class="stat-card">
+                        <p class="stat-label">Aguardando Ativação</p>
+                        <p class="stat-value" id="statPendentes">-</p>
+                        <p class="stat-meta">Pendentes de aprovação</p>
+                    </article>
+                    <article class="stat-card">
+                        <p class="stat-label">Inativos</p>
+                        <p class="stat-value" id="statInativos">-</p>
+                        <p class="stat-meta">Contratos suspensos</p>
+                    </article>
+                </section>
+
+                <section class="search-panel card" id="listPanel">
+                    <div class="search-row">
+                        <div class="search-input-wrap">
+                            <i class="ph ph-magnifying-glass"></i>
+                            <input type="text" id="searchInput"
+                                placeholder="Buscar por Nome, CPF/CNPJ, Email ou número da Instalação (UC)">
+                        </div>
+                        <div class="view-switch" role="tablist" aria-label="Modo de visualização">
+                            <button class="view-btn active" id="viewCardsBtn" type="button" aria-selected="true">
+                                <i class="ph ph-squares-four"></i>
+                                Cards
+                            </button>
+                            <button class="view-btn" id="viewTableBtn" type="button" aria-selected="false">
+                                <i class="ph ph-list-bullets"></i>
+                                Tabela
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="controls-row">
+                        <div class="quick-filters" role="tablist" aria-label="Filtro rapido por status">
+                            <button type="button" class="quick-filter-btn active" data-status-filter="all"
+                                aria-selected="true">
+                                Todos
+                            </button>
+                            <button type="button" class="quick-filter-btn" data-status-filter="active"
+                                aria-selected="false">
+                                Ativos
+                            </button>
+                            <button type="button" class="quick-filter-btn" data-status-filter="pending"
+                                aria-selected="false">
+                                Pendentes
+                            </button>
+                            <button type="button" class="quick-filter-btn" data-status-filter="inactive"
+                                aria-selected="false">
+                                Inativos
+                            </button>
+                        </div>
+
+                        <div class="controls-right">
+                            <label for="sortSelect" class="control-label">Ordenar por</label>
+                            <select id="sortSelect" class="sort-select">
+                                <option value="name_asc">Nome (A-Z)</option>
+                                <option value="name_desc">Nome (Z-A)</option>
+                                <option value="newest">Cadastro mais recente</option>
+                                <option value="oldest">Cadastro mais antigo</option>
+                                <option value="discount_desc">Maior desconto</option>
+                                <option value="discount_asc">Menor desconto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="results-summary">
+                        <span id="resultsCountText">0 resultados</span>
+                    </div>
+
+                    <div id="subscribersCardsView" class="subscribers-cards-view">
+                        <article class="cards-list-hero">
+                            <div class="cards-list-hero-icon">
+                                <i class="ph ph-users-three"></i>
+                            </div>
+                            <div class="cards-list-hero-content">
+                                <div class="cards-list-hero-top">
+                                    <h2>Lista de Assinantes</h2>
+                                    <span class="cards-list-hero-count" id="cardsTotalCount">0</span>
+                                </div>
+                                <p>Gerencie todos os assinantes cadastrados no sistema</p>
+                            </div>
+                        </article>
+                        <div class="subscribers-cards-grid" id="subscribersCardsGrid">
+                            <p class="empty-row">Carregando assinantes...</p>
+                        </div>
+                    </div>
+
+                    <div id="subscribersTableView" class="hidden">
+                        <div class="table-wrap subscribers-table-wrap">
+                            <table class="subscribers-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>CPF/CNPJ</th>
+                                        <th>Email</th>
+                                        <th>UC</th>
+                                        <th>kWh Contratado</th>
+                                        <th>Desconto</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="subscribersTableBody">
+                                    <tr>
+                                        <td colspan="8" class="empty-row">Carregando assinantes...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="pagination-bar" id="paginationBar">
+                        <p class="pagination-info" id="paginationInfo">Mostrando 0 de 0 assinantes</p>
+                        <div class="pagination-controls">
+                            <button type="button" class="pagination-btn" id="paginationPrev">
+                                <i class="ph ph-caret-left"></i>
+                                Anterior
+                            </button>
+                            <div class="pagination-pages" id="paginationPages"></div>
+                            <button type="button" class="pagination-btn" id="paginationNext">
+                                Próxima
+                                <i class="ph ph-caret-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-panel card hidden" id="formPanel">
+                    <div class="form-head">
+                        <h2 id="formTitle">Novo Assinante</h2>
+                        <button class="btn-secondary" id="cancelFormBtn">Cancelar</button>
+                    </div>
+
+                    <form id="subscriberForm" class="subscriber-form">
+                        <div class="field">
+                            <label for="formHolderType">Tipo</label>
+                            <select id="formHolderType" required>
+                                <option value="person">Pessoa Física</option>
+                                <option value="company">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="formName">Nome / Razão Social</label>
+                            <input id="formName" type="text" required>
+                        </div>
+                        <div class="field">
+                            <label for="formCpfCnpj">CPF/CNPJ</label>
+                            <input id="formCpfCnpj" type="text" required>
+                        </div>
+                        <div class="field">
+                            <label for="formEmail">Email</label>
+                            <input id="formEmail" type="email">
+                        </div>
+                        <div class="field">
+                            <label for="formPhone">Telefone</label>
+                            <input id="formPhone" type="text">
+                        </div>
+                        <div class="field">
+                            <label for="formUc">UC</label>
+                            <input id="formUc" type="text" required>
+                        </div>
+                        <div class="field">
+                            <label for="formPartner">Número Parceiro</label>
+                            <input id="formPartner" type="text">
+                        </div>
+                        <div class="field">
+                            <label for="formContractedKwh">kWh Contratado</label>
+                            <input id="formContractedKwh" type="number" min="0" step="0.01">
+                        </div>
+                        <div class="field">
+                            <label for="formDiscount">Desconto (%)</label>
+                            <input id="formDiscount" type="number" min="0" max="100" step="0.01">
+                        </div>
+                        <div class="field">
+                            <label for="formStatus">Status</label>
+                            <select id="formStatus" required>
+                                <option value="active">Ativo</option>
+                                <option value="pending">Aguardando Ativação</option>
+                                <option value="inactive">Inativo</option>
+                            </select>
+                        </div>
+                        <div class="field field-span-2">
+                            <label for="formConcessionaria">Concessionária</label>
+                            <input id="formConcessionaria" type="text">
+                        </div>
+                        <div class="field field-span-2">
+                            <label for="formObs">Observações</label>
+                            <textarea id="formObs" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-actions field-span-2">
+                            <button type="submit" class="btn-primary-solid" id="saveSubscriberBtn">Salvar Assinante</button>
+                        </div>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script type="module" src="assinantes.js"></script>
+</body>
+
+</html>
+
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * script.js - GCredito Landing Page Interactions
  */
 

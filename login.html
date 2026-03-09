@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC Solar | Login</title>
+    <meta name="description" content="Acesso ao sistema GC Solar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <main class="login-layout">
+        <section class="login-brand">
+            <div class="brand-logo-wrap">
+                <img src="image_copy-bg.png" alt="Logo GC Solar" class="brand-logo">
+            </div>
+            <p class="brand-kicker">GC Solar</p>
+            <h1>Gestão inteligente de créditos de energia</h1>
+            <p class="brand-copy">
+                Entre para acompanhar assinantes, geradoras, rateio e faturamento em um só lugar.
+            </p>
+        </section>
+
+        <section class="login-card-wrap">
+            <div class="login-card">
+                <h2>Entrar na plataforma</h2>
+                <p class="subtitle">Use seu e-mail e senha para acessar.</p>
+
+                <form class="login-form" id="loginForm">
+                    <label for="email">E-mail</label>
+                    <input id="email" name="email" type="email" placeholder="seuemail@empresa.com" required>
+
+                    <label for="password">Senha</label>
+                    <input id="password" name="password" type="password" placeholder="Digite sua senha" required>
+
+                    <div class="form-row">
+                        <label class="remember">
+                            <input type="checkbox" name="remember" id="remember">
+                            <span>Lembrar acesso</span>
+                        </label>
+                        <a href="#" class="link" id="forgotPassword">Esqueci minha senha</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="submitButton">Entrar</button>
+                </form>
+
+                <p class="status-message" id="statusMessage" aria-live="polite"></p>
+                <p class="foot-note">Acesso restrito para administradores e equipe autorizada.</p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="login.js"></script>
+</body>
+
+</html>

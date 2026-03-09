@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC Solar | Cadastrar Rateio</title>
+    <meta name="description" content="Configuracao de rateio de energia da GC Solar.">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("gcsolar_theme");
+                var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                var theme = saved || (dark ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (e) { }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="cadastrar-rateio.css">
+</head>
+
+<body>
+    <div class="app-shell" id="appShell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo-link" aria-label="Ir para dashboard">
+                    <img src="logo6.png" alt="GC Solar" class="sidebar-logo sidebar-logo-full">
+                    <img src="gc_icon_final.png" alt="GC" class="sidebar-logo sidebar-logo-gc">
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-currency-circle-dollar"></i><span>Financeiro</span></a>
+                <a href="assinantes.html" class="nav-item"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
+                <a href="cadastrar-rateio.html" class="nav-item active"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
+                <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
+                <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-file-text"></i><span>ProcuraÃ§Ã£o</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em ValidaÃ§Ã£o</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
+                <a href="#" class="nav-item"><i class="ph ph-handshake"></i><span>Parceiros</span></a>
+            </nav>
+        </aside>
+
+        <div class="content-wrap">
+            <header class="topbar">
+                <button class="toggle-btn" id="toggleSidebar" aria-label="Recolher menu lateral">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="topbar-actions">
+                    <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="settings-btn" id="settingsBtn" aria-label="ConfiguraÃ§Ãµes">
+                        <i class="ph ph-gear-six"></i>
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">Sair</button>
+                </div>
+            </header>
+
+            <main class="rateio-main">
+                <section class="rateio-head">
+                    <div>
+                        <h1>Rateio de Energia</h1>
+                        <p id="rateioUpdatedAt">Carregando dados...</p>
+                    </div>
+                    <div class="head-actions">
+                        <button class="btn-secondary" id="reloadBtn" type="button">
+                            <i class="ph ph-arrows-clockwise"></i>
+                            Atualizar
+                        </button>
+                        <button class="btn-primary-solid" id="saveRateioBtn" type="button">
+                            <i class="ph ph-floppy-disk"></i>
+                            Salvar Rateio
+                        </button>
+                    </div>
+                </section>
+
+                <section class="mode-switch-card card">
+                    <div class="mode-switch" role="tablist" aria-label="Modo da tela de rateio">
+                        <button class="mode-btn active" type="button" data-view-mode="new" aria-selected="true">
+                            <i class="ph ph-plus-square"></i>
+                            Novo Rateio
+                        </button>
+                        <button class="mode-btn" type="button" data-view-mode="history" aria-selected="false">
+                            <i class="ph ph-clock-counter-clockwise"></i>
+                            HistÃ³rico de Rateios
+                        </button>
+                    </div>
+                </section>
+
+                <div id="newRateioView" class="view-panel">
+                    <section class="step-card step-origin card">
+                        <div class="step-title-wrap">
+                            <span class="step-badge">1</span>
+                            <div>
+                                <h2>Escolha da Geradora</h2>
+                                <p>Selecione a origem da energia para iniciar o rateio.</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="field">
+                                <label for="generatorSelect">Geradora (apelido / UC)</label>
+                                <select id="generatorSelect">
+                                    <option value="">Selecione uma geradora...</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="generationExpectedInput">GeraÃ§Ã£o esperada (kWh/mÃªs)</label>
+                                <input type="number" id="generationExpectedInput" min="0" step="0.01" value="0">
+                            </div>
+                        </div>
+
+                        <article class="generator-info hidden" id="generatorInfoCard">
+                            <div class="generator-info-top">
+                                <h3 id="generatorInfoTitle">Geradora selecionada</h3>
+                                <span class="generator-tag" id="generatorInfoConcessionaria">-</span>
+                            </div>
+                            <div class="generator-info-grid">
+                                <p><strong>Apelido:</strong> <span id="generatorInfoNickname">-</span></p>
+                                <p><strong>UC:</strong> <span id="generatorInfoUc">-</span></p>
+                                <p><strong>GeraÃ§Ã£o projetada:</strong> <span id="generatorInfoProjected">-</span></p>
+                                <p><strong>Documento:</strong> <span id="generatorInfoDoc">-</span></p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <section class="step-card step-destination card">
+                        <div class="step-title-wrap">
+                            <span class="step-badge">2</span>
+                            <div>
+                                <h2>Selecionando os Assinantes</h2>
+                                <p>Filtra por concessionÃ¡ria e bloqueia duplicidade automaticamente.</p>
+                            </div>
+                        </div>
+
+                        <div class="add-subscriber-box">
+                            <div class="field grow">
+                                <label for="subscriberSearchInput">Pesquisar assinante disponÃ­vel</label>
+                                <div class="search-input-wrap">
+                                    <i class="ph ph-magnifying-glass"></i>
+                                    <input type="text" id="subscriberSearchInput"
+                                        placeholder="Buscar por nome, CPF/CNPJ ou UC">
+                                </div>
+                            </div>
+                            <div class="field grow">
+                                <label for="subscriberSelect">Assinante disponÃ­vel</label>
+                                <select id="subscriberSelect" disabled>
+                                    <option value="">Selecione uma geradora primeiro...</option>
+                                </select>
+                            </div>
+                            <button class="btn-orange" type="button" id="addSubscriberBtn" disabled>
+                                <i class="ph ph-plus-circle"></i>
+                                Vincular Assinante
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="step-card step-calc card">
+                        <div class="step-title-wrap">
+                            <span class="step-badge">3</span>
+                            <div>
+                                <h2>Assinantes Vinculados e Cotas</h2>
+                                <p>Defina o tipo de rateio e ajuste porcentagens ou prioridades.</p>
+                            </div>
+                        </div>
+
+                        <div class="rateio-controls">
+                            <div class="rateio-type-switch" role="tablist" aria-label="Tipo do rateio">
+                                <button type="button" class="rateio-type-btn active" data-rateio-type="percentage"
+                                    aria-selected="true">
+                                    Por Porcentagem (%)
+                                </button>
+                                <button type="button" class="rateio-type-btn" data-rateio-type="priority"
+                                    aria-selected="false">
+                                    Por Prioridade
+                                </button>
+                            </div>
+                            <div class="summary-pills">
+                                <span class="summary-pill" id="summaryLinkedCount">0 vinculados</span>
+                                <span class="summary-pill" id="summaryTotalPercentage">Soma: 0%</span>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap rateio-table-wrap">
+                            <table class="rateio-table">
+                                <thead>
+                                    <tr>
+                                        <th>Assinante</th>
+                                        <th>UC</th>
+                                        <th>Consumo Contratado</th>
+                                        <th id="allocationHeader">Cota (%)</th>
+                                        <th>Energia estimada</th>
+                                        <th>AÃ§Ãµes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="linkedSubscribersBody">
+                                    <tr>
+                                        <td colspan="6" class="empty-row">Nenhum assinante vinculado.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="historyRateioView" class="view-panel hidden">
+                    <section class="history-toolbar card">
+                        <div class="field grow">
+                            <label for="historySearchInput">Buscar no histÃ³rico</label>
+                            <div class="search-input-wrap">
+                                <i class="ph ph-magnifying-glass"></i>
+                                <input type="text" id="historySearchInput"
+                                    placeholder="Buscar por geradora, UC, assinante ou documento">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="historyTypeFilter">Tipo de rateio</label>
+                            <select id="historyTypeFilter">
+                                <option value="all">Todos</option>
+                                <option value="percentage">Por Porcentagem</option>
+                                <option value="priority">Por Prioridade</option>
+                            </select>
+                        </div>
+                    </section>
+
+                    <section class="history-list card">
+                        <div class="history-head">
+                            <h2>HistÃ³rico Completo de Rateios</h2>
+                            <p id="historyCountText">0 registros</p>
+                        </div>
+                        <div id="historyListContainer" class="history-items">
+                            <p class="empty-row">Nenhum histÃ³rico disponÃ­vel.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="validation-bar hidden" id="validationBar"></section>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="confirmModal" role="dialog" aria-modal="true"
+        aria-labelledby="confirmModalTitle">
+        <div class="modal-card">
+            <h3 id="confirmModalTitle">Confirmar vinculaÃ§Ã£o</h3>
+            <p id="confirmModalText">Deseja vincular este assinante?</p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="confirmCancelBtn">Cancelar</button>
+                <button type="button" class="btn-primary-solid" id="confirmAddBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="cadastrar-rateio.js"></script>
+</body>
+
+</html>
+
