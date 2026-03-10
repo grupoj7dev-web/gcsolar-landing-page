@@ -395,18 +395,48 @@ function formatDate(value) {
 
 function normalizeSubscriber(docData, id) {
   const subscriber = docData.subscriber || {};
-  const energy = docData.energy_account || {};
+  const energy = docData.energy_account || docData.energyAccount || {};
+  const energyAccounts = [
+    ...(Array.isArray(docData.energyAccounts) ? docData.energyAccounts : []),
+    ...(Array.isArray(docData.energy_accounts) ? docData.energy_accounts : []),
+  ];
   const isCompany = energy.holderType === "company" || !!subscriber.cnpj;
   const cpfCnpj = energy.cpfCnpj || subscriber.cnpj || subscriber.cpf || subscriber.cpfCnpj || "";
   const name =
     subscriber.fullName || subscriber.companyName || energy.holderName || docData.subscriber_name || "";
   const email = subscriber.email || "";
-  const uc = energy.uc || "";
+  const uc = firstFilled(
+    energy.uc,
+    docData.uc,
+    docData.UC,
+    energyAccounts[0]?.uc,
+    docData.energy_account?.uc,
+    docData.energyAccount?.uc
+  );
 
-  const planDetails = docData.plan_details || {};
-  const planContract = docData.plan_contract || {};
-  const contractedKwh = Number(planDetails.contractedKwh ?? planContract.contractedKwh ?? 0);
-  const discountPercentage = Number(planDetails.discountPercentage ?? planContract.discountPercentage ?? 0);
+  const planDetails = docData.plan_details || docData.planDetails || {};
+  const planContract = docData.plan_contract || docData.planContract || {};
+  const contractedKwh = Number(
+    planDetails.contractedKwh ??
+      planContract.contractedKwh ??
+      planContract.contracted_kwh ??
+      docData.contractedKwh ??
+      docData.kwhContratado ??
+      docData.kwh_contratado ??
+      docData.consumoMedio ??
+      0
+  );
+  const discountPercentage = Number(
+    planDetails.discountPercentage ??
+      planContract.discountPercentage ??
+      planContract.discountPercent ??
+      planContract.discount_percent ??
+      docData.discountPercent ??
+      docData.discountPercentage ??
+      docData.discount_percent ??
+      docData.desconto ??
+      0
+  );
 
   return {
     id,

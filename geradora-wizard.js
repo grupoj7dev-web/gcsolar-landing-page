@@ -1,5 +1,5 @@
 ﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, getIdTokenResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, getIdTokenResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, limit, query, serverTimestamp, updateDoc, where } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
 
@@ -34,6 +34,12 @@ const stepLabel = document.getElementById("stepLabel");
 const plantsList = document.getElementById("plantsList");
 const uploadGrid = document.getElementById("uploadGrid");
 const reviewJson = document.getElementById("reviewJson");
+const appShell = document.getElementById("appShell");
+const toggleSidebarBtn = document.getElementById("toggleSidebar");
+const logoutBtn = document.getElementById("logoutBtn");
+const themeBtn = document.getElementById("themeBtn");
+const collapsedKey = "gcsolar_sidebar_collapsed";
+const themeKey = "gcsolar_theme";
 
 const DOCS = [
   { key: "saleContract", label: "Contrato da Venda dos Creditos", req: () => true },
@@ -48,6 +54,30 @@ const FACTOR = { GO: 145, MT: 145, MG: 140, SP: 132, BA: 145, PR: 128, RS: 122, 
 const state = { plants: [], documents: {} };
 let scope = null;
 let currentStep = 1;
+
+function isMobile() {
+  return window.matchMedia("(max-width: 960px)").matches;
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  const icon = themeBtn?.querySelector("i");
+  if (!icon) return;
+  icon.classList.remove("ph-moon", "ph-sun");
+  icon.classList.add(theme === "dark" ? "ph-sun" : "ph-moon");
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(themeKey);
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(saved || (systemDark ? "dark" : "light"));
+}
+
+function applySidebarState() {
+  const collapsed = localStorage.getItem(collapsedKey) === "1";
+  if (!isMobile() && collapsed) appShell.classList.add("sidebar-collapsed");
+  else appShell.classList.remove("sidebar-collapsed");
+}
 
 const id = (x) => document.getElementById(x);
 const clean = (v) => String(v || "").replace(/\s+/g, " ").trim();
@@ -84,6 +114,32 @@ function bindMasks(root = document) {
     });
   });
 }
+
+toggleSidebarBtn?.addEventListener("click", () => {
+  if (isMobile()) {
+    appShell.classList.toggle("mobile-open");
+    return;
+  }
+  const collapsed = appShell.classList.toggle("sidebar-collapsed");
+  localStorage.setItem(collapsedKey, collapsed ? "1" : "0");
+});
+
+window.addEventListener("resize", () => {
+  if (!isMobile()) appShell.classList.remove("mobile-open");
+  applySidebarState();
+});
+
+themeBtn?.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  localStorage.setItem(themeKey, next);
+});
+
+logoutBtn?.addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
+});
 
 function ownerType() {
   return document.querySelector('input[name="ownerType"]:checked')?.value || "person";
@@ -294,30 +350,170 @@ function renderUploads() {
 }
 
 function payload(withMeta = true) {
+  const ownerAddress = readAddress("ownerAddress");
   const owner = ownerType() === "person" ? {
-    type: "person", cpf: digits(id("ownerCpf").value), cpfCnpj: digits(id("ownerCpf").value), partnerNumber: clean(id("ownerPartnerNumberPf").value), name: clean(id("ownerNamePf").value), birthDate: id("ownerBirthPf").value || "", phone: clean(id("ownerPhonePf").value), email: clean(id("ownerEmailPf").value), observations: clean(id("ownerObservations").value), address: readAddress("ownerAddress"),
+    type: "person",
+    cpf: digits(id("ownerCpf").value),
+    cpfCnpj: digits(id("ownerCpf").value),
+    numeroParceiroNegocio: clean(id("ownerPartnerNumberPf").value),
+    partnerNumber: clean(id("ownerPartnerNumberPf").value),
+    name: clean(id("ownerNamePf").value),
+    dataNascimento: id("ownerBirthPf").value || "",
+    birthDate: id("ownerBirthPf").value || "",
+    telefone: clean(id("ownerPhonePf").value),
+    phone: clean(id("ownerPhonePf").value),
+    email: clean(id("ownerEmailPf").value),
+    observacoes: clean(id("ownerObservations").value),
+    observations: clean(id("ownerObservations").value),
+    address: {
+      cep: digits(ownerAddress.cep),
+      endereco: clean(ownerAddress.street),
+      numero: clean(ownerAddress.number),
+      complemento: clean(ownerAddress.complement),
+      bairro: clean(ownerAddress.district),
+      cidade: clean(ownerAddress.city),
+      estado: clean(ownerAddress.state).toUpperCase(),
+      street: clean(ownerAddress.street),
+      number: clean(ownerAddress.number),
+      complement: clean(ownerAddress.complement),
+      district: clean(ownerAddress.district),
+      city: clean(ownerAddress.city),
+      state: clean(ownerAddress.state).toUpperCase(),
+    },
   } : {
-    type: "company", cnpj: digits(id("ownerCnpj").value), cpfCnpj: digits(id("ownerCnpj").value), partnerNumber: clean(id("ownerPartnerNumberPj").value), name: clean(id("ownerNamePj").value), razaoSocial: clean(id("ownerRazaoSocial").value), nomeFantasia: clean(id("ownerNomeFantasia").value), phone: clean(id("ownerPhonePj").value), email: clean(id("ownerEmailPj").value), observations: clean(id("ownerObservations").value), address: readAddress("ownerAddress"),
+    type: "company",
+    cnpj: digits(id("ownerCnpj").value),
+    cpfCnpj: digits(id("ownerCnpj").value),
+    numeroParceiroNegocio: clean(id("ownerPartnerNumberPj").value),
+    partnerNumber: clean(id("ownerPartnerNumberPj").value),
+    name: clean(id("ownerNamePj").value),
+    razaoSocial: clean(id("ownerRazaoSocial").value),
+    nomeFantasia: clean(id("ownerNomeFantasia").value),
+    telefone: clean(id("ownerPhonePj").value),
+    phone: clean(id("ownerPhonePj").value),
+    email: clean(id("ownerEmailPj").value),
+    observacoes: clean(id("ownerObservations").value),
+    observations: clean(id("ownerObservations").value),
+    address: {
+      cep: digits(ownerAddress.cep),
+      endereco: clean(ownerAddress.street),
+      numero: clean(ownerAddress.number),
+      complemento: clean(ownerAddress.complement),
+      bairro: clean(ownerAddress.district),
+      cidade: clean(ownerAddress.city),
+      estado: clean(ownerAddress.state).toUpperCase(),
+      street: clean(ownerAddress.street),
+      number: clean(ownerAddress.number),
+      complement: clean(ownerAddress.complement),
+      district: clean(ownerAddress.district),
+      city: clean(ownerAddress.city),
+      state: clean(ownerAddress.state).toUpperCase(),
+    },
   };
 
   const plants = state.plants.map((p, i) => {
     recalc(i);
     return {
-      apelido: clean(p.basic.nickname), uc: clean(p.basic.uc), concessionaria: clean(id("concessionaria").value || "Equatorial Goiás"), tipoUsina: p.basic.type, modalidade: p.basic.mode,
-      geracaoProjetada: num(p.installation.projected), potenciaTotalUsina: num(p.installation.totalKwp), potenciaTotalInversores: num(p.installation.totalInv), inverterCompatible: !!p.installation.compatible,
+      apelido: clean(p.basic.nickname),
+      uc: clean(p.basic.uc),
+      concessionaria: clean(id("concessionaria").value || "Equatorial Goiás"),
+      tipoUsina: p.basic.type,
+      modalidade: p.basic.mode,
+      modalidadeCompensacao: p.basic.mode,
+      geracaoProjetada: num(p.installation.projected),
+      potenciaTotalUsina: num(p.installation.totalKwp),
+      potenciaTotalInversores: num(p.installation.totalInv),
+      potenciaTotalUsinaOverride: !!p.installation.manualTotal,
+      inverterCompatible: !!p.installation.compatible,
+      ownerType: p.holder.type,
+      ownerCpfCnpj: digits(p.holder.document),
+      ownerNumeroParceiroNegocio: clean(p.holder.partner),
+      ownerName: clean(p.holder.name),
+      ownerDataNascimento: p.holder.birth || "",
       holder: { type: p.holder.type, cpfCnpj: digits(p.holder.document), partnerNumber: clean(p.holder.partner), name: clean(p.holder.name), birthDate: p.holder.birth || "" },
-      address: { cep: digits(p.address.cep), endereco: clean(p.address.street), numero: clean(p.address.number), complemento: clean(p.address.complement), bairro: clean(p.address.district), cidade: clean(p.address.city), estado: clean(p.address.state).toUpperCase() },
-      contacts: (p.contacts || []).map((c) => ({ name: clean(c.name), phone: clean(c.phone), role: clean(c.role) })),
-      installation: { moduleBrand: clean(p.installation.moduleBrand), modulePowerW: num(p.installation.modulePowerW), moduleQty: num(p.installation.moduleQty), totalPowerKwp: num(p.installation.totalKwp), projectedGenerationKwh: num(p.installation.projected), inverters: (p.installation.inverters || []).map((x) => ({ brand: clean(x.brand), powerKw: num(x.powerKw), quantity: num(x.qty) })) },
+      address: {
+        cep: digits(p.address.cep),
+        endereco: clean(p.address.street),
+        numero: clean(p.address.number),
+        complemento: clean(p.address.complement),
+        bairro: clean(p.address.district),
+        cidade: clean(p.address.city),
+        estado: clean(p.address.state).toUpperCase(),
+        street: clean(p.address.street),
+        number: clean(p.address.number),
+        complement: clean(p.address.complement),
+        district: clean(p.address.district),
+        city: clean(p.address.city),
+        state: clean(p.address.state).toUpperCase(),
+      },
+      contacts: (p.contacts || []).map((c) => ({ nome: clean(c.name), telefone: clean(c.phone), funcao: clean(c.role), name: clean(c.name), phone: clean(c.phone), role: clean(c.role) })),
+      marcaModulo: clean(p.installation.moduleBrand),
+      potenciaModulo: num(p.installation.modulePowerW),
+      quantidadeModulos: num(p.installation.moduleQty),
+      installation: {
+        moduleBrand: clean(p.installation.moduleBrand),
+        modulePowerW: num(p.installation.modulePowerW),
+        moduleQty: num(p.installation.moduleQty),
+        totalPowerKwp: num(p.installation.totalKwp),
+        projectedGenerationKwh: num(p.installation.projected),
+        inverters: (p.installation.inverters || []).map((x) => ({ brand: clean(x.brand), powerKw: num(x.powerKw), quantity: num(x.qty) })),
+      },
+      inversores: (p.installation.inverters || []).map((x) => ({ marca: clean(x.brand), potencia: num(x.powerKw), quantidade: num(x.qty) })),
     };
   });
 
+  const docs = state.documents || {};
+  const mapDoc = (d) => d?.url ? ({
+    name: d.name || "",
+    size: d.size || 0,
+    type: d.type || "",
+    storagePath: d.path || "",
+    url: d.url || "",
+    uploadedAt: d.uploadedAtISO || d.uploadedAt || new Date().toISOString(),
+  }) : null;
+
   const out = {
     concessionaria: clean(id("concessionaria").value || "Equatorial Goiás"), status: clean(id("statusInput").value || "active"), ownerType: ownerType(), owner,
-    administrator: ownerType() === "company" ? { cpf: digits(id("adminCpf").value), name: clean(id("adminName").value), birthDate: id("adminBirth").value || "", phone: clean(id("adminPhone").value), email: clean(id("adminEmail").value), address: readAddress("adminAddress") } : null,
+    administrator: ownerType() === "company" ? (() => {
+      const a = readAddress("adminAddress");
+      return {
+        cpf: digits(id("adminCpf").value),
+        nome: clean(id("adminName").value),
+        name: clean(id("adminName").value),
+        dataNascimento: id("adminBirth").value || "",
+        birthDate: id("adminBirth").value || "",
+        telefone: clean(id("adminPhone").value),
+        phone: clean(id("adminPhone").value),
+        email: clean(id("adminEmail").value),
+        address: {
+          cep: digits(a.cep),
+          endereco: clean(a.street),
+          numero: clean(a.number),
+          complemento: clean(a.complement),
+          bairro: clean(a.district),
+          cidade: clean(a.city),
+          estado: clean(a.state).toUpperCase(),
+          street: clean(a.street),
+          number: clean(a.number),
+          complement: clean(a.complement),
+          district: clean(a.district),
+          city: clean(a.city),
+          state: clean(a.state).toUpperCase(),
+        },
+      };
+    })() : null,
     plants,
     distributorLogin: { uc: clean(id("portalUc").value), cpfCnpj: digits(id("portalDoc").value), birthDate: id("portalBirth").value || "" },
+    distributor_login: { uc: clean(id("portalUc").value), cpfCnpj: digits(id("portalDoc").value), dataNascimento: id("portalBirth").value || "" },
     paymentData: { favorecido: clean(id("payFavorecido").value), banco: clean(id("payBanco").value), agencia: clean(id("payAgencia").value), conta: clean(id("payConta").value), tipoConta: clean(id("payTipo").value), pix: clean(id("payPix").value) },
+    payment_data: { favorecido: clean(id("payFavorecido").value), banco: clean(id("payBanco").value), agencia: clean(id("payAgencia").value), conta: clean(id("payConta").value), tipoConta: clean(id("payTipo").value), pix: clean(id("payPix").value) },
+    attachments: {
+      contrato: mapDoc(docs.saleContract),
+      cnh: mapDoc(docs.cnh),
+      contratoSocial: mapDoc(docs.companyContract),
+      conta: mapDoc(docs.energyBill),
+      procuracao: mapDoc(docs.proxy),
+    },
     documents: state.documents,
   };
 
@@ -524,49 +720,111 @@ function fill(data = {}) {
   syncOwnerView();
 
   id("ownerCpf").value = mask(owner.cpf || owner.cpfCnpj || "", "cpf");
-  id("ownerPartnerNumberPf").value = owner.partnerNumber || "";
-  id("ownerNamePf").value = owner.name || owner.fullName || "";
-  id("ownerBirthPf").value = owner.birthDate || "";
-  id("ownerPhonePf").value = owner.phone || "";
+  id("ownerPartnerNumberPf").value = owner.numeroParceiroNegocio || owner.partnerNumber || "";
+  id("ownerNamePf").value = owner.name || owner.fullName || owner.nome || "";
+  id("ownerBirthPf").value = owner.dataNascimento || owner.birthDate || "";
+  id("ownerPhonePf").value = owner.telefone || owner.phone || "";
   id("ownerEmailPf").value = owner.email || "";
 
   id("ownerCnpj").value = mask(owner.cnpj || owner.cpfCnpj || "", "cnpj");
-  id("ownerPartnerNumberPj").value = owner.partnerNumber || "";
+  id("ownerPartnerNumberPj").value = owner.numeroParceiroNegocio || owner.partnerNumber || "";
   id("ownerNamePj").value = owner.name || owner.razaoSocial || "";
   id("ownerRazaoSocial").value = owner.razaoSocial || "";
   id("ownerNomeFantasia").value = owner.nomeFantasia || "";
-  id("ownerPhonePj").value = owner.phone || "";
+  id("ownerPhonePj").value = owner.telefone || owner.phone || "";
   id("ownerEmailPj").value = owner.email || "";
-  id("ownerObservations").value = owner.observations || "";
+  id("ownerObservations").value = owner.observacoes || owner.observations || "";
 
   setAddress("ownerAddress", { cep: owner.address?.cep || "", street: owner.address?.street || owner.address?.endereco || "", number: owner.address?.number || owner.address?.numero || "", complement: owner.address?.complement || owner.address?.complemento || "", district: owner.address?.district || owner.address?.bairro || "", city: owner.address?.city || owner.address?.cidade || "", state: owner.address?.state || owner.address?.estado || "" });
 
   const adm = data.administrator || {};
-  id("adminCpf").value = mask(adm.cpf || "", "cpf"); id("adminName").value = adm.name || ""; id("adminBirth").value = adm.birthDate || ""; id("adminPhone").value = adm.phone || ""; id("adminEmail").value = adm.email || "";
+  id("adminCpf").value = mask(adm.cpf || "", "cpf"); id("adminName").value = adm.nome || adm.name || ""; id("adminBirth").value = adm.dataNascimento || adm.birthDate || ""; id("adminPhone").value = adm.telefone || adm.phone || ""; id("adminEmail").value = adm.email || "";
   setAddress("adminAddress", { cep: adm.address?.cep || "", street: adm.address?.street || adm.address?.endereco || "", number: adm.address?.number || adm.address?.numero || "", complement: adm.address?.complement || adm.address?.complemento || "", district: adm.address?.district || adm.address?.bairro || "", city: adm.address?.city || adm.address?.cidade || "", state: adm.address?.state || adm.address?.estado || "" });
 
   state.plants = (Array.isArray(data.plants) ? data.plants : []).map((x) => {
-    const p = createPlant({ nickname: x.apelido || "", uc: x.uc || "", holderType: x.holder?.type || "person", document: mask(x.holder?.cpfCnpj || "", "cpfcnpj"), partner: x.holder?.partnerNumber || "", name: x.holder?.name || "", birth: x.holder?.birthDate || "", address: { cep: x.address?.cep || "", street: x.address?.endereco || "", number: x.address?.numero || "", complement: x.address?.complemento || "", district: x.address?.bairro || "", city: x.address?.cidade || "", state: x.address?.estado || "" } });
-    p.basic.type = x.tipoUsina || "micro"; p.basic.mode = x.modalidade || "autoconsumo";
-    p.contacts = Array.isArray(x.contacts) && x.contacts.length ? x.contacts : [{ name: "", phone: "", role: "" }];
-    p.installation.moduleBrand = x.installation?.moduleBrand || ""; p.installation.modulePowerW = x.installation?.modulePowerW || 580; p.installation.moduleQty = x.installation?.moduleQty || 1; p.installation.totalKwp = x.installation?.totalPowerKwp || x.potenciaTotalUsina || 0; p.installation.projected = x.installation?.projectedGenerationKwh || x.geracaoProjetada || 0;
-    p.installation.inverters = Array.isArray(x.installation?.inverters) && x.installation.inverters.length ? x.installation.inverters.map((ii) => ({ brand: ii.brand || "", powerKw: num(ii.powerKw), qty: num(ii.quantity) || 1 })) : [{ brand: "", powerKw: 0, qty: 1 }];
-    p.installation.manualTotal = true; p.autoSync = false; recalc(0); return p;
+    const holderType = x.holder?.type || x.ownerType || "person";
+    const holderDoc = x.holder?.cpfCnpj || x.ownerCpfCnpj || "";
+    const holderPartner = x.holder?.partnerNumber || x.ownerNumeroParceiroNegocio || "";
+    const holderName = x.holder?.name || x.ownerName || "";
+    const holderBirth = x.holder?.birthDate || x.ownerDataNascimento || "";
+    const p = createPlant({
+      nickname: x.apelido || "",
+      uc: x.uc || "",
+      holderType,
+      document: mask(holderDoc, "cpfcnpj"),
+      partner: holderPartner || "",
+      name: holderName || "",
+      birth: holderBirth || "",
+      address: {
+        cep: x.address?.cep || "",
+        street: x.address?.endereco || x.address?.street || "",
+        number: x.address?.numero || x.address?.number || "",
+        complement: x.address?.complemento || x.address?.complement || "",
+        district: x.address?.bairro || x.address?.district || "",
+        city: x.address?.cidade || x.address?.city || "",
+        state: x.address?.estado || x.address?.state || "",
+      },
+    });
+    p.basic.type = x.tipoUsina || "micro";
+    p.basic.mode = x.modalidadeCompensacao || x.modalidade || "autoconsumo";
+    p.contacts = Array.isArray(x.contacts) && x.contacts.length
+      ? x.contacts.map((c) => ({ name: c.nome || c.name || "", phone: c.telefone || c.phone || "", role: c.funcao || c.role || "" }))
+      : [{ name: "", phone: "", role: "" }];
+    p.installation.moduleBrand = x.marcaModulo || x.installation?.moduleBrand || "";
+    p.installation.modulePowerW = x.potenciaModulo || x.installation?.modulePowerW || 580;
+    p.installation.moduleQty = x.quantidadeModulos || x.installation?.moduleQty || 1;
+    p.installation.totalKwp = x.potenciaTotalUsina || x.installation?.totalPowerKwp || 0;
+    p.installation.projected = x.geracaoProjetada || x.installation?.projectedGenerationKwh || 0;
+    if (Array.isArray(x.inversores) && x.inversores.length) {
+      p.installation.inverters = x.inversores.map((ii) => ({ brand: ii.marca || "", powerKw: num(ii.potencia), qty: num(ii.quantidade) || 1 }));
+    } else if (Array.isArray(x.installation?.inverters) && x.installation.inverters.length) {
+      p.installation.inverters = x.installation.inverters.map((ii) => ({ brand: ii.brand || "", powerKw: num(ii.powerKw), qty: num(ii.quantity) || 1 }));
+    } else {
+      p.installation.inverters = [{ brand: "", powerKw: 0, qty: 1 }];
+    }
+    p.installation.manualTotal = !!x.potenciaTotalUsinaOverride;
+    p.autoSync = false;
+    recalc(0);
+    return p;
   });
   ensurePlant(); state.plants.forEach((_, i) => recalc(i)); renderPlants();
 
-  id("portalUc").value = data.distributorLogin?.uc || "";
-  id("portalDoc").value = mask(data.distributorLogin?.cpfCnpj || "", "cpfcnpj");
-  id("portalBirth").value = data.distributorLogin?.birthDate || "";
+  const login = data.distributorLogin || data.distributor_login || {};
+  id("portalUc").value = login.uc || "";
+  id("portalDoc").value = mask(login.cpfCnpj || "", "cpfcnpj");
+  id("portalBirth").value = login.birthDate || login.dataNascimento || "";
 
-  id("payFavorecido").value = data.paymentData?.favorecido || "";
-  id("payBanco").value = data.paymentData?.banco || "";
-  id("payAgencia").value = data.paymentData?.agencia || "";
-  id("payConta").value = data.paymentData?.conta || "";
-  id("payTipo").value = data.paymentData?.tipoConta || "";
-  id("payPix").value = data.paymentData?.pix || "";
+  const pay = data.paymentData || data.payment_data || {};
+  id("payFavorecido").value = pay.favorecido || "";
+  id("payBanco").value = pay.banco || "";
+  id("payAgencia").value = pay.agencia || "";
+  id("payConta").value = pay.conta || "";
+  id("payTipo").value = pay.tipoConta || "";
+  id("payPix").value = pay.pix || "";
 
-  state.documents = data.documents || {};
+  if (data.documents) {
+    state.documents = data.documents;
+  } else if (data.attachments) {
+    const at = data.attachments || {};
+    const back = (d, key) => d ? ({
+      key,
+      name: d.name || "",
+      size: d.size || 0,
+      type: d.type || "",
+      path: d.storagePath || "",
+      url: d.url || "",
+      uploadedAtISO: d.uploadedAt || "",
+    }) : null;
+    state.documents = {
+      saleContract: back(at.contrato, "saleContract"),
+      cnh: back(at.cnh, "cnh"),
+      companyContract: back(at.contratoSocial, "companyContract"),
+      energyBill: back(at.conta, "energyBill"),
+      proxy: back(at.procuracao, "proxy"),
+    };
+  } else {
+    state.documents = {};
+  }
   renderUploads();
 }
 
@@ -578,6 +836,8 @@ onAuthStateChanged(auth, async (user) => {
   if (!ok) return (window.location.href = "index.html");
 
   scope = await userScope(user);
+  initTheme();
+  applySidebarState();
   ensurePlant(); state.plants.forEach((_, i) => recalc(i));
   syncOwnerView(); renderPlants(); renderUploads(); syncPortal(true); bind();
 

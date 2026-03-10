@@ -665,6 +665,10 @@ function buildPayload() {
   const ownerEmail = person ? clean(id("personEmail").value) : clean(id("companyEmail").value);
   const ownerPhone = person ? clean(id("personPhone").value) : clean(id("companyPhone").value);
   const discount = toNumber(id("planDiscountPercent").value || suggestedDiscount());
+  const primaryAccount = state.accounts[0] || createAccount();
+  const primaryAccountAddress = validateAddress(primaryAccount.address || {})
+    ? primaryAccount.address
+    : (primaryAddress || primaryAccount.address || {});
   const compensationMode = qsa('input[name="compensationMode"]').find((x) => x.checked)?.value || "autoconsumo-remoto";
   const transfer = transferEnabled() ? {
     enabled: true,
@@ -689,6 +693,15 @@ function buildPayload() {
     uc: clean(state.accounts[0]?.uc || ""),
     contractedKwh: toNumber(id("planContractedKwh").value),
     discountPercent: discount,
+    energy_account: {
+      holderType: clean(primaryAccount.personType || holderType()),
+      cpfCnpj: onlyDigits(primaryAccount.doc || ownerDoc),
+      holderName: clean(primaryAccount.name || ownerName),
+      birthDate: clean(primaryAccount.birthDate || ""),
+      uc: clean(primaryAccount.uc || ""),
+      partnerNumber: clean(primaryAccount.partner || ""),
+      address: primaryAccountAddress,
+    },
     subscriber: {
       holderType: holderType(),
       fullName: person ? ownerName : "",
@@ -745,6 +758,28 @@ function buildPayload() {
       paysFioB: id("detailFioB").checked,
       addDistributorValue: id("detailAddDistributor").checked,
       isExempt: id("detailIsento").checked,
+    },
+    plan_contract: {
+      selectedPlan: clean(id("planSelected").value),
+      adhesionDate: clean(id("planAdhesionDate").value),
+      compensationMode,
+      informedKwh: toNumber(id("planSellerKwh").value),
+      contractedKwh: toNumber(id("planContractedKwh").value),
+      loyalty: clean(id("planFidelity").value),
+      discountPercentage: discount,
+    },
+    plan_details: {
+      selectedPlan: clean(id("planSelected").value),
+      adhesionDate: clean(id("planAdhesionDate").value),
+      compensationMode,
+      informedKwh: toNumber(id("planSellerKwh").value),
+      contractedKwh: toNumber(id("planContractedKwh").value),
+      loyalty: clean(id("planFidelity").value),
+      discountPercentage: discount,
+      paysPisAndCofins: id("detailPisCofins").checked,
+      paysWireB: id("detailFioB").checked,
+      addDistributorValue: id("detailAddDistributor").checked,
+      exemptFromPayment: id("detailIsento").checked,
     },
     notifications: state.notifications,
   };
@@ -867,6 +902,13 @@ function bindEvents() {
     id("saveWizardBtn").textContent = "Salvando...";
     try {
       const payload = buildPayload();
+      console.group("[assinante-cadastro] payload");
+      console.log("uc:", payload.energy_account?.uc || payload.uc);
+      console.log("contractedKwh:", payload.plan_contract?.contractedKwh, payload.contractedKwh);
+      console.log("discountPercentage:", payload.plan_contract?.discountPercentage, payload.discountPercent);
+      console.log("plan_contract:", payload.plan_contract);
+      console.log("plan_details:", payload.plan_details);
+      console.groupEnd();
       const uploadErrors = [];
       const uploadSafe = async (file, key, label) => {
         try {
@@ -891,8 +933,14 @@ function bindEvents() {
       payload.user_id = state.scope.uid;
       payload.tenantId = state.scope.tenantId;
       payload.updated_at = serverTimestamp();
-      if (editingId) await updateDoc(doc(db, COLL, editingId), payload);
-      else { payload.created_at = serverTimestamp(); await addDoc(collection(db, COLL), payload); }
+      if (editingId) {
+        await updateDoc(doc(db, COLL, editingId), payload);
+        console.log("[assinante-cadastro] updateDoc ok", editingId);
+      } else {
+        payload.created_at = serverTimestamp();
+        const docRef = await addDoc(collection(db, COLL), payload);
+        console.log("[assinante-cadastro] addDoc ok", docRef.id);
+      }
       clearDraft();
       if (uploadErrors.length) {
         alert(`Assinante salvo, mas alguns anexos falharam:\n- ${uploadErrors.join("\n- ")}`);
@@ -946,19 +994,20 @@ async function hydrateExisting(data) {
       if (input) input.value = v || "";
     });
   }
-  const plan = data.planContract || {};
+  const plan = data.plan_contract || data.planContract || {};
   id("planSelected").value = plan.planSelected || "";
   id("planAdhesionDate").value = plan.adhesionDate || "";
   id("planSellerKwh").value = plan.sellerKwh || "";
   id("planContractedKwh").value = plan.contractedKwh || "";
   id("planFidelity").value = plan.fidelity || "none";
-  id("planDiscountPercent").value = plan.discountPercent || data.discountPercent || "";
+  id("planDiscountPercent").value = plan.discountPercentage || plan.discountPercent || data.discountPercent || "";
   const comp = qsa('input[name="compensationMode"]').find((x) => x.value === (plan.compensationMode || "autoconsumo-remoto"));
   if (comp) comp.checked = true;
-  id("detailPisCofins").checked = !!data.planDetails?.paysPisCofins;
-  id("detailFioB").checked = !!data.planDetails?.paysFioB;
-  id("detailAddDistributor").checked = !!data.planDetails?.addDistributorValue;
-  id("detailIsento").checked = !!data.planDetails?.isExempt;
+  const details = data.plan_details || data.planDetails || {};
+  id("detailPisCofins").checked = !!(details.paysPisAndCofins ?? details.paysPisCofins);
+  id("detailFioB").checked = !!(details.paysWireB ?? details.paysFioB);
+  id("detailAddDistributor").checked = !!details.addDistributorValue;
+  id("detailIsento").checked = !!(details.exemptFromPayment ?? details.isExempt);
   if (data.transfer?.enabled === true) id("transferRequiredYes").checked = true;
   else id("transferRequiredNo").checked = true;
   id("transferHolderType").value = data.transfer?.holderType || "person";
@@ -970,15 +1019,31 @@ async function hydrateExisting(data) {
   id("transferDate").value = data.transfer?.transferDate || "";
   state.personContacts = Array.isArray(data.contacts?.person) ? data.contacts.person : [];
   state.companyContacts = Array.isArray(data.contacts?.company) ? data.contacts.company : [];
-  state.accounts = Array.isArray(data.energyAccounts) ? data.energyAccounts.map((x) => createAccount({
-    personType: x.personType || "person",
-    doc: applyMask(x.cpfCnpj || "", "cpfcnpj"),
-    name: x.name || "",
-    birthDate: x.birthDate || "",
-    uc: x.uc || "",
-    partner: x.partnerNumber || "",
-    address: x.address || { cep: "", street: "", number: "", complement: "", district: "", city: "", state: "" },
-  })) : [createAccount()];
+  const energyAccounts = Array.isArray(data.energyAccounts) ? data.energyAccounts : null;
+  const energyAccount = data.energy_account || data.energyAccount || null;
+  if (energyAccounts && energyAccounts.length) {
+    state.accounts = energyAccounts.map((x) => createAccount({
+      personType: x.personType || "person",
+      doc: applyMask(x.cpfCnpj || "", "cpfcnpj"),
+      name: x.name || "",
+      birthDate: x.birthDate || "",
+      uc: x.uc || "",
+      partner: x.partnerNumber || "",
+      address: x.address || { cep: "", street: "", number: "", complement: "", district: "", city: "", state: "" },
+    }));
+  } else if (energyAccount) {
+    state.accounts = [createAccount({
+      personType: energyAccount.holderType || "person",
+      doc: applyMask(energyAccount.cpfCnpj || "", "cpfcnpj"),
+      name: energyAccount.holderName || "",
+      birthDate: energyAccount.birthDate || "",
+      uc: energyAccount.uc || "",
+      partner: energyAccount.partnerNumber || "",
+      address: energyAccount.address || { cep: "", street: "", number: "", complement: "", district: "", city: "", state: "" },
+    })];
+  } else {
+    state.accounts = [createAccount()];
+  }
   renderAccounts();
   renderContacts("person");
   renderContacts("company");
