@@ -763,9 +763,19 @@ async function postInvoiceToV2(file) {
   form.append("invoice", file);
 
   const endpoints = [];
-  if (window.location.port === "3001") endpoints.push("/api/v2/extract");
-  endpoints.push("http://127.0.0.1:3001/api/v2/extract");
-  endpoints.push("http://localhost:3001/api/v2/extract");
+  const apiBaseOverride = String(window.GC_API_BASE || localStorage.getItem("gc_api_base") || "").trim();
+  const normalizedBase = apiBaseOverride.replace(/\/$/, "");
+  const isLocalHost =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+  if (normalizedBase) endpoints.push(`${normalizedBase}/api/v2/extract`);
+  // Try same-origin first (useful when reverse proxy is configured in production)
+  endpoints.push("/api/v2/extract");
+  // Local development fallbacks only when running locally
+  if (window.location.port === "3001" || isLocalHost) {
+    endpoints.push("http://127.0.0.1:3001/api/v2/extract");
+    endpoints.push("http://localhost:3001/api/v2/extract");
+  }
 
   let lastError = null;
   for (const endpoint of endpoints) {
