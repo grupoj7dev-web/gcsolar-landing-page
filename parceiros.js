@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -37,6 +37,7 @@ const COLLABORATORS_COLLECTION = "gcredito_funcionarios";
 const themeKey = "gcsolar_theme";
 const collapsedKey = "gcsolar_sidebar_collapsed";
 const IDENTITY_SIGNUP_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`;
+const GLOBAL_ADMIN_EMAILS = new Set(["projetos@goldtechenergia.com"]);
 
 const appShell = document.getElementById("appShell");
 const toggleSidebarBtn = document.getElementById("toggleSidebar");
@@ -163,20 +164,24 @@ function resetForm() {
 async function getUserScope(user) {
   const token = await getIdTokenResult(user, true);
   const role = token.claims.role;
+  const email = String(user?.email || "").toLowerCase().trim();
+  if (GLOBAL_ADMIN_EMAILS.has(email)) {
+    return { uid: user.uid, email, tenantId: user.uid, isAdmin: true };
+  }
   const isSuperAdmin = token.claims.superadmin === true || role === "superadmin";
 
   if (isSuperAdmin) {
-    return { uid: user.uid, tenantId: user.uid, isAdmin: true };
+    return { uid: user.uid, email, tenantId: user.uid, isAdmin: true };
   }
 
   const adminQ = query(collection(db, "gcredito_admins"), where("uid", "==", user.uid), limit(1));
   const adminSnap = await getDocs(adminQ);
   if (!adminSnap.empty) {
     const data = adminSnap.docs[0].data();
-    return { uid: user.uid, tenantId: data.tenantId || user.uid, isAdmin: true };
+    return { uid: user.uid, email, tenantId: data.tenantId || user.uid, isAdmin: true };
   }
 
-  return { uid: user.uid, tenantId: user.uid, isAdmin: false };
+  return { uid: user.uid, email, tenantId: user.uid, isAdmin: false };
 }
 
 async function createAuthUser(email, password) {
@@ -243,21 +248,28 @@ function buildPayload(nowIso, authUid) {
 
 function renderTable() {
   if (!partners.length) {
-    tableBody.innerHTML = '<tr><td colspan="4" class="empty">Nenhum parceiro cadastrado.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5" class="empty">Nenhum parceiro cadastrado.</td></tr>';
     return;
   }
 
   tableBody.innerHTML = partners
     .map((partner) => {
+      const nome = partner.nome || partner.name || "-";
+      const email = partner.email || partner.mail || "-";
+      const telefone = partner.telefone || partner.phone || "-";
+      const statusRaw = cleanText(partner.status || "ativo").toLowerCase();
+      const statusLabel = statusRaw === "bloqueado" ? "Bloqueado" : statusRaw === "inativo" ? "Inativo" : "Ativo";
+      const statusClass = statusRaw === "bloqueado" ? "is-blocked" : statusRaw === "inativo" ? "is-inactive" : "is-active";
       return `
       <tr data-id="${partner.id}">
-        <td>${partner.nome || "-"}</td>
-        <td>${partner.email || "-"}</td>
-        <td>${partner.telefone || "-"}</td>
+        <td>${nome}</td>
+        <td>${email}</td>
+        <td>${telefone}</td>
+        <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
         <td>
           <div class="row-actions">
-            <button class="mini-btn" type="button" data-action="edit">Editar</button>
-            <button class="mini-btn delete" type="button" data-action="delete">Apagar</button>
+            <button class="mini-btn" type="button" data-action="edit"><i class="ph ph-pencil-simple"></i>Editar</button>
+            <button class="mini-btn delete" type="button" data-action="delete"><i class="ph ph-trash"></i>Apagar</button>
           </div>
         </td>
       </tr>
@@ -266,18 +278,66 @@ function renderTable() {
     .join("");
 }
 
+function isPartnerLikeRecord(data) {
+  const cargo = cleanText(data?.cargo).toLowerCase();
+  const role = cleanText(data?.role).toLowerCase();
+  const hasLoginIdentity = Boolean(cleanText(data?.auth_user_id || data?.uid));
+  const isExplicitPartnerRole =
+    ["parceiro", "vendedor", "representante"].includes(cargo) ||
+    ["parceiro", "vendedor", "representante"].includes(role);
+  if (isExplicitPartnerRole && hasLoginIdentity) return true;
+
+  const perms = data?.permissions || {};
+  const hasPartnerPermission = perms.representantes === true;
+  const hasPartnerFinancial = Number(data?.commission_percentage || 0) > 0 || Number(data?.commission_months || 0) > 0;
+  const hasLeadLikeShape = Boolean(
+    data?.subscriberName ||
+    data?.cpfCnpj ||
+    data?.uc ||
+    data?.kwh ||
+    data?.concessionaria ||
+    data?.planName
+  );
+  if (hasLeadLikeShape) return false;
+  if ((hasPartnerPermission || hasPartnerFinancial) && hasLoginIdentity) return true;
+  return false;
+}
+
+async function runQuerySafe(q) {
+  try {
+    return await getDocs(q);
+  } catch (error) {
+    console.warn("Query ignorada por falha/index:", error?.message || error);
+    return { docs: [] };
+  }
+}
+
 async function loadPartners() {
   setStatus("Carregando parceiros...");
-  const byTenant = query(
-    collection(db, COLLABORATORS_COLLECTION),
-    where("tenantId", "==", currentScope.tenantId)
-  );
-  const snap = await getDocs(byTenant);
+  const collRef = collection(db, COLLABORATORS_COLLECTION);
+  const scopes = [
+    query(collRef, where("tenantId", "==", currentScope.tenantId)),
+    query(collRef, where("tenant_id", "==", currentScope.tenantId)),
+    query(collRef, where("user_id", "==", currentScope.uid)),
+    query(collRef, where("user_id", "==", currentScope.tenantId)),
+    query(collRef, where("createdBy", "==", currentScope.uid)),
+  ];
+  if (currentScope.email) {
+    scopes.push(query(collRef, where("managerEmail", "==", currentScope.email)));
+    scopes.push(query(collRef, where("ownerEmail", "==", currentScope.email)));
+  }
+  const snaps = await Promise.all(scopes.map((q) => runQuerySafe(q)));
 
-  partners = snap.docs
-    .map((d) => ({ id: d.id, ...d.data() }))
-    .filter((x) => cleanText(x.cargo).toLowerCase() === "parceiro")
-    .sort((a, b) => String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR"));
+  const mapById = new Map();
+  snaps.forEach((snap) => {
+    snap.docs.forEach((d) => {
+      if (!mapById.has(d.id)) mapById.set(d.id, { id: d.id, ...d.data() });
+    });
+  });
+
+  partners = Array.from(mapById.values())
+    .filter(isPartnerLikeRecord)
+    .sort((a, b) => String(a.nome || a.name || "").localeCompare(String(b.nome || b.name || ""), "pt-BR"));
 
   renderTable();
   setStatus(`Parceiros carregados: ${partners.length}.`, "success");
@@ -286,10 +346,10 @@ async function loadPartners() {
 function loadInForm(partner) {
   editingPartner = partner;
   partnerIdInput.value = partner.id;
-  originalEmailInput.value = cleanText(partner.email).toLowerCase();
-  nomeInput.value = partner.nome || "";
-  emailInput.value = partner.email || "";
-  telefoneInput.value = partner.telefone || "";
+  originalEmailInput.value = cleanText(partner.email || partner.mail).toLowerCase();
+  nomeInput.value = partner.nome || partner.name || "";
+  emailInput.value = partner.email || partner.mail || "";
+  telefoneInput.value = partner.telefone || partner.phone || "";
   statusInput.value = partner.status || "ativo";
   commissionPercentageInput.value = partner.commission_percentage || "";
   commissionMonthsInput.value = partner.commission_months || "";
@@ -324,7 +384,7 @@ async function savePartner(event) {
   if (isEditing) {
     const oldEmail = cleanText(originalEmailInput.value).toLowerCase();
     if (oldEmail && oldEmail !== email) {
-      setStatus("Nao e possivel alterar o e-mail de login deste parceiro por aqui.", "error");
+      setStatus("Não e possível alterar o e-mail de login deste parceiro por aqui.", "error");
       return;
     }
   }
@@ -341,7 +401,7 @@ async function savePartner(event) {
     const payload = buildPayload(nowIso, authUid);
     const isIndicarAllowed = payload.permissions.indicarAssinante === true;
     if (isIndicarAllowed && (payload.commission_percentage <= 0 || payload.commission_months <= 0)) {
-      setStatus("Defina comissao (%) e prazo (meses) para acesso ao Indicar Assinante.", "error");
+      setStatus("Defina comissao (%) e prazo (meses) para acesso ao Pré-assinante.", "error");
       return;
     }
 
@@ -480,8 +540,9 @@ onAuthStateChanged(auth, async (user) => {
     await loadPartners();
   } catch (error) {
     console.error(error);
-    setStatus("Falha ao carregar contexto do usuario.", "error");
+    setStatus("Falha ao carregar contexto do usuário.", "error");
   }
 });
 
 initUi();
+

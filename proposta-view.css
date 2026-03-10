@@ -389,6 +389,40 @@
     background: #f9f9f9;
 }
 
+.proposal-view-container--goldtech {
+    background: linear-gradient(140deg, #fdf4e8 0%, #f5e4cc 100%);
+}
+
+.proposal-card--goldtech {
+    box-shadow: 0 12px 34px rgba(120, 72, 17, 0.22);
+}
+
+.proposal-header--goldtech {
+    background: linear-gradient(135deg, #7f4b10 0%, #c8791f 55%, #ebb463 100%);
+}
+
+.proposal-title-section--goldtech h1 {
+    color: #8a4f12;
+}
+
+.comparison-container--goldtech {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.comparison-container--goldtech .green-col {
+    grid-column: 1 / -1;
+}
+
+.total-savings-banner--goldtech {
+    background: linear-gradient(90deg, #8d5718 0%, #d4903f 100%);
+}
+
+.tariff-explanation--goldtech {
+    border-color: #d2a56c;
+    background: #fff8ef;
+}
+
 /* Actions */
 .screen-actions {
     position: fixed;

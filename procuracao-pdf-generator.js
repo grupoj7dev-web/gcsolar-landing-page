@@ -1,4 +1,4 @@
-import { jsPDF } from "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm";
+﻿import { jsPDF } from "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm";
 
 function onlyDigits(value) {
   return String(value || "").replace(/\D+/g, "");

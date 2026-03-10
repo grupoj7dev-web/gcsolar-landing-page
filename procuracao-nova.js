@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   addDoc,
@@ -467,7 +467,7 @@ async function extractAutoData() {
     ].filter(Boolean).length;
 
     if (filledCount === 0) {
-      setExtractStatus("Nao consegui extrair dados legiveis dos documentos.", true);
+      setExtractStatus("Não consegui extrair dados legíveis dos documentos.", true);
       return;
     }
 
@@ -546,10 +546,10 @@ async function generatePdf() {
 
     await saveGeneratedRecordToDb(data, activeTemplate);
 
-    setStatus("Procuracao gerada e salva no banco.");
+    setStatus("Procuração gerada e salva no banco.");
   } catch (error) {
     console.error(error);
-    setStatus("Nao foi possivel gerar/salvar a procuracao.", true);
+    setStatus("Não foi possível gerar/salvar a procuracao.", true);
   } finally {
     gerarPdfBtn.disabled = false;
   }

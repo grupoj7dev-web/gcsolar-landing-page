@@ -58,11 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (theme === 'dark') {
             themeIcon.classList.remove('ph-moon');
             themeIcon.classList.add('ph-sun');
-            if (logo) logo.src = 'logobranca.png';
+            if (logo) logo.src = 'logo6.png';
         } else {
             themeIcon.classList.remove('ph-sun');
             themeIcon.classList.add('ph-moon');
-            if (logo) logo.src = 'image_copy-bg.png';
+            if (logo) logo.src = 'logo6.png';
         }
     }
 

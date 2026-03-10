@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -623,7 +623,7 @@ async function onPdfSelected(event) {
 
   if (file.type !== "application/pdf") {
     pdfStatusText.textContent = "Selecione um arquivo PDF valido.";
-    showValidation("Arquivo invalido. Envie uma fatura em PDF.", "error");
+    showValidation("Arquivo inválido. Envie uma fatura em PDF.", "error");
     return;
   }
 
@@ -636,7 +636,7 @@ async function onPdfSelected(event) {
     mergePdfData(data);
     pdfStatusText.textContent = `${file.name} processado (${fields} campos - ${source}).`;
     if (!fields) {
-      showWarning("Nao consegui extrair os campos automaticamente. Complete manualmente.");
+      showWarning("Não consegui extrair os campos automaticamente. Complete manualmente.");
     }
   } catch (error) {
     console.error(error);
@@ -656,7 +656,7 @@ function getRequiredFieldErrors() {
   if (!installationIdInput.value.trim()) errors.push("Preencha o campo N da Instalacao (UC).");
   if (toNumber(monthlyConsumptionInput.value) <= 0) errors.push("Consumo Mensal deve ser maior que zero.");
   if (toNumber(currentRateInput.value) <= 0) errors.push("Preco Atual deve ser maior que zero.");
-  if (toNumber(publicLightingInput.value) < 0) errors.push("Iluminacao Publica nao pode ser negativa.");
+  if (toNumber(publicLightingInput.value) < 0) errors.push("Iluminação Pública nao pode ser negativa.");
 
   return errors;
 }
@@ -833,7 +833,7 @@ async function bootstrapProposalCode() {
     proposalStatusText.textContent = "Preencha os dados e salve para gerar a proposta.";
   } catch (error) {
     console.error("Erro ao gerar codigo:", error);
-    proposalStatusText.textContent = "Nao foi possivel gerar codigo automatico.";
+    proposalStatusText.textContent = "Não foi possível gerar codigo automático.";
     showValidation("Falha ao gerar codigo da proposta.", "error");
   }
 }

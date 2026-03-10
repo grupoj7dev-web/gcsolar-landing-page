@@ -25,6 +25,7 @@ const DEFAULT_FLAG_GREEN = 0;
 const DEFAULT_FLAG_YELLOW = 0.02885;
 const DEFAULT_FLAG_RED1 = 0.05463;
 const DEFAULT_FLAG_RED2 = 0.086477;
+const GOLDTECH_EMAIL = "projetos@goldtechenergia.com";
 
 function applySinglePagePrintFit() {
   const card = document.querySelector(".proposal-card");
@@ -72,6 +73,7 @@ function buildProposalHtml(proposal) {
   const templateKey = proposal.template_key || "";
   const ownerEmail = String(proposal.user_email || "").toLowerCase().trim();
   const useJ7Template = templateKey === "j7_orange" || ownerEmail === "jheferson@gmail.com";
+  const useGoldtechTemplate = templateKey === "goldtech_classic" || ownerEmail === GOLDTECH_EMAIL;
 
   const proposalCode = data.proposalCode || proposal.proposal_code || "-";
   const clientName = data.clientName || proposal.client_name || "-";
@@ -148,7 +150,7 @@ function buildProposalHtml(proposal) {
   const companyCnpj = useJ7Template ? "CNPJ: 33.333.398/0001-37" : "CNPJ: 00.000.000/0001-00";
   const companyAddress = useJ7Template ? "Av. Antonio Fidelis, 205, Goiânia-GO" : "Goiânia-GO";
 
-  return `
+  let html = `
     <div class="proposal-view-container">
       <div class="screen-actions no-print">
         <button onclick="history.back()" class="btn-action">
@@ -239,6 +241,30 @@ function buildProposalHtml(proposal) {
       </div>
     </div>
   `;
+
+  if (useGoldtechTemplate) {
+    html = html
+      .replace('class="proposal-view-container"', 'class="proposal-view-container proposal-view-container--goldtech"')
+      .replace('class="proposal-card"', 'class="proposal-card proposal-card--goldtech"')
+      .replace('class="proposal-header"', 'class="proposal-header proposal-header--goldtech"')
+      .replace('class="proposal-title-section"', 'class="proposal-title-section proposal-title-section--goldtech"')
+      .replace('class="comparison-container"', 'class="comparison-container comparison-container--goldtech"')
+      .replace('class="total-savings-banner"', 'class="total-savings-banner total-savings-banner--goldtech"')
+      .replace('class="tariff-explanation"', 'class="tariff-explanation tariff-explanation--goldtech"')
+      .replace('ENERGIA LIVRE', 'GOLDTECH')
+      .replace('Proposta Comercial', 'Proposta Comercial Goldtech')
+      .replace('CUSTO SEM A<br />J7 SOLAR', 'CUSTO SEM A<br />GOLDTECH')
+      .replace('DESCONTO<br />J7 SOLAR', 'DESCONTO<br />GOLDTECH')
+      .replace('PREÇO J7 R$/KWH', 'PREÇO GOLDTECH R$/KWH')
+      .replace('Com a J7, você economiza sempre.', 'Com a Goldtech, você economiza sempre.')
+      .replace('ECONOMIA ANUAL SEM INVESTIMENTO', 'ECONOMIA ANUAL COM GOLDTECH')
+      .replace('Gerado por GC Solar', 'Gerado por Goldtech')
+      .replace(/GRUPO GC SOLAR - ENERGIA POR ASSINATURA/g, 'GOLDTECH ENGENHARIA')
+      .replace(/CNPJ:\s*00\.000\.000\/0001-00/g, 'CNPJ: 48.467.586/0001-25')
+      .replace(/Goi[^<]*-GO/g, 'Av. Xingu, 388 - Parque Amazônia - Goiânia/GO');
+  }
+
+  return html;
 }
 
 async function loadProposal() {

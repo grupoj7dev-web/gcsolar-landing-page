@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
@@ -270,7 +270,7 @@ async function downloadCombinedAsPdf(record) {
   );
   const equatorialPreview = String(record.fatura_equatorial_preview || "").trim();
   if (!energyHtml && !equatorialPreview) {
-    window.alert("Nao foi encontrado arquivo para download.");
+    window.alert("Não foi encontrado arquivo para download.");
     return;
   }
 
@@ -458,8 +458,6 @@ async function loadAsaasConfig() {
     keys.find((k) => String(k.tenant_id || "") === scope.tenantId && k.is_active !== false) ||
     null;
 
-  if (!chosen && keys.length) chosen = keys[0];
-
   if (!chosen?.api_key) {
     asaasConfig = null;
     return;
@@ -581,7 +579,7 @@ function openInvoice(record) {
     return;
   }
 
-  window.alert("Nao foi encontrado link de visualizacao para esta fatura.");
+  window.alert("Não foi encontrado link de visualização para esta fatura.");
 }
 
 function downloadInvoice(record) {
@@ -978,7 +976,7 @@ function bindEvents() {
       if (action === "delete") await deleteInvoice(record);
     } catch (error) {
       console.error(error);
-      window.alert("Nao foi possivel executar esta acao.");
+      window.alert("Não foi possível executar esta acao.");
     } finally {
       btn.disabled = false;
       document.querySelectorAll(".actions-menu").forEach((m) => m.classList.add("hidden"));

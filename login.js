@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   browserLocalPersistence,
   browserSessionPersistence,
@@ -72,6 +72,7 @@ const ENTRY_BY_PERMISSION_ORDER = [
   ["procuracao", "procuracao.html"],
   ["whatsapp", "whatsapp.html"],
 ];
+const GLOBAL_ADMIN_EMAILS = new Set(["projetos@goldtechenergia.com"]);
 
 function normalizeStatus(value) {
   return String(value || "").trim().toLowerCase();
@@ -111,10 +112,6 @@ async function findEmployeeByUid(uid) {
 
 function getRedirectByPermissions(permissions = {}) {
   for (const [permission, target] of ENTRY_BY_PERMISSION_ORDER) {
-    if (permission === "indicarAssinante") {
-      if (permissions.indicarAssinante === true || permissions.assinantes === true) return target;
-      continue;
-    }
     if (permissions[permission] === true) return target;
   }
   return null;
@@ -123,6 +120,11 @@ function getRedirectByPermissions(permissions = {}) {
 async function getRedirectByUser(user) {
   debugLog("get-redirect-start", { uid: user?.uid || null, email: user?.email || null });
   const token = await getIdTokenResult(user, true);
+  const email = String(user?.email || "").toLowerCase().trim();
+  if (GLOBAL_ADMIN_EMAILS.has(email)) {
+    debugLog("redirect-global-admin", { target: "dashboard.html", email });
+    return { target: "dashboard.html", blocked: false };
+  }
   if (token.claims.superadmin === true || token.claims.role === "superadmin") {
     debugLog("redirect-superadmin", { target: "dashboard.html" });
     return { target: "dashboard.html", blocked: false };

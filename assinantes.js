@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -379,7 +379,6 @@ async function rejectPendingSubscriber(item) {
 function holderTypeLabel(holderType) {
   return holderType === "company" ? "Pessoa Jurídica" : "Pessoa Física";
 }
-
 function applyStatusFilterUI() {
   quickFilterButtons.forEach((btn) => {
     const isActive = btn.dataset.statusFilter === activeStatusFilter;
@@ -927,8 +926,7 @@ async function handleSubscriberAction(action, item) {
       alert("Edicao disponivel apenas para assinantes ativos. Pendencias devem ser tratadas no fluxo de aprovacao.");
       return;
     }
-    fillForm(item);
-    showForm(true);
+    window.location.href = `assinante-cadastro.html?id=${encodeURIComponent(item.id)}`;
     return;
   }
 
@@ -1002,8 +1000,7 @@ refreshBtn.addEventListener("click", async () => {
 });
 
 newSubscriberBtn.addEventListener("click", () => {
-  clearForm();
-  showForm(true);
+  window.location.href = "assinante-cadastro.html";
 });
 
 cancelFormBtn.addEventListener("click", () => {
@@ -1107,3 +1104,4 @@ onAuthStateChanged(auth, async (user) => {
   showForm(false);
   await loadSubscribers();
 });
+

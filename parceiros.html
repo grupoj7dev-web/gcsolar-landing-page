@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GC Solar | Parceiros</title>
-    <meta name="description" content="Gestao de parceiros e permissoes de acesso.">
+    <meta name="description" content="Gestão de parceiros e permissões de acesso.">
     <script>
         (function () {
             try {
@@ -39,12 +39,12 @@
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
                 <a href="assinantes.html" class="nav-item"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
-                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>Indicar Assinante</span></a>
+                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>Pré-assinante</span></a>
                 <a href="cadastrar-rateio.html" class="nav-item"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
                 <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
                 <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
                 <a href="fatura-manual.html" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
-                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuracao</span></a>
+                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
                 <a href="faturas-validacao.html" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validacao</span></a>
                 <a href="faturas-emitidas.html" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
                 <a href="whatsapp.html" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
@@ -69,7 +69,7 @@
                 <section class="card partners-head">
                     <div>
                         <h1>Parceiros</h1>
-                        <p>Gerencie quem pode acessar o sistema e quais modulos cada parceiro pode usar.</p>
+                        <p>Gerencie quem pode acessar o sistema e quais módulos cada parceiro pode usar.</p>
                     </div>
                     <div class="head-actions">
                         <button class="btn btn-primary" id="newPartnerBtn" type="button">
@@ -92,12 +92,13 @@
                                     <th>Nome</th>
                                     <th>E-mail</th>
                                     <th>Telefone</th>
+                                    <th>Status</th>
                                     <th>Acoes</th>
                                 </tr>
                             </thead>
                             <tbody id="partnersTableBody">
                                 <tr>
-                                    <td colspan="4" class="empty">Carregando parceiros...</td>
+                                    <td colspan="5" class="empty">Carregando parceiros...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -154,11 +155,11 @@
                     <div class="permissions-grid">
                         <label><input type="checkbox" data-perm="dashboard"> Dashboard</label>
                         <label><input type="checkbox" data-perm="assinantes"> Assinantes</label>
-                        <label><input type="checkbox" data-perm="indicarAssinante"> Indicar Assinante</label>
+                        <label><input type="checkbox" data-perm="indicarAssinante"> Pré-assinante</label>
                         <label><input type="checkbox" data-perm="rateio"> Rateio e Desconto</label>
                         <label><input type="checkbox" data-perm="geradoras"> Geradoras</label>
                         <label><input type="checkbox" data-perm="faturas"> Faturas</label>
-                        <label><input type="checkbox" data-perm="procuracao"> Procuracao</label>
+                        <label><input type="checkbox" data-perm="procuracao"> Procuração</label>
                         <label><input type="checkbox" data-perm="whatsapp"> WhatsApp</label>
                         <label><input type="checkbox" data-perm="representantes"> Parceiros</label>
                     </div>
@@ -166,7 +167,7 @@
 
                 <section class="commission-box" id="commissionBox">
                     <h3>Comissao de indicacao</h3>
-                    <p>Obrigatorio quando "Indicar Assinante" estiver liberado.</p>
+                    <p>Obrigatorio quando "Pré-assinante" estiver liberado.</p>
                     <div class="form-grid">
                         <label class="field">
                             <span>Comissao (%)</span>
@@ -197,3 +198,4 @@
 </body>
 
 </html>
+

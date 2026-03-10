@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -373,7 +373,7 @@ function exportCsv() {
     return;
   }
 
-  const header = ["Proprietario", "Concessionaria", "Localizacao", "Status", "Usinas", "Capacidade_kWp", "Geracao_kWh_mes"];
+  const header = ["Proprietario", "Concessionária", "Localizacao", "Status", "Usinas", "Capacidade_kWp", "Geração_kWh_mes"];
   const rows = generatorsList.map((x) => [
     x.ownerName,
     x.concessionaria,

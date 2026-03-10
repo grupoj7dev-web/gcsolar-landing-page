@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -50,9 +50,9 @@ const themeKey = "gcsolar_theme";
 
 let scope = null;
 let allProposals = [];
-const lastGeneratedId = localStorage.getItem("gcsolar_last_generated_proposal_id") || "";
-const lastGeneratedCode = localStorage.getItem("gcsolar_last_generated_proposal_code") || "";
-const lastGeneratedAt = localStorage.getItem("gcsolar_last_generated_proposal_at") || "";
+let lastGeneratedId = "";
+let lastGeneratedCode = "";
+let lastGeneratedAt = "";
 
 function isMobile() {
   return window.matchMedia("(max-width: 960px)").matches;
@@ -107,6 +107,37 @@ function showValidation(message, type = "error") {
   validationBar.textContent = message;
   validationBar.classList.remove("hidden", "error", "success");
   validationBar.classList.add(type);
+}
+
+function loadLastGeneratedByUser(uid) {
+  const safeUid = String(uid || "").trim();
+  if (!safeUid) return;
+
+  // Novo formato (por usuario)
+  const scopedId = localStorage.getItem(`gcsolar_last_generated_proposal_id:${safeUid}`) || "";
+  const scopedCode = localStorage.getItem(`gcsolar_last_generated_proposal_code:${safeUid}`) || "";
+  const scopedAt = localStorage.getItem(`gcsolar_last_generated_proposal_at:${safeUid}`) || "";
+  if (scopedId) {
+    lastGeneratedId = scopedId;
+    lastGeneratedCode = scopedCode;
+    lastGeneratedAt = scopedAt;
+    return;
+  }
+
+  // Legado: so aceita se o dono estiver definido e bater com o usuario atual.
+  // Se nao houver dono, ignora e limpa para evitar vazamento entre usuarios.
+  const legacyOwner = String(localStorage.getItem("gcsolar_last_generated_proposal_owner_uid") || "").trim();
+  if (!legacyOwner) {
+    localStorage.removeItem("gcsolar_last_generated_proposal_id");
+    localStorage.removeItem("gcsolar_last_generated_proposal_code");
+    localStorage.removeItem("gcsolar_last_generated_proposal_at");
+    return;
+  }
+  if (legacyOwner !== safeUid) return;
+
+  lastGeneratedId = localStorage.getItem("gcsolar_last_generated_proposal_id") || "";
+  lastGeneratedCode = localStorage.getItem("gcsolar_last_generated_proposal_code") || "";
+  lastGeneratedAt = localStorage.getItem("gcsolar_last_generated_proposal_at") || "";
 }
 
 function hideValidation() {
@@ -224,6 +255,8 @@ function renderProposals() {
 
 function notifyLastGenerated() {
   if (!lastGeneratedId) return;
+  const existsForCurrentUser = allProposals.some((x) => String(x.id) === String(lastGeneratedId));
+  if (!existsForCurrentUser) return;
   const when = lastGeneratedAt ? new Date(lastGeneratedAt).toLocaleString("pt-BR") : "agora";
   const codeText = lastGeneratedCode ? ` (${lastGeneratedCode})` : "";
   showValidation(`Ultima proposta gerada${codeText} em ${when}.`, "success");
@@ -329,6 +362,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   scope = await getUserScope(user);
+  loadLastGeneratedByUser(scope.uid);
   applySidebarState();
   initTheme();
 

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -718,7 +718,7 @@ function renderHistory() {
           <div>
             <h3>${generator.nickname || "Geradora"} ${generator.uc ? `- UC ${generator.uc}` : ""}</h3>
             <p class="history-item-sub">
-              ${generator.concessionaria || "-"} • ${formatDateTime(entry.created_at)}
+              ${generator.concessionaria || "-"} â€¢ ${formatDateTime(entry.created_at)}
             </p>
           </div>
           <div class="history-item-actions">

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -315,7 +315,7 @@ async function getUserScope(user) {
       return scope;
     }
   } catch (error) {
-    console.warn("Nao foi possivel resolver tenantId do usuario:", error);
+    console.warn("Não foi possível resolver tenantId do usuário:", error);
   }
   return scope;
 }

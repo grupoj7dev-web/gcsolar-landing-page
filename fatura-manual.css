@@ -567,6 +567,293 @@
     line-height: 1.15;
 }
 
+.invoice-goldtech {
+    background: #d7d9dc;
+    border: 1px solid #b4bcc4;
+    color: #0f141a;
+    font-family: "Montserrat", "Inter", sans-serif;
+    padding: 0.55rem 0.75rem 0.8rem;
+    box-shadow: 0 8px 22px rgba(10, 17, 26, 0.12);
+}
+
+.invoice-goldtech .gt-topline {
+    height: 4px;
+    background: #3a94bf;
+    margin-bottom: 0.4rem;
+}
+
+.invoice-goldtech .gt-header {
+    display: grid;
+    grid-template-columns: 1fr 92px;
+    gap: 0.65rem;
+    align-items: start;
+}
+
+.invoice-goldtech .gt-company {
+    text-align: center;
+    color: #2b89bb;
+}
+
+.invoice-goldtech .gt-name,
+.invoice-goldtech .gt-cnpj {
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.invoice-goldtech .gt-title {
+    margin-top: 0.1rem;
+    color: #1f2b36;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-month {
+    margin-top: 0.18rem;
+    font-size: 1.2rem;
+    color: #2b89bb;
+}
+
+.invoice-goldtech .gt-month strong {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.invoice-goldtech .gt-contact {
+    margin-top: 0.2rem;
+    font-size: 0.86rem;
+    line-height: 1.18;
+    color: #40637d;
+}
+
+.invoice-goldtech .gt-logo {
+    width: 86px;
+    height: 86px;
+    border: 3px solid #111;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+    color: #111;
+    text-align: center;
+}
+
+.invoice-goldtech .gt-logo span {
+    display: block;
+    margin-top: -2px;
+    font-size: 0.54rem;
+    letter-spacing: 0.03em;
+}
+
+.invoice-goldtech .gt-kpi-row {
+    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 0.75rem;
+}
+
+.invoice-goldtech .gt-kpi-table {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid #c4ccd3;
+}
+
+.invoice-goldtech .gt-kpi-table div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    padding: 0.16rem 0.45rem;
+    border-bottom: 1px solid #d9dee3;
+    font-size: 0.88rem;
+}
+
+.invoice-goldtech .gt-kpi-table div:last-child {
+    border-bottom: 0;
+}
+
+.invoice-goldtech .gt-kpi-table b {
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-kpi-text {
+    font-size: 0.95rem;
+    line-height: 1.28;
+}
+
+.invoice-goldtech .gt-kpi-text p {
+    margin: 0.18rem 0;
+    font-size: 2rem;
+}
+
+.invoice-goldtech .gt-kpi-text .sem {
+    color: #e5472d;
+}
+
+.invoice-goldtech .gt-kpi-text .com {
+    color: #13953f;
+}
+
+.invoice-goldtech .gt-badge {
+    margin-top: 0.2rem;
+    width: 132px;
+    border-radius: 16px;
+    background: #2b89bb;
+    color: #fff;
+    text-align: center;
+    padding: 0.5rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-badge strong {
+    display: block;
+    font-size: 1.5rem;
+    margin-top: 0.06rem;
+}
+
+.invoice-goldtech .gt-demo {
+    margin-top: 0.52rem;
+    border: 1px solid #9fabb4;
+    background: #eceeef;
+}
+
+.invoice-goldtech .gt-demo-head,
+.invoice-goldtech .gt-demo-row {
+    display: grid;
+    grid-template-columns: 1.45fr 0.62fr 0.76fr 0.74fr;
+    gap: 0.35rem;
+    padding: 0.18rem 0.36rem;
+    font-size: 0.74rem;
+}
+
+.invoice-goldtech .gt-demo-head {
+    background: #d98d45;
+    color: #fff;
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-demo-row {
+    border-top: 1px solid #d0d6dc;
+}
+
+.invoice-goldtech .gt-demo-row span:nth-child(n + 2),
+.invoice-goldtech .gt-demo-head span:nth-child(n + 2) {
+    text-align: right;
+}
+
+.invoice-goldtech .gt-demo-row:first-of-type {
+    color: #0460a4;
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-split-values {
+    margin-top: 0.46rem;
+    margin-left: auto;
+    width: min(320px, 100%);
+    display: grid;
+    gap: 0.26rem;
+}
+
+.invoice-goldtech .gt-split-values div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 3px solid #1f2731;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.invoice-goldtech .gt-split-values strong {
+    font-size: 1.5rem;
+}
+
+.invoice-goldtech .gt-total-pay {
+    margin-top: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.invoice-goldtech .gt-total-pay strong {
+    background: #2b89bb;
+    color: #fff;
+    border-radius: 0 16px 16px 0;
+    padding: 0.05rem 0.76rem;
+    font-size: 2.2rem;
+}
+
+.invoice-goldtech .gt-client-data {
+    margin-top: 0.48rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+}
+
+.invoice-goldtech .gt-client-data .gt-left,
+.invoice-goldtech .gt-client-data .gt-right {
+    display: grid;
+    gap: 0.15rem;
+}
+
+.invoice-goldtech .gt-payment {
+    margin-top: 0.55rem;
+    display: grid;
+    grid-template-columns: 1fr 155px;
+    gap: 0.62rem;
+    align-items: end;
+}
+
+.invoice-goldtech .gt-code-title {
+    font-size: 0.84rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.invoice-goldtech .gt-digits-placeholder {
+    font-family: "Inter", monospace;
+    font-size: 1.5rem;
+    background: #f5f7f8;
+    border: 1px solid #bcc6ce;
+    padding: 0.18rem 0.3rem;
+    margin-bottom: 0.22rem;
+}
+
+.invoice-goldtech .j7-barcode-placeholder {
+    min-height: 64px;
+    border-style: solid;
+    border-color: #1f2d3d;
+    background: #f8f9fa;
+    color: #324658;
+}
+
+.invoice-goldtech .gt-qr-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.15rem;
+}
+
+.invoice-goldtech .j7-qrcode-placeholder {
+    width: 145px;
+    height: 145px;
+    border-style: solid;
+    border-color: #1f2d3d;
+    background: #fff;
+    color: #324658;
+}
+
+.invoice-goldtech .gt-footer {
+    margin-top: 0.55rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #2a2f36;
+    line-height: 1.35;
+}
+
 @media (max-width: 960px) {
     .manual-main {
         padding: 0.9rem;
@@ -613,6 +900,40 @@
         width: 112px;
         height: 112px;
     }
+
+    .invoice-goldtech .gt-header,
+    .invoice-goldtech .gt-kpi-row,
+    .invoice-goldtech .gt-client-data,
+    .invoice-goldtech .gt-payment {
+        grid-template-columns: 1fr;
+    }
+
+    .invoice-goldtech .gt-logo {
+        margin-left: auto;
+    }
+
+    .invoice-goldtech .gt-kpi-text {
+        font-size: 1.3rem;
+    }
+
+    .invoice-goldtech .gt-split-values {
+        width: 100%;
+    }
+
+    .invoice-goldtech .gt-total-pay {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 1.3rem;
+    }
+
+    .invoice-goldtech .gt-total-pay strong {
+        font-size: 1.4rem;
+    }
+
+    .invoice-goldtech .j7-qrcode-placeholder {
+        width: 120px;
+        height: 120px;
+    }
 }
 
 
@@ -621,3 +942,673 @@
 .send-validation-btn { border: 1px solid #0b8f72; background: #07b491; color: #fff; font-weight: 700; border-radius: 10px; padding: 0.62rem 1rem; cursor: pointer; }
 .send-validation-btn:hover { filter: brightness(0.96); }
 .send-validation-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Refino visual do template GOLDTECH (somente usuario especifico via JS). */
+.invoice-goldtech {
+    max-width: 760px;
+    padding: 0.5rem 0.72rem 0.72rem;
+    border: 1px solid #aeb7c0;
+    background-color: #d8dbdf;
+    background-image:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
+        repeating-linear-gradient(
+            135deg,
+            rgba(120, 130, 142, 0.08) 0px,
+            rgba(120, 130, 142, 0.08) 1px,
+            transparent 1px,
+            transparent 18px
+        );
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, auto;
+    box-shadow: 0 6px 18px rgba(12, 19, 28, 0.12);
+}
+
+.invoice-goldtech .gt-topline {
+    margin-bottom: 0.32rem;
+}
+
+.invoice-goldtech .gt-header {
+    grid-template-columns: 1fr 84px;
+    gap: 0.56rem;
+}
+
+.invoice-goldtech .gt-title {
+    font-size: 1.72rem;
+}
+
+.invoice-goldtech .gt-month {
+    font-size: 1rem;
+}
+
+.invoice-goldtech .gt-month strong {
+    font-size: 2.05rem;
+}
+
+.invoice-goldtech .gt-contact {
+    font-size: 0.8rem;
+    line-height: 1.16;
+}
+
+.invoice-goldtech .gt-logo {
+    width: 80px;
+    height: 80px;
+    font-size: 1.55rem;
+    border-width: 2px;
+}
+
+.invoice-goldtech .gt-kpi-row {
+    gap: 0.58rem;
+}
+
+.invoice-goldtech .gt-kpi-table div {
+    padding: 0.14rem 0.4rem;
+    font-size: 0.76rem;
+}
+
+.invoice-goldtech .gt-kpi-text {
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.invoice-goldtech .gt-kpi-text p {
+    margin: 0.16rem 0;
+    font-size: 1.02rem;
+    font-weight: 600;
+}
+
+.invoice-goldtech .gt-badge {
+    width: 125px;
+    font-size: 0.7rem;
+    border-radius: 14px;
+    padding: 0.42rem 0.5rem;
+}
+
+.invoice-goldtech .gt-badge strong {
+    font-size: 1.65rem;
+}
+
+.invoice-goldtech .gt-demo {
+    margin-top: 0.44rem;
+}
+
+.invoice-goldtech .gt-demo-head,
+.invoice-goldtech .gt-demo-row {
+    padding: 0.14rem 0.32rem;
+    font-size: 0.68rem;
+}
+
+.invoice-goldtech .gt-split-values {
+    width: min(345px, 100%);
+}
+
+.invoice-goldtech .gt-split-values div {
+    font-size: 0.84rem;
+    border-bottom-width: 2px;
+}
+
+.invoice-goldtech .gt-split-values strong {
+    font-size: 0.95rem;
+}
+
+.invoice-goldtech .gt-total-pay {
+    margin-top: 0.46rem;
+    font-size: 2.05rem;
+}
+
+.invoice-goldtech .gt-total-pay strong {
+    font-size: 2.1rem;
+    padding: 0.03rem 0.72rem;
+}
+
+.invoice-goldtech .gt-client-data {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    line-height: 1.18;
+}
+
+.invoice-goldtech .gt-payment {
+    margin-top: 0.48rem;
+    grid-template-columns: 1fr 145px;
+    gap: 0.52rem;
+}
+
+.invoice-goldtech .gt-code-title {
+    font-size: 0.76rem;
+    margin-bottom: 0.12rem;
+}
+
+.invoice-goldtech .gt-digits-placeholder {
+    font-size: 0.78rem;
+    padding: 0.14rem 0.28rem;
+    margin-bottom: 0.16rem;
+}
+
+.invoice-goldtech .j7-barcode-placeholder {
+    min-height: 58px;
+    font-size: 0.68rem;
+}
+
+.invoice-goldtech .gt-qr-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.08rem;
+}
+
+.invoice-goldtech .j7-qrcode-placeholder {
+    width: 140px;
+    height: 140px;
+    font-size: 0.74rem;
+}
+
+.invoice-goldtech .gt-footer {
+    margin-top: 0.44rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
+}
+
+/* Modelo oficial Goldtech v5 (somente usuario especifico). */
+.invoice-goldtech-v5 {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, #b4c4c9 0%, #d0bdaf 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    color: #2c3e50;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.invoice-goldtech-v5 * {
+    box-sizing: border-box;
+}
+
+.invoice-goldtech-v5 .invoice-new {
+    width: 100%;
+    min-height: 297mm;
+    position: relative;
+    padding-bottom: 80px;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 80 80'%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-weight='bold' font-size='9' fill='rgba(255,255,255,0.34)' text-anchor='middle' transform='rotate(-45 40 40)'%3EGOLDTECH%3C/text%3E%3C/svg%3E");
+    background-size: 60px 60px;
+}
+
+.invoice-goldtech-v5 .top-line {
+    width: 90%;
+    height: 3px;
+    background: #1e3c72;
+    margin: 15px auto 5px;
+}
+
+.invoice-goldtech-v5 .invoice-header-high-fid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5px 40px;
+    position: relative;
+    color: #1e3c72;
+}
+
+.invoice-goldtech-v5 .header-center-content {
+    text-align: center;
+    flex: 1;
+}
+
+.invoice-goldtech-v5 .company-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.invoice-goldtech-v5 .company-cnpj {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.invoice-goldtech-v5 .invoice-title-main {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    margin: 2px 0;
+    color: #2c3e50;
+}
+
+.invoice-goldtech-v5 .invoice-month-line {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.invoice-goldtech-v5 .invoice-month-line span {
+    font-weight: 700;
+}
+
+.invoice-goldtech-v5 .contact-info {
+    margin-top: 5px;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.invoice-goldtech-v5 .logo-container-circle {
+    position: absolute;
+    right: 40px;
+    top: 5px;
+    width: 90px;
+    height: 90px;
+    border: 1.5px solid #2c3e50;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    display: grid;
+    place-items: center;
+}
+
+.invoice-goldtech-v5 .logo-circle-fallback {
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1;
+    color: #1c2732;
+}
+
+.invoice-goldtech-v5 .logo-circle-image {
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+}
+
+.invoice-goldtech-v5 .invoice-body-middle {
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 10px;
+    gap: 18px;
+    position: relative;
+}
+
+.invoice-goldtech-v5 .energy-summary {
+    width: 50%;
+}
+
+.invoice-goldtech-v5 .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.invoice-goldtech-v5 .summary-row.stripe {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 3px;
+}
+
+.invoice-goldtech-v5 .summary-value {
+    font-weight: 800;
+}
+
+.invoice-goldtech-v5 .economy-badge {
+    background: #347696;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    width: fit-content;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invoice-goldtech-v5 .economy-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.invoice-goldtech-v5 .economy-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.invoice-goldtech-v5 .economy-row .value {
+    font-size: 1.2rem;
+}
+
+.invoice-goldtech-v5 .invoice-demonstration-small {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.invoice-goldtech-v5 .demo-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-goldtech-v5 .demo-table thead th {
+    background: #d37d3d;
+    color: #fff;
+    text-align: left;
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.invoice-goldtech-v5 .demo-table tbody td {
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    border-bottom: 1px dotted #999;
+    white-space: nowrap;
+}
+
+.invoice-goldtech-v5 .demo-table tbody tr.highlight td {
+    font-weight: 800;
+    color: #1e3c72;
+    font-size: 0.65rem;
+}
+
+.invoice-goldtech-v5 .total-banner-small {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2c3e50;
+    border-bottom: 1px solid #2c3e50;
+    padding: 6px 0;
+}
+
+.invoice-goldtech-v5 .total-label {
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: #000;
+}
+
+.invoice-goldtech-v5 .total-badge {
+    background: #347696;
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.invoice-goldtech-v5 .comparison-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 15px;
+    width: 45%;
+}
+
+.invoice-goldtech-v5 .comp-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.invoice-goldtech-v5 .comp-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.invoice-goldtech-v5 .comparison-item.red .comp-value {
+    color: #e74c3c;
+}
+
+.invoice-goldtech-v5 .comparison-item.green .comp-value {
+    color: #27ae60;
+}
+
+.invoice-goldtech-v5 .comp-subtext {
+    font-size: 0.9rem;
+}
+
+.invoice-goldtech-v5 .goldtech-pay-summary,
+.invoice-goldtech-v5 .equatorial-pay-summary {
+    width: 85%;
+    margin-left: auto;
+    color: #000;
+}
+
+.invoice-goldtech-v5 .goldtech-pay-summary {
+    margin-top: 30px;
+}
+
+.invoice-goldtech-v5 .equatorial-pay-summary {
+    margin-top: 20px;
+}
+
+.invoice-goldtech-v5 .goldtech-details,
+.invoice-goldtech-v5 .eq-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 0.65rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.invoice-goldtech-v5 .anno-circle {
+    display: inline-block;
+    padding: 0 6px;
+    border-radius: 999px;
+    line-height: 1.2;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.invoice-goldtech-v5 .anno-circle.anno-blue {
+    border-color: #5aa8cf;
+    color: #2d6f98;
+}
+
+.invoice-goldtech-v5 .anno-box-orange {
+    border: 3px solid #e09247;
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.invoice-goldtech-v5 .anno-arrows {
+    position: absolute;
+    left: 34px;
+    right: 34px;
+    top: 118px;
+    height: 305px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.invoice-goldtech-v5 .anno-arrows svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.invoice-goldtech-v5 .anno-arrows .path-blue {
+    stroke: #2f91c2;
+    stroke-width: 4.5;
+    fill: none;
+    opacity: 0.95;
+}
+
+.invoice-goldtech-v5 .anno-arrows .path-orange {
+    stroke: #e09247;
+    stroke-width: 4.5;
+    fill: none;
+    opacity: 0.95;
+}
+
+.invoice-goldtech-v5 .goldtech-main-line,
+.invoice-goldtech-v5 .equatorial-main-line {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-goldtech-v5 .goldtech-label,
+.invoice-goldtech-v5 .equatorial-label {
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.invoice-goldtech-v5 .goldtech-value,
+.invoice-goldtech-v5 .equatorial-value {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.invoice-goldtech-v5 .consumer-info-box {
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    color: #444;
+}
+
+.invoice-goldtech-v5 .info-line-main {
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    display: flex;
+    gap: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-top: 5px;
+}
+
+.invoice-goldtech-v5 .info-group {
+    margin-bottom: 2px;
+    font-size: 0.7rem;
+    line-height: 1.2;
+}
+
+.invoice-goldtech-v5 .info-group .label {
+    font-weight: 700;
+    color: #000;
+}
+
+.invoice-goldtech-v5 .payer-info .value {
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: block;
+}
+
+.invoice-goldtech-v5 .service-line {
+    margin-top: 5px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.invoice-goldtech-v5 .pix-qr-mini-box {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    width: 100%;
+}
+
+.invoice-goldtech-v5 .pix-mini-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #1a3a5a;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.invoice-goldtech-v5 .pix-qr-img-wrapper.j7-qrcode-placeholder {
+    width: 170px;
+    height: 170px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.invoice-goldtech-v5 .barcode-container {
+    margin: 15px auto 15px;
+    width: 90%;
+    border-top: 1px solid #000;
+    padding-top: 10px;
+    text-align: center;
+    color: #000;
+}
+
+.invoice-goldtech-v5 .barcode-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.invoice-goldtech-v5 .barcode-img-wrapper.j7-barcode-placeholder {
+    width: 100%;
+    min-height: 80px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #2c3e50;
+}
+
+.invoice-goldtech-v5 .barcode-numbers {
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+.invoice-goldtech-v5 .invoice-footer {
+    width: 100%;
+    margin-top: 35px;
+    padding: 0 40px 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.invoice-goldtech-v5 .footer-top-line {
+    width: 100%;
+    height: 3px;
+    background: #347696;
+    margin-bottom: 5px;
+}
+
+.invoice-goldtech-v5 .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-goldtech-v5 .footer-text .thanks {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.invoice-goldtech-v5 .footer-text .next-bill {
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.invoice-goldtech-v5 .footer-logo-text {
+    font-size: 0.7rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #347696;
+    text-transform: uppercase;
+}

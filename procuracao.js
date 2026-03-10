@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { ProcuracaoPDFGenerator } from "./procuracao-pdf-generator.js";
 
@@ -363,7 +363,7 @@ async function extractAutoData() {
     ].filter(Boolean).length;
 
     if (filledCount === 0) {
-      setExtractStatus("Nao consegui extrair dados legiveis dos documentos.", true);
+      setExtractStatus("Não consegui extrair dados legíveis dos documentos.", true);
       return;
     }
 
@@ -409,10 +409,10 @@ async function generatePdf() {
     link.click();
     URL.revokeObjectURL(url);
 
-    setStatus("Procuracao gerada com sucesso.");
+    setStatus("Procuração gerada com sucesso.");
   } catch (error) {
     console.error(error);
-    setStatus("Nao foi possivel gerar o PDF.", true);
+    setStatus("Não foi possível gerar o PDF.", true);
   } finally {
     gerarPdfBtn.disabled = false;
   }

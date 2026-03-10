@@ -1,8 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   limit,
@@ -211,8 +212,26 @@ async function saveInstanceMeta(extra = {}) {
   await setDoc(doc(db, COLL_WHATSAPP, scope.uid), payload, { merge: true });
 }
 
+async function resolveUserInstanceName() {
+  if (!scope?.uid) return "";
+
+  const preferred = normalizeInstanceName(`gcsolar-${scope.uid}`);
+  const legacyTenantBased = normalizeInstanceName(`gcsolar-${scope.tenantId || scope.uid}`);
+
+  const snap = await getDoc(doc(db, COLL_WHATSAPP, scope.uid));
+  if (!snap.exists()) return preferred;
+
+  const savedName = normalizeInstanceName(snap.data()?.evolution_instance_name || "");
+  if (!savedName) return preferred;
+
+  // Migra nomes legados baseados apenas no tenant para nome exclusivo por usuário.
+  if (savedName === legacyTenantBased && savedName !== preferred) return preferred;
+
+  return savedName;
+}
+
 async function ensureInstance() {
-  const suggested = normalizeInstanceName(`gcsolar-${scope.tenantId || scope.uid}`);
+  const suggested = await resolveUserInstanceName();
   const data = await callBackend("/api/whatsapp/ensure-instance", "POST", {
     userId: scope.uid,
     tenantId: scope.tenantId,

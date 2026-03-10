@@ -1,4 +1,4 @@
-# gcsolar-landing-page
+﻿# gcsolar-landing-page
 
 Landing page institucional da GC Solar.
 
@@ -10,7 +10,7 @@ Landing page institucional da GC Solar.
 - `image_copy-bg.png`
 - `printsistema.png`
 
-## Deploy automatico
+## Deploy automático
 
 O deploy roda via GitHub Actions em todo push na branch `main`.
 

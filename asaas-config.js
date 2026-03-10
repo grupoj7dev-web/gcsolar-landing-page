@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
@@ -153,7 +153,7 @@ async function testViaBackend(environment, apiKey) {
     }
   }
 
-  throw lastError || new Error("Nao foi possivel conectar ao backend de teste.");
+  throw lastError || new Error("Não foi possível conectar ao backend de teste.");
 }
 
 function applyEnvironmentView() {
@@ -221,7 +221,7 @@ async function saveKey() {
     setStatus("Chave ASAAS salva com sucesso.", "success");
   } catch (error) {
     console.error(error);
-    setStatus("Nao foi possivel salvar a chave ASAAS.", "error");
+    setStatus("Não foi possível salvar a chave ASAAS.", "error");
   } finally {
     saveBtn.disabled = false;
     testBtn.disabled = false;
@@ -239,7 +239,7 @@ async function testAsaas() {
 
   saveBtn.disabled = true;
   testBtn.disabled = true;
-  setStatus("Testando conexao com o ASAAS...", "info");
+  setStatus("Testando conexão com o ASAAS...", "info");
 
   try {
     let account = {};
@@ -325,7 +325,7 @@ onAuthStateChanged(auth, async (user) => {
     setStatus("Configure ou teste sua chave ASAAS.", "info");
   } catch (error) {
     console.error(error);
-    setStatus("Falha ao carregar configuracoes do usuario.", "error");
+    setStatus("Falha ao carregar configuracoes do usuário.", "error");
   }
 });
 

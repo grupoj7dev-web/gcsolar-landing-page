@@ -2,9 +2,9 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1.15rem;
+  padding: 1.3rem 1.15rem 1.8rem;
   display: grid;
-  gap: 1rem;
+  gap: 1.05rem;
 }
 
 .partners-head {
@@ -13,11 +13,14 @@
   align-items: flex-start !important;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 1rem !important;
+  padding: 1rem 1.1rem !important;
   margin: 0 !important;
   min-height: unset !important;
   height: auto !important;
   max-height: none !important;
+  border: 1px solid #bcd2c1 !important;
+  background: linear-gradient(135deg, #f8fcf9 0%, #f2f8f4 100%) !important;
+  box-shadow: 0 12px 24px rgba(17, 62, 38, 0.08);
 }
 
 .partners-head > div:first-child {
@@ -29,13 +32,14 @@
   font-family: "Montserrat", sans-serif;
   margin: 0;
   line-height: 1.1;
-  font-size: 2rem;
+  font-size: 2.1rem;
+  color: #103822;
 }
 
 .partners-head p {
   margin: 0;
-  color: var(--muted);
-  font-size: 1.02rem;
+  color: #3f5f4b;
+  font-size: 0.98rem;
 }
 
 .head-actions {
@@ -46,15 +50,29 @@
 }
 
 .status {
-  margin-bottom: 0.7rem;
-  color: var(--muted);
-  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #335545;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid #c4d8c9;
+  background: #f5faf6;
+  border-radius: 999px;
+  padding: 0.28rem 0.62rem;
+}
+
+.table-card {
+  border: 1px solid #cad8ce !important;
+  box-shadow: 0 10px 22px rgba(11, 53, 31, 0.07);
 }
 
 .table-wrap {
-  border: 1px solid var(--table-border);
-  border-radius: 12px;
+  border: 1px solid #ced9d1;
+  border-radius: 14px;
   overflow: auto;
+  background: #ffffff;
 }
 
 table {
@@ -66,19 +84,30 @@ table {
 th,
 td {
   text-align: left;
-  padding: 0.64rem 0.7rem;
-  border-bottom: 1px solid var(--table-border);
+  padding: 0.76rem 0.78rem;
+  border-bottom: 1px solid #deebe2;
   font-size: 0.9rem;
 }
 
 thead th {
-  background: var(--table-head);
+  background: #f2f8f4;
   font-weight: 700;
+  color: #274838;
+  letter-spacing: 0.01em;
+}
+
+tbody tr:nth-child(even) {
+  background: #fcfefd;
+}
+
+tbody tr:hover {
+  background: #f3faf5;
 }
 
 .empty {
   text-align: center;
-  color: var(--muted);
+  color: #607969;
+  padding: 1rem 0.75rem;
 }
 
 .row-actions {
@@ -87,25 +116,66 @@ thead th {
 }
 
 .mini-btn {
-  border: 1px solid var(--border);
-  background: var(--surface-soft);
-  color: var(--text);
-  border-radius: 8px;
-  padding: 0.34rem 0.54rem;
+  border: 1px solid #c6d5cc;
+  background: #f8fbf9;
+  color: #1f4633;
+  border-radius: 9px;
+  padding: 0.35rem 0.58rem;
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .mini-btn.delete {
   color: #b91c1c;
-  border-color: #fecaca;
-  background: #fff1f2;
+  border-color: #f4c7c7;
+  background: #fff5f5;
+}
+
+.mini-btn:hover {
+  background: #eef6f1;
+}
+
+.mini-btn.delete:hover {
+  background: #ffecec;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.22rem 0.62rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.status-badge.is-active {
+  background: #e9f8ef;
+  color: #19633a;
+  border-color: #bde0ca;
+}
+
+.status-badge.is-blocked {
+  background: #fff3f3;
+  color: #9f1d1d;
+  border-color: #f3c2c2;
+}
+
+.status-badge.is-inactive {
+  background: #f3f4f6;
+  color: #4b5563;
+  border-color: #d1d5db;
 }
 
 .btn {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.56rem 0.78rem;
+  border: 1px solid #bfd1c5;
+  border-radius: 11px;
+  padding: 0.6rem 0.84rem;
   cursor: pointer;
   font-weight: 600;
   display: inline-flex;
@@ -114,9 +184,9 @@ thead th {
 }
 
 .btn-primary {
-  background: #16703f;
+  background: #0f8a43;
   color: #fff;
-  border-color: #16703f;
+  border-color: #0f8a43;
 }
 
 .btn-primary:hover {
@@ -124,8 +194,8 @@ thead th {
 }
 
 .btn-ghost {
-  background: var(--surface-soft);
-  color: var(--text);
+  background: #f7fbf8;
+  color: #214734;
 }
 
 .modal {
@@ -151,10 +221,10 @@ thead th {
   max-height: calc(100vh - 2rem);
   overflow: auto;
   margin: 1rem auto;
-  background: var(--surface);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
-  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #c8d7ce;
+  border-radius: 16px;
+  padding: 1rem 1.05rem;
   box-shadow: 0 18px 32px rgba(2, 8, 23, 0.35);
 }
 
@@ -167,7 +237,8 @@ thead th {
 
 .modal-head h2 {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  color: #123a25;
 }
 
 .icon-btn {
@@ -199,21 +270,31 @@ thead th {
 }
 
 .field input,
-.field select {
-  border: 1px solid var(--border);
-  background: var(--surface-soft);
-  color: var(--text);
+.field select,
+.field textarea {
+  border: 1px solid #c4d4ca;
+  background: #f9fcfa;
+  color: #102a1c;
   border-radius: 10px;
-  padding: 0.58rem 0.68rem;
+  padding: 0.6rem 0.7rem;
   font: inherit;
 }
 
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #14924a;
+  box-shadow: 0 0 0 3px rgba(20, 146, 74, 0.16);
+}
+
 .permissions {
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
+  border: 1px solid #c9d7ce;
+  border-radius: 13px;
   margin-top: 0.2rem;
   margin-bottom: 0.85rem;
   padding: 0.8rem;
+  background: #fbfdfc;
 }
 
 .permissions legend {
@@ -229,17 +310,22 @@ thead th {
 }
 
 .permissions-grid label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
+  border: 1px solid #d5e0d9;
+  border-radius: 10px;
+  padding: 0.45rem 0.52rem;
+  background: #ffffff;
 }
 
 .commission-box {
-  border: 1px dashed var(--card-border);
-  border-radius: 12px;
+  border: 1px dashed #bfd3c4;
+  border-radius: 13px;
   padding: 0.8rem;
   margin-bottom: 0.85rem;
+  background: #f7fbf8;
 }
 
 .commission-box h3 {
@@ -259,6 +345,8 @@ thead th {
 }
 
 .actions {
+  border-top: 1px solid #d4e0d8;
+  padding-top: 0.75rem;
   display: flex;
   gap: 0.55rem;
   flex-wrap: wrap;

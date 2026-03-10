@@ -320,6 +320,7 @@ img {
 .logo {
     display: flex;
     align-items: center;
+    min-width: 0;
     font-family: var(--font-primary);
     font-weight: 800;
     font-size: 1.5rem;
@@ -327,29 +328,15 @@ img {
 }
 
 .logo-img {
-    height: 65px;
+    height: 58px;
     width: auto;
+    max-width: min(280px, 35vw);
     object-fit: contain;
     transition: transform var(--transition);
 }
 
-[data-theme="light"] .logo-img {
-    transform: scale(1);
-    transform-origin: left center;
-}
-
-[data-theme="light"] .logo:hover .logo-img {
-    transform: scale(1.05);
-}
-
-[data-theme="dark"] .logo-img {
-    transform: scale(2.4);
-    /* Scaled up to compensate for internal padding */
-    transform-origin: left center;
-}
-
-[data-theme="dark"] .logo:hover .logo-img {
-    transform: scale(2.5);
+.logo:hover .logo-img {
+    transform: scale(1.03);
 }
 
 .nav-links {

@@ -2,111 +2,231 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GC Solar | Wizard de Geradora</title>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="geradora-wizard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GC Solar | Cadastro de Geradora</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="geradora-wizard.css">
 </head>
 
 <body>
-    <div class="wizard-wrap">
-        <header class="wizard-head">
-            <div>
-                <h1 id="wizardTitle">Nova Geradora</h1>
-                <p id="wizardSubtitle">Wizard de 5 passos para cadastro/edição</p>
-            </div>
-            <a href="geradoras.html" class="back-btn"><i class="ph ph-arrow-left"></i> Voltar</a>
-        </header>
+  <div class="wizard-wrap">
+    <header class="wizard-head card">
+      <div>
+        <a href="geradoras.html" class="back-btn"><i class="ph ph-arrow-left"></i> Voltar</a>
+        <h1 id="wizardTitle">Cadastro de Geradora (Usina)</h1>
+        <p id="wizardSubtitle">Fluxo completo com proprietário, usinas, acesso à distribuidora, financeiro e anexos.</p>
+      </div>
+      <div class="head-tag" id="stepLabel">Etapa 1 de 7</div>
+    </header>
 
-        <nav class="stepper">
-            <button type="button" class="step active" data-step="1">1. Proprietário</button>
-            <button type="button" class="step" data-step="2">2. Endereço</button>
-            <button type="button" class="step" data-step="3">3. Usinas</button>
-            <button type="button" class="step" data-step="4">4. Recebedor</button>
-            <button type="button" class="step" data-step="5">5. Revisão</button>
-        </nav>
+    <nav class="stepper card" id="stepperNav">
+      <button type="button" class="step active" data-step="1">1. Proprietário</button>
+      <button type="button" class="step" data-step="2">2. Adm. PJ</button>
+      <button type="button" class="step" data-step="3">3. Usinas</button>
+      <button type="button" class="step" data-step="4">4. Distribuidora</button>
+      <button type="button" class="step" data-step="5">5. Bancário</button>
+      <button type="button" class="step" data-step="6">6. Anexos</button>
+      <button type="button" class="step" data-step="7">7. Revisão</button>
+    </nav>
 
-        <form id="wizardForm" class="wizard-card">
-            <section class="pane active" data-pane="1">
-                <div class="grid">
-                    <label>Razão Social<input id="ownerRazaoSocial"></label>
-                    <label>Nome Fantasia<input id="ownerNomeFantasia"></label>
-                    <label>CPF/CNPJ<input id="ownerCpfCnpj"></label>
-                    <label>Email<input id="ownerEmail"></label>
-                    <label>Telefone<input id="ownerTelefone"></label>
-                    <label>Status
-                        <select id="statusInput">
-                            <option value="active">Ativa</option>
-                            <option value="inactive">Inativa</option>
-                        </select>
-                    </label>
-                </div>
-            </section>
+    <form id="wizardForm" class="wizard-card card" novalidate>
+      <section class="pane active" data-pane="1">
+        <h2>⚡ Concessionária e Dados do Proprietário</h2>
 
-            <section class="pane" data-pane="2">
-                <div class="grid">
-                    <label>Endereço<input id="addrEndereco"></label>
-                    <label>Número<input id="addrNumero"></label>
-                    <label>Bairro<input id="addrBairro"></label>
-                    <label>Cidade<input id="addrCidade"></label>
-                    <label>Estado<input id="addrEstado"></label>
-                    <label>CEP<input id="addrCep"></label>
-                    <label>Complemento<input id="addrComplemento"></label>
-                </div>
-            </section>
+        <div class="section-block">
+          <div class="grid cols-2">
+            <label class="field">
+              <span>Concessionária *</span>
+              <select id="concessionaria" required>
+                <option value="">Selecione</option>
+                <option value="Equatorial Goiás" selected>Equatorial Goiás</option>
+                <option value="Equatorial Maranhão">Equatorial Maranhão</option>
+                <option value="Equatorial Pará">Equatorial Pará</option>
+                <option value="Enel">Enel</option>
+                <option value="Neoenergia">Neoenergia</option>
+                <option value="CPFL">CPFL</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select id="statusInput">
+                <option value="active">Ativa</option>
+                <option value="inactive">Inativa</option>
+              </select>
+            </label>
+          </div>
+        </div>
 
-            <section class="pane" data-pane="3">
-                <div class="grid">
-                    <label>Apelido da Usina<input id="plantApelido"></label>
-                    <label>UC<input id="plantUc"></label>
-                    <label>Concessionária<input id="plantConcessionaria"></label>
-                    <label>Modalidade<input id="plantModalidade"></label>
-                    <label>Geração Projetada (kWh/mês)<input id="plantGeracao" type="number" step="0.01"></label>
-                    <label>Capacidade (kWp)<input id="plantPotencia" type="number" step="0.01"></label>
-                </div>
-            </section>
+        <div class="section-block">
+          <h3>🏢 Tipo de Geradora</h3>
+          <div class="radio-grid">
+            <label class="radio-card">
+              <input type="radio" name="ownerType" value="person" checked>
+              <span>Pessoa Física</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ownerType" value="company">
+              <span>Pessoa Jurídica</span>
+            </label>
+          </div>
+        </div>
 
-            <section class="pane" data-pane="4">
-                <div class="grid">
-                    <label>Favorecido<input id="payFavorecido"></label>
-                    <label>Banco<input id="payBanco"></label>
-                    <label>Agência<input id="payAgencia"></label>
-                    <label>Conta<input id="payConta"></label>
-                    <label>Tipo de Conta<input id="payTipo"></label>
-                    <label>Chave PIX<input id="payPix"></label>
-                </div>
-            </section>
+        <div class="section-block" id="ownerPersonBlock">
+          <h3>👤 Proprietário PF</h3>
+          <div class="grid cols-3">
+            <label class="field">
+              <span>CPF *</span>
+              <div class="inline-field">
+                <input id="ownerCpf" data-mask="cpf" required>
+                <button type="button" class="btn-secondary" id="lookupOwnerCpfBtn">Consultar</button>
+              </div>
+            </label>
+            <label class="field"><span>Número Parceiro Negócio *</span><input id="ownerPartnerNumberPf" required></label>
+            <label class="field"><span>Nome Completo *</span><input id="ownerNamePf" required></label>
+            <label class="field"><span>Data de Nascimento</span><input id="ownerBirthPf" type="date"></label>
+            <label class="field"><span>Telefone *</span><input id="ownerPhonePf" data-mask="phone" required></label>
+            <label class="field"><span>E-mail *</span><input id="ownerEmailPf" type="email" required></label>
+          </div>
+        </div>
 
-            <section class="pane" data-pane="5">
-                <h3>Resumo JSON</h3>
-                <pre id="reviewJson"></pre>
-            </section>
+        <div class="section-block hidden" id="ownerCompanyBlock">
+          <h3>🏢 Proprietário PJ</h3>
+          <div class="grid cols-3">
+            <label class="field">
+              <span>CNPJ *</span>
+              <div class="inline-field">
+                <input id="ownerCnpj" data-mask="cnpj">
+                <button type="button" class="btn-secondary" id="lookupOwnerCnpjBtn">Consultar</button>
+              </div>
+            </label>
+            <label class="field"><span>Número Parceiro Negócio *</span><input id="ownerPartnerNumberPj"></label>
+            <label class="field"><span>Nome/Razão Social *</span><input id="ownerNamePj"></label>
+            <label class="field"><span>Razão Social</span><input id="ownerRazaoSocial"></label>
+            <label class="field"><span>Nome Fantasia</span><input id="ownerNomeFantasia"></label>
+            <label class="field"><span>Telefone *</span><input id="ownerPhonePj" data-mask="phone"></label>
+            <label class="field"><span>E-mail *</span><input id="ownerEmailPj" type="email"></label>
+          </div>
+        </div>
 
-            <footer class="wizard-actions">
-                <button type="button" id="prevBtn" class="ghost-btn">Anterior</button>
-                <button type="button" id="nextBtn" class="ghost-btn">Próximo</button>
-                <button type="submit" id="saveBtn" class="primary-btn">Salvar Geradora</button>
-            </footer>
-        </form>
+        <div class="section-block">
+          <h3>📍 Endereço do Proprietário</h3>
+          <div class="grid cols-4" data-address="ownerAddress">
+            <label class="field">
+              <span>CEP *</span>
+              <div class="inline-field">
+                <input data-address-field="cep" data-mask="cep" required>
+                <button type="button" class="btn-secondary" data-address-lookup="ownerAddress">Buscar</button>
+              </div>
+            </label>
+            <label class="field span-2"><span>Endereço *</span><input data-address-field="street" required></label>
+            <label class="field"><span>Número *</span><input data-address-field="number" required></label>
+            <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
+            <label class="field"><span>Bairro *</span><input data-address-field="district" required></label>
+            <label class="field"><span>Cidade *</span><input data-address-field="city" required></label>
+            <label class="field"><span>Estado *</span><input data-address-field="state" maxlength="2" required></label>
+          </div>
+        </div>
 
-        <section class="validation-bar hidden" id="validationBar"></section>
-    </div>
+        <label class="field"><span>Observações</span><textarea id="ownerObservations" rows="3"></textarea></label>
+      </section>
 
-    <script type="module" src="access-control.js"></script>
-    <script type="module" src="geradora-wizard.js"></script>
+      <section class="pane" data-pane="2">
+        <h2>👔 Administrador da Pessoa Jurídica (Opcional)</h2>
+        <p class="inline-note">Esta etapa aparece apenas para pessoa jurídica e é opcional.</p>
+
+        <div id="adminSection">
+          <div class="grid cols-3">
+            <label class="field">
+              <span>CPF do Administrador</span>
+              <div class="inline-field">
+                <input id="adminCpf" data-mask="cpf">
+                <button type="button" class="btn-secondary" id="lookupAdminCpfBtn">Consultar</button>
+              </div>
+            </label>
+            <label class="field"><span>Nome do Admin</span><input id="adminName"></label>
+            <label class="field"><span>Data de Nascimento</span><input id="adminBirth" type="date"></label>
+            <label class="field"><span>Telefone</span><input id="adminPhone" data-mask="phone"></label>
+            <label class="field"><span>E-mail</span><input id="adminEmail" type="email"></label>
+          </div>
+
+          <h3>Endereço Residencial do Administrador</h3>
+          <div class="grid cols-4" data-address="adminAddress">
+            <label class="field">
+              <span>CEP</span>
+              <div class="inline-field">
+                <input data-address-field="cep" data-mask="cep">
+                <button type="button" class="btn-secondary" data-address-lookup="adminAddress">Buscar</button>
+              </div>
+            </label>
+            <label class="field span-2"><span>Endereço</span><input data-address-field="street"></label>
+            <label class="field"><span>Número</span><input data-address-field="number"></label>
+            <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
+            <label class="field"><span>Bairro</span><input data-address-field="district"></label>
+            <label class="field"><span>Cidade</span><input data-address-field="city"></label>
+            <label class="field"><span>Estado</span><input data-address-field="state" maxlength="2"></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="pane" data-pane="3">
+        <h2>☀️ Dados das Usinas</h2>
+        <div class="action-row">
+          <button class="btn-secondary" type="button" id="addPlantBtn"><i class="ph ph-plus"></i> Adicionar Usina</button>
+          <button class="btn-secondary" type="button" id="syncFirstPlantBtn"><i class="ph ph-arrows-clockwise"></i> Sincronizar 1ª Usina com Proprietário</button>
+        </div>
+        <div id="plantsList" class="plants-list"></div>
+      </section>
+
+      <section class="pane" data-pane="4">
+        <h2>🔐 Acesso à Distribuidora (Portal)</h2>
+        <p class="inline-note">Preenchimento automático usando CPF/CNPJ do proprietário e UC da primeira usina.</p>
+        <div class="grid cols-3">
+          <label class="field"><span>Unidade Consumidora (UC) *</span><input id="portalUc" required></label>
+          <label class="field"><span>CPF/CNPJ *</span><input id="portalDoc" data-mask="cpfcnpj" required></label>
+          <label class="field"><span>Data de Nascimento</span><input id="portalBirth" type="date"></label>
+        </div>
+      </section>
+
+      <section class="pane" data-pane="5">
+        <h2>💰 Dados para Recebimento</h2>
+        <div class="grid cols-3">
+          <label class="field"><span>Banco *</span><input id="payBanco" required></label>
+          <label class="field"><span>Agência *</span><input id="payAgencia" required></label>
+          <label class="field"><span>Conta *</span><input id="payConta" required></label>
+          <label class="field"><span>Tipo de Conta</span><input id="payTipo"></label>
+          <label class="field"><span>Favorecido</span><input id="payFavorecido"></label>
+          <label class="field"><span>Chave PIX</span><input id="payPix"></label>
+        </div>
+      </section>
+
+      <section class="pane" data-pane="6">
+        <h2>📎 Anexos e Documentos</h2>
+        <p class="inline-note">Upload assíncrono para Firebase Storage (`gcredito/generators/temp/{user_id}/...`). Formatos: PDF, JPG, PNG. Máx: 10MB.</p>
+        <div class="upload-grid" id="uploadGrid"></div>
+      </section>
+
+      <section class="pane" data-pane="7">
+        <h2>🧾 Revisão</h2>
+        <pre id="reviewJson"></pre>
+      </section>
+
+      <footer class="wizard-actions">
+        <button type="button" id="prevBtn" class="btn-secondary">Anterior</button>
+        <button type="button" id="nextBtn" class="btn-secondary">Próximo</button>
+        <button type="submit" id="saveBtn" class="btn-primary-solid">Salvar Geradora</button>
+      </footer>
+    </form>
+
+    <section class="validation-bar hidden" id="validationBar"></section>
+  </div>
+
+  <script type="module" src="access-control.js"></script>
+  <script type="module" src="geradora-wizard.js"></script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-

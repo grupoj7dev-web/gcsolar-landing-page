@@ -111,6 +111,10 @@ body {
     gap: 0.28rem;
 }
 
+.sidebar-nav a.nav-item {
+    display: none;
+}
+
 .nav-item {
     color: var(--sidebar-text);
     text-decoration: none;

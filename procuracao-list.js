@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
@@ -105,7 +105,7 @@ function formatDateTime(value) {
 
 function rowTemplate(record) {
   const data = record.data || {};
-  const type = record.tipoPessoa === "juridica" ? "Pessoa Juridica" : "Pessoa Fisica";
+  const type = record.tipoPessoa === "juridica" ? "Pessoa Jurídica" : "Pessoa Física";
   const docOutorgante = record.documentoOutorgante || "-";
   const localData = `${record.cidade || "-"}-${record.estado || "-"} | ${record.dataDocumento || "-"}`;
 
@@ -218,7 +218,7 @@ function bindEvents() {
         await removeRecord(deleteBtn.dataset.delete);
       } catch (error) {
         console.error(error);
-        window.alert("Nao foi possivel excluir a procuracao.");
+        window.alert("Não foi possível excluir a procuracao.");
       }
     }
   });

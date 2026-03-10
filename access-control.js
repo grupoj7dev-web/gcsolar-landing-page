@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getAuth,
   getIdTokenResult,
@@ -24,10 +24,11 @@ const firebaseConfig = {
   measurementId: "G-ZS8XN2VECC",
 };
 
-const app = initializeApp(firebaseConfig, "gcsolar-access-control");
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const DEBUG_KEY = "gcsolar_debug_auth";
+let lastNavSignature = "";
 
 function debugLog(event, payload = {}) {
   try {
@@ -95,6 +96,10 @@ const DEFAULT_ENTRY_ORDER = [
   "procuracao.html",
 ];
 
+const GLOBAL_ADMIN_EMAILS = new Set(["projetos@goldtechenergia.com"]);
+const ACL_CACHE_KEY = "gcsolar_acl_cache_v1";
+const ACL_ACTIVE_UID_KEY = "gcsolar_acl_active_uid";
+
 const BLOCKED_STATUSES = new Set(["inativo", "inactive", "bloqueado", "blocked", "suspenso"]);
 
 function normalizeStatus(value) {
@@ -158,18 +163,32 @@ function canAccessPermission(profile, permissionKey) {
   const direct = permissions[permissionKey];
   if (typeof direct === "boolean") return direct;
 
-  if (permissionKey === "indicarAssinante") {
-    if (typeof permissions.assinantes === "boolean") return permissions.assinantes;
-  }
-  if (permissionKey === "representantes") {
-    if (typeof permissions.representantes === "boolean") return permissions.representantes;
-  }
-  if (permissionKey === "propostas") {
-    if (typeof permissions.assinantes === "boolean") return permissions.assinantes;
-  }
-
   return false;
 }
+
+function setAclPending() {
+  if (!document.querySelector(".sidebar-nav")) return;
+  document.documentElement.classList.add("gc-acl-pending");
+}
+
+function setAclReady() {
+  document.documentElement.classList.remove("gc-acl-pending");
+}
+
+function ensureAclStyle() {
+  if (document.getElementById("gcAclStyle")) return;
+  const style = document.createElement("style");
+  style.id = "gcAclStyle";
+  style.textContent = `
+    .sidebar-nav a.nav-item.gc-nav-allowed { display: flex !important; }
+  `;
+  document.head.appendChild(style);
+}
+
+// Bloqueio imediato para evitar flicker de menu completo antes da validacao.
+ensureAclStyle();
+setAclPending();
+applyCachedNavPermissionsIfPossible();
 
 function findFirstAllowedPage(profile) {
   for (const page of DEFAULT_ENTRY_ORDER) {
@@ -181,20 +200,127 @@ function findFirstAllowedPage(profile) {
 
 function applyNavPermissions(profile) {
   const navLinks = Array.from(document.querySelectorAll(".sidebar-nav a.nav-item[href]"));
+  const allowedHrefs = [];
+  const signatureParts = [];
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const permissionKey = NAV_PERMISSION_BY_HREF[href];
+    if (!permissionKey) {
+      return;
+    }
+    const allowed = canAccessPermission(profile, permissionKey);
+    signatureParts.push(`${href}:${allowed ? "1" : "0"}`);
+    if (allowed) {
+      allowedHrefs.push(href);
+    }
+  });
+
+  const nextSignature = signatureParts.sort().join("|");
+  if (nextSignature === lastNavSignature) {
+    return;
+  }
+
   navLinks.forEach((link) => {
     const href = link.getAttribute("href") || "";
     const permissionKey = NAV_PERMISSION_BY_HREF[href];
     if (!permissionKey) return;
     const allowed = canAccessPermission(profile, permissionKey);
-    if (allowed) return;
-    link.style.display = "none";
+    link.classList.toggle("gc-nav-allowed", allowed);
+    link.classList.toggle("gc-nav-denied", !allowed);
   });
+
+  lastNavSignature = nextSignature;
+  saveAclCache(profile?.uid || "", allowedHrefs);
+}
+
+function readAclCache() {
+  try {
+    const raw = sessionStorage.getItem(ACL_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    const uid = String(parsed.uid || "");
+    const allowed = Array.isArray(parsed.allowed)
+      ? parsed.allowed.map((item) => String(item || ""))
+      : [];
+    if (!uid || !allowed.length) return null;
+    return { uid, allowed };
+  } catch (_) {
+    return null;
+  }
+}
+
+function saveAclCache(uid, allowedHrefs) {
+  try {
+    const cleanUid = String(uid || "");
+    if (!cleanUid) return;
+    const allowed = Array.isArray(allowedHrefs)
+      ? Array.from(new Set(allowedHrefs.map((item) => String(item || "").trim()).filter(Boolean)))
+      : [];
+    sessionStorage.setItem(
+      ACL_CACHE_KEY,
+      JSON.stringify({
+        uid: cleanUid,
+        allowed,
+        ts: Date.now(),
+      })
+    );
+  } catch (_) { }
+}
+
+function clearAclCache() {
+  try {
+    sessionStorage.removeItem(ACL_CACHE_KEY);
+  } catch (_) { }
+}
+
+function getActiveUidFromSession() {
+  try {
+    return String(sessionStorage.getItem(ACL_ACTIVE_UID_KEY) || "");
+  } catch (_) {
+    return "";
+  }
+}
+
+function setActiveUidInSession(uid) {
+  try {
+    const cleanUid = String(uid || "");
+    if (!cleanUid) {
+      sessionStorage.removeItem(ACL_ACTIVE_UID_KEY);
+      return;
+    }
+    sessionStorage.setItem(ACL_ACTIVE_UID_KEY, cleanUid);
+  } catch (_) { }
+}
+
+function applyCachedNavPermissionsIfPossible() {
+  const cached = readAclCache();
+  if (!cached) return;
+  const currentUid = getActiveUidFromSession();
+  if (!currentUid || currentUid !== cached.uid) return;
+
+  const allowedSet = new Set(cached.allowed);
+  const navLinks = Array.from(document.querySelectorAll(".sidebar-nav a.nav-item[href]"));
+  const signatureParts = [];
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const permissionKey = NAV_PERMISSION_BY_HREF[href];
+    if (!permissionKey) return;
+    const allowed = allowedSet.has(href);
+    signatureParts.push(`${href}:${allowed ? "1" : "0"}`);
+    link.classList.toggle("gc-nav-allowed", allowed);
+    link.classList.toggle("gc-nav-denied", !allowed);
+  });
+  lastNavSignature = signatureParts.sort().join("|");
 }
 
 async function buildProfile(user) {
   const token = await getIdTokenResult(user, true);
   const role = token.claims.role;
   const isSuperAdmin = token.claims.superadmin === true || role === "superadmin";
+  const email = String(user?.email || "").toLowerCase().trim();
+  const isGlobalAdmin = GLOBAL_ADMIN_EMAILS.has(email);
   if (isSuperAdmin) {
     return {
       uid: user.uid,
@@ -202,6 +328,17 @@ async function buildProfile(user) {
       isAdmin: true,
       isBlocked: false,
       permissions: {},
+    };
+  }
+
+  if (isGlobalAdmin) {
+    return {
+      uid: user.uid,
+      isSuperAdmin: false,
+      isAdmin: true,
+      isBlocked: false,
+      permissions: {},
+      tenantId: user.uid,
     };
   }
 
@@ -252,13 +389,15 @@ onAuthStateChanged(auth, async (user) => {
   });
 
   if (!user) {
-    // Importante: nao redirecionar aqui para evitar loop quando o auth state
-    // do app auxiliar ainda nao sincronizou com o app principal.
-    debugLog("skip-redirect-no-user", { reason: "aux-app-user-null" });
+    setActiveUidInSession("");
+    clearAclCache();
+    debugLog("no-user-redirect-login");
+    safeRedirect("login.html");
     return;
   }
 
   try {
+    setActiveUidInSession(user.uid);
     const profile = await buildProfile(user);
     debugLog("profile", {
       uid: profile.uid,
@@ -269,6 +408,8 @@ onAuthStateChanged(auth, async (user) => {
       permissions: profile.permissions || {},
     });
     if (profile.isBlocked) {
+      setActiveUidInSession("");
+      clearAclCache();
       await signOut(auth);
       debugLog("blocked-signout");
       safeRedirect("login.html");
@@ -277,8 +418,14 @@ onAuthStateChanged(auth, async (user) => {
 
     applyNavPermissions(profile);
 
-    if (!permissionNeeded) return;
-    if (canAccessPermission(profile, permissionNeeded)) return;
+    if (!permissionNeeded) {
+      setAclReady();
+      return;
+    }
+    if (canAccessPermission(profile, permissionNeeded)) {
+      setAclReady();
+      return;
+    }
 
     const fallback = findFirstAllowedPage(profile);
     debugLog("permission-denied", { permissionNeeded, fallback });
@@ -288,6 +435,7 @@ onAuthStateChanged(auth, async (user) => {
     debugLog("error", { message: String(error?.message || error) });
     // Evita loop de redirecionamento quando houver erro temporario de leitura
     // (ex.: regra/firestore indisponivel). A pagina original decide o fallback.
+    setAclReady();
     return;
   }
 });

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   addDoc,
@@ -49,6 +49,7 @@ const pendingCounterLabel = document.getElementById("pendingCounterLabel");
 const invoiceTableBody = document.getElementById("invoiceTableBody");
 const LAST_VALIDACAO_KEY = "gcsolar_last_validacao_id";
 const LAST_EMITIDA_KEY = "gcsolar_last_emitida_id";
+const LOCAL_DELETED_EMITIDAS_KEY = "gcsolar_emitidas_deleted_ids";
 
 const collapsedKey = "gcsolar_sidebar_collapsed";
 const themeKey = "gcsolar_theme";
@@ -60,6 +61,17 @@ let allEmitidas = [];
 let html2pdfLoader = null;
 let pdfLibsLoader = null;
 let asaasConfig = null;
+
+function getLocallyDeletedEmitidasIds() {
+  try {
+    const raw = localStorage.getItem(LOCAL_DELETED_EMITIDAS_KEY) || "[]";
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return new Set();
+    return new Set(arr.map((x) => String(x || "").trim()).filter(Boolean));
+  } catch (_) {
+    return new Set();
+  }
+}
 
 function isMobile() {
   return window.matchMedia("(max-width: 960px)").matches;
@@ -402,8 +414,6 @@ async function loadAsaasConfig() {
     keys.find((k) => String(k.tenant_id || "") === scope.tenantId && k.is_active !== false) ||
     null;
 
-  if (!chosen && keys.length) chosen = keys[0];
-
   if (!chosen?.api_key) {
     asaasConfig = null;
     return null;
@@ -520,8 +530,9 @@ function renderScoreboard() {
   const pendentes = allValidacao.filter((x) => normalizeStatus(x) === "pendente").length;
   const rejeitadas = allValidacao.filter((x) => normalizeStatus(x) === "rejeitada").length;
 
-  const aprovadasFromValidacao = allValidacao.filter((x) => normalizeStatus(x) === "aprovada").length;
-  const aprovadas = Math.max(aprovadasFromValidacao, allEmitidas.length);
+  // "Aprovadas" deve refletir o volume atual efetivamente emitido.
+  // Se a emitida foi excluída, o contador também reduz.
+  const aprovadas = allEmitidas.length;
 
   const reviewed = aprovadas + rejeitadas;
   const taxa = reviewed > 0 ? (aprovadas / reviewed) * 100 : 0;
@@ -593,7 +604,11 @@ async function loadData() {
   ]);
 
   allValidacao = validacaoSnap.docs.map((d) => ({ id: d.id, ...d.data() })).filter(belongsToScope);
-  allEmitidas = emitidasSnap.docs.map((d) => ({ id: d.id, ...d.data() })).filter(belongsToScope);
+  const deletedEmitidasIds = getLocallyDeletedEmitidasIds();
+  allEmitidas = emitidasSnap.docs
+    .map((d) => ({ id: d.id, ...d.data() }))
+    .filter(belongsToScope)
+    .filter((x) => !deletedEmitidasIds.has(String(x.id)));
 
   const validatedIdSet = buildValidatedIdSet();
   pendingInvoices = allValidacao.filter((x) => {
@@ -696,7 +711,7 @@ async function downloadCombinedAsPdf(record) {
   const equatorialPreview = String(record.fatura_equatorial_preview || "").trim();
 
   if (!energyHtml && !equatorialPreview) {
-    window.alert("Nao foi encontrado arquivo para download.");
+    window.alert("Não foi encontrado arquivo para download.");
     return;
   }
 
@@ -857,7 +872,7 @@ function openInvoice(record) {
     return;
   }
 
-  window.alert("Nao foi encontrado link de visualizacao para esta fatura.");
+  window.alert("Não foi encontrado link de visualização para esta fatura.");
 }
 
 function downloadInvoice(record) {
@@ -1134,7 +1149,7 @@ function bindEvents() {
       document.querySelectorAll(".actions-menu").forEach((m) => m.classList.add("hidden"));
     } catch (error) {
       console.error(error);
-      window.alert("Nao foi possivel executar esta acao.");
+      window.alert("Não foi possível executar esta acao.");
     } finally {
       btn.disabled = false;
     }
