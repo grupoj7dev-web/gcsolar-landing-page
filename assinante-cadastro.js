@@ -538,6 +538,10 @@ function validateAddress(addr) {
   return Boolean(cep.length === 8 && street && number && district && city && state);
 }
 
+function getPrimaryAddress() {
+  return holderType() === "person" ? readAddress("personAddress") : readAddress("companyAddress");
+}
+
 function validateStep(step) {
   if (step >= 4) {
     fillPrimaryToFirstUcIfMissing();
@@ -571,6 +575,7 @@ function validateStep(step) {
     syncAccountsFromDom();
     if (!state.accounts.length) return "Adicione ao menos uma UC.";
     fillPrimaryToAccountsIfMissing();
+    const primaryAddress = getPrimaryAddress();
     for (const a of state.accounts) {
       if (!clean(a.personType)) return "Tipo de pessoa da conta obrigatório.";
       if (onlyDigits(a.doc).length < 11) return "CPF/CNPJ da conta inválido.";
@@ -578,7 +583,10 @@ function validateStep(step) {
       if (a.personType === "person" && !clean(a.birthDate)) return "Data de nascimento da conta obrigatória.";
       if (!clean(a.uc)) return "Preencha o numero da UC.";
       if (!clean(a.partner)) return "Numero parceiro da conta obrigatório.";
-      if (!validateAddress(a.address || {})) return "Endereço da conta incompleto.";
+      if (!validateAddress(a.address || {})) {
+        if (!validateAddress(primaryAddress || {})) return "Endereço incompleto.";
+        a.address = { ...(primaryAddress || {}) };
+      }
     }
   }
   if (step === 6) {
@@ -651,6 +659,7 @@ async function uploadOptional(file, key) {
 
 function buildPayload() {
   const person = holderType() === "person";
+  const primaryAddress = getPrimaryAddress();
   const ownerDoc = person ? onlyDigits(id("personCpf").value) : onlyDigits(id("companyCnpj").value);
   const ownerName = person ? clean(id("personName").value) : clean(id("companyRazao").value || id("companyFantasy").value);
   const ownerEmail = person ? clean(id("personEmail").value) : clean(id("companyEmail").value);
@@ -719,7 +728,7 @@ function buildPayload() {
       birthDate: clean(a.birthDate),
       uc: clean(a.uc),
       partnerNumber: clean(a.partner),
-      address: a.address || {},
+      address: validateAddress(a.address || {}) ? a.address : (primaryAddress || a.address || {}),
     })),
     transfer,
     planContract: {
