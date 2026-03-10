@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -38,12 +38,12 @@
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item active"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
                 <a href="assinantes.html" class="nav-item"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
-                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>PrÃ©-assinante</span></a>
+                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>Pré-assinante</span></a>
                 <a href="cadastrar-rateio.html" class="nav-item"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
                 <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
                 <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
                 <a href="fatura-manual.html" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
-                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>ProcuraÃ§Ã£o</span></a>
+                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
                 <a href="faturas-validacao.html" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validacao</span></a>
                 <a href="faturas-emitidas.html" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
                 <a href="whatsapp.html" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
@@ -60,7 +60,7 @@
                     <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
                         <i class="ph ph-moon"></i>
                     </button>
-                    <a class="settings-btn" href="asaas-config.html" aria-label="ConfiguraÃ§Ãµes ASAAS">
+                    <a class="settings-btn" href="asaas-config.html" aria-label="Configurações ASAAS">
                         <i class="ph ph-gear-six"></i>
                     </a>
                     <button class="logout-btn" id="logoutBtn">Sair</button>
@@ -70,12 +70,12 @@
             <main class="dashboard-main">
                 <section class="dashboard-headline">
                     <div>
-                        <h2>VisÃ£o Geral</h2>
+                        <h2>Visão Geral</h2>
                         <p id="funnelUpdatedAt">Atualizando dados...</p>
                     </div>
                     <div class="period-filters" id="periodFilters">
                         <button class="period-btn" data-period="week">Semana</button>
-                        <button class="period-btn active" data-period="month">MÃªs</button>
+                        <button class="period-btn active" data-period="month">Mês</button>
                         <button class="period-btn" data-period="year">Ano</button>
                     </div>
                 </section>
@@ -85,12 +85,12 @@
                         <article class="metric-card">
                             <p class="metric-label">Total de Faturas</p>
                             <p class="metric-value" id="metricTotalFaturas">-</p>
-                            <p class="metric-meta" id="metricTotalFaturasMeta">No perÃ­odo selecionado</p>
+                            <p class="metric-meta" id="metricTotalFaturasMeta">No período selecionado</p>
                         </article>
                         <article class="metric-card">
                             <p class="metric-label">Valor Total</p>
                             <p class="metric-value" id="metricValorTotal">-</p>
-                            <p class="metric-meta" id="metricValorTotalMeta">SomatÃ³rio financeiro (R$)</p>
+                            <p class="metric-meta" id="metricValorTotalMeta">Somatório financeiro (R$)</p>
                         </article>
                         <article class="metric-card">
                             <p class="metric-label">Total de Assinantes</p>
@@ -113,17 +113,17 @@
                         <article class="status-card processed">
                             <p class="status-label">Faturas Processadas</p>
                             <p class="status-value" id="statusProcessadas">-</p>
-                            <p class="status-meta" id="statusProcessadasMeta">Volume processado no perÃ­odo</p>
+                            <p class="status-meta" id="statusProcessadasMeta">Volume processado no período</p>
                         </article>
                         <article class="status-card emitted">
                             <p class="status-label">Faturas Emitidas</p>
                             <p class="status-value" id="statusEmitidas">-</p>
-                            <p class="status-meta" id="statusEmitidasMeta">Emitidas no perÃ­odo</p>
+                            <p class="status-meta" id="statusEmitidasMeta">Emitidas no período</p>
                         </article>
                         <article class="status-card paid">
                             <p class="status-label">Faturas Pagas</p>
                             <p class="status-value" id="statusPagas">-</p>
-                            <p class="status-meta" id="statusPagasMeta">Taxa de conversÃ£o: -%</p>
+                            <p class="status-meta" id="statusPagasMeta">Taxa de conversão: -%</p>
                         </article>
                     </div>
                 </section>
@@ -131,7 +131,7 @@
                 <section class="card invoices-section">
                     <div class="section-head">
                         <h3>Faturas Mais Recentes</h3>
-                        <p class="section-sub">altimos lanÃ§amentos do perÃ­odo selecionado</p>
+                        <p class="section-sub">altimos lançamentos do período selecionado</p>
                     </div>
 
                     <div class="table-wrap">
@@ -141,11 +141,11 @@
                                     <th>UC</th>
                                     <th>Nome</th>
                                     <th>CPF/CNPJ</th>
-                                    <th>ReferÃªncia</th>
+                                    <th>Referência</th>
                                     <th>Valor</th>
-                                    <th>EmissÃ£o</th>
+                                    <th>Emissão</th>
                                     <th>Status</th>
-                                    <th>AÃ§Ãµes</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="recentInvoicesBody">
@@ -162,9 +162,24 @@
 
     <script type="module" src="access-control.js"></script>
     <script type="module" src="dashboard.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+
 
 
 

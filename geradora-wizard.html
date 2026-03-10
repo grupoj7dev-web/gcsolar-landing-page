@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -19,34 +19,34 @@
       <div>
         <a href="geradoras.html" class="back-btn"><i class="ph ph-arrow-left"></i> Voltar</a>
         <h1 id="wizardTitle">Cadastro de Geradora (Usina)</h1>
-        <p id="wizardSubtitle">Fluxo completo com propriet√°rio, usinas, acesso √† distribuidora, financeiro e anexos.</p>
+        <p id="wizardSubtitle">Fluxo completo com propriet·rio, usinas, acesso ‡ distribuidora, financeiro e anexos.</p>
       </div>
       <div class="head-tag" id="stepLabel">Etapa 1 de 7</div>
     </header>
 
     <nav class="stepper card" id="stepperNav">
-      <button type="button" class="step active" data-step="1">1. Propriet√°rio</button>
+      <button type="button" class="step active" data-step="1">1. Propriet·rio</button>
       <button type="button" class="step" data-step="2">2. Adm. PJ</button>
       <button type="button" class="step" data-step="3">3. Usinas</button>
       <button type="button" class="step" data-step="4">4. Distribuidora</button>
-      <button type="button" class="step" data-step="5">5. Banc√°rio</button>
+      <button type="button" class="step" data-step="5">5. Banc·rio</button>
       <button type="button" class="step" data-step="6">6. Anexos</button>
-      <button type="button" class="step" data-step="7">7. Revis√£o</button>
+      <button type="button" class="step" data-step="7">7. Revis„o</button>
     </nav>
 
     <form id="wizardForm" class="wizard-card card" novalidate>
       <section class="pane active" data-pane="1">
-        <h2>‚ö° Concession√°ria e Dados do Propriet√°rio</h2>
+        <h2>? Concession·ria e Dados do Propriet·rio</h2>
 
         <div class="section-block">
           <div class="grid cols-2">
             <label class="field">
-              <span>Concession√°ria *</span>
+              <span>Concession·ria *</span>
               <select id="concessionaria" required>
                 <option value="">Selecione</option>
-                <option value="Equatorial Goi√°s" selected>Equatorial Goi√°s</option>
-                <option value="Equatorial Maranh√£o">Equatorial Maranh√£o</option>
-                <option value="Equatorial Par√°">Equatorial Par√°</option>
+                <option value="Equatorial Goi·s" selected>Equatorial Goi·s</option>
+                <option value="Equatorial Maranh„o">Equatorial Maranh„o</option>
+                <option value="Equatorial Par·">Equatorial Par·</option>
                 <option value="Enel">Enel</option>
                 <option value="Neoenergia">Neoenergia</option>
                 <option value="CPFL">CPFL</option>
@@ -63,21 +63,21 @@
         </div>
 
         <div class="section-block">
-          <h3>üè¢ Tipo de Geradora</h3>
+          <h3>?? Tipo de Geradora</h3>
           <div class="radio-grid">
             <label class="radio-card">
               <input type="radio" name="ownerType" value="person" checked>
-              <span>Pessoa F√≠sica</span>
+              <span>Pessoa FÌsica</span>
             </label>
             <label class="radio-card">
               <input type="radio" name="ownerType" value="company">
-              <span>Pessoa Jur√≠dica</span>
+              <span>Pessoa JurÌdica</span>
             </label>
           </div>
         </div>
 
         <div class="section-block" id="ownerPersonBlock">
-          <h3>üë§ Propriet√°rio PF</h3>
+          <h3>?? Propriet·rio PF</h3>
           <div class="grid cols-3">
             <label class="field">
               <span>CPF *</span>
@@ -86,7 +86,7 @@
                 <button type="button" class="btn-secondary" id="lookupOwnerCpfBtn">Consultar</button>
               </div>
             </label>
-            <label class="field"><span>N√∫mero Parceiro Neg√≥cio *</span><input id="ownerPartnerNumberPf" required></label>
+            <label class="field"><span>N˙mero Parceiro NegÛcio *</span><input id="ownerPartnerNumberPf" required></label>
             <label class="field"><span>Nome Completo *</span><input id="ownerNamePf" required></label>
             <label class="field"><span>Data de Nascimento</span><input id="ownerBirthPf" type="date"></label>
             <label class="field"><span>Telefone *</span><input id="ownerPhonePf" data-mask="phone" required></label>
@@ -95,7 +95,7 @@
         </div>
 
         <div class="section-block hidden" id="ownerCompanyBlock">
-          <h3>üè¢ Propriet√°rio PJ</h3>
+          <h3>?? Propriet·rio PJ</h3>
           <div class="grid cols-3">
             <label class="field">
               <span>CNPJ *</span>
@@ -104,9 +104,9 @@
                 <button type="button" class="btn-secondary" id="lookupOwnerCnpjBtn">Consultar</button>
               </div>
             </label>
-            <label class="field"><span>N√∫mero Parceiro Neg√≥cio *</span><input id="ownerPartnerNumberPj"></label>
-            <label class="field"><span>Nome/Raz√£o Social *</span><input id="ownerNamePj"></label>
-            <label class="field"><span>Raz√£o Social</span><input id="ownerRazaoSocial"></label>
+            <label class="field"><span>N˙mero Parceiro NegÛcio *</span><input id="ownerPartnerNumberPj"></label>
+            <label class="field"><span>Nome/Raz„o Social *</span><input id="ownerNamePj"></label>
+            <label class="field"><span>Raz„o Social</span><input id="ownerRazaoSocial"></label>
             <label class="field"><span>Nome Fantasia</span><input id="ownerNomeFantasia"></label>
             <label class="field"><span>Telefone *</span><input id="ownerPhonePj" data-mask="phone"></label>
             <label class="field"><span>E-mail *</span><input id="ownerEmailPj" type="email"></label>
@@ -114,7 +114,7 @@
         </div>
 
         <div class="section-block">
-          <h3>üìç Endere√ßo do Propriet√°rio</h3>
+          <h3>?? EndereÁo do Propriet·rio</h3>
           <div class="grid cols-4" data-address="ownerAddress">
             <label class="field">
               <span>CEP *</span>
@@ -123,8 +123,8 @@
                 <button type="button" class="btn-secondary" data-address-lookup="ownerAddress">Buscar</button>
               </div>
             </label>
-            <label class="field span-2"><span>Endere√ßo *</span><input data-address-field="street" required></label>
-            <label class="field"><span>N√∫mero *</span><input data-address-field="number" required></label>
+            <label class="field span-2"><span>EndereÁo *</span><input data-address-field="street" required></label>
+            <label class="field"><span>N˙mero *</span><input data-address-field="number" required></label>
             <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
             <label class="field"><span>Bairro *</span><input data-address-field="district" required></label>
             <label class="field"><span>Cidade *</span><input data-address-field="city" required></label>
@@ -132,12 +132,12 @@
           </div>
         </div>
 
-        <label class="field"><span>Observa√ß√µes</span><textarea id="ownerObservations" rows="3"></textarea></label>
+        <label class="field"><span>ObservaÁıes</span><textarea id="ownerObservations" rows="3"></textarea></label>
       </section>
 
       <section class="pane" data-pane="2">
-        <h2>üëî Administrador da Pessoa Jur√≠dica (Opcional)</h2>
-        <p class="inline-note">Esta etapa aparece apenas para pessoa jur√≠dica e √© opcional.</p>
+        <h2>?? Administrador da Pessoa JurÌdica (Opcional)</h2>
+        <p class="inline-note">Esta etapa aparece apenas para pessoa jurÌdica e È opcional.</p>
 
         <div id="adminSection">
           <div class="grid cols-3">
@@ -154,7 +154,7 @@
             <label class="field"><span>E-mail</span><input id="adminEmail" type="email"></label>
           </div>
 
-          <h3>Endere√ßo Residencial do Administrador</h3>
+          <h3>EndereÁo Residencial do Administrador</h3>
           <div class="grid cols-4" data-address="adminAddress">
             <label class="field">
               <span>CEP</span>
@@ -163,8 +163,8 @@
                 <button type="button" class="btn-secondary" data-address-lookup="adminAddress">Buscar</button>
               </div>
             </label>
-            <label class="field span-2"><span>Endere√ßo</span><input data-address-field="street"></label>
-            <label class="field"><span>N√∫mero</span><input data-address-field="number"></label>
+            <label class="field span-2"><span>EndereÁo</span><input data-address-field="street"></label>
+            <label class="field"><span>N˙mero</span><input data-address-field="number"></label>
             <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
             <label class="field"><span>Bairro</span><input data-address-field="district"></label>
             <label class="field"><span>Cidade</span><input data-address-field="city"></label>
@@ -174,17 +174,17 @@
       </section>
 
       <section class="pane" data-pane="3">
-        <h2>‚òÄÔ∏è Dados das Usinas</h2>
+        <h2>?? Dados das Usinas</h2>
         <div class="action-row">
           <button class="btn-secondary" type="button" id="addPlantBtn"><i class="ph ph-plus"></i> Adicionar Usina</button>
-          <button class="btn-secondary" type="button" id="syncFirstPlantBtn"><i class="ph ph-arrows-clockwise"></i> Sincronizar 1¬™ Usina com Propriet√°rio</button>
+          <button class="btn-secondary" type="button" id="syncFirstPlantBtn"><i class="ph ph-arrows-clockwise"></i> Sincronizar 1™ Usina com Propriet·rio</button>
         </div>
         <div id="plantsList" class="plants-list"></div>
       </section>
 
       <section class="pane" data-pane="4">
-        <h2>üîê Acesso √† Distribuidora (Portal)</h2>
-        <p class="inline-note">Preenchimento autom√°tico usando CPF/CNPJ do propriet√°rio e UC da primeira usina.</p>
+        <h2>?? Acesso ‡ Distribuidora (Portal)</h2>
+        <p class="inline-note">Preenchimento autom·tico usando CPF/CNPJ do propriet·rio e UC da primeira usina.</p>
         <div class="grid cols-3">
           <label class="field"><span>Unidade Consumidora (UC) *</span><input id="portalUc" required></label>
           <label class="field"><span>CPF/CNPJ *</span><input id="portalDoc" data-mask="cpfcnpj" required></label>
@@ -193,10 +193,10 @@
       </section>
 
       <section class="pane" data-pane="5">
-        <h2>üí∞ Dados para Recebimento</h2>
+        <h2>?? Dados para Recebimento</h2>
         <div class="grid cols-3">
           <label class="field"><span>Banco *</span><input id="payBanco" required></label>
-          <label class="field"><span>Ag√™ncia *</span><input id="payAgencia" required></label>
+          <label class="field"><span>AgÍncia *</span><input id="payAgencia" required></label>
           <label class="field"><span>Conta *</span><input id="payConta" required></label>
           <label class="field"><span>Tipo de Conta</span><input id="payTipo"></label>
           <label class="field"><span>Favorecido</span><input id="payFavorecido"></label>
@@ -205,19 +205,19 @@
       </section>
 
       <section class="pane" data-pane="6">
-        <h2>üìé Anexos e Documentos</h2>
-        <p class="inline-note">Upload ass√≠ncrono para Firebase Storage (`gcredito/generators/temp/{user_id}/...`). Formatos: PDF, JPG, PNG. M√°x: 10MB.</p>
+        <h2>?? Anexos e Documentos</h2>
+        <p class="inline-note">Upload assÌncrono para Firebase Storage (`gcredito/generators/temp/{user_id}/...`). Formatos: PDF, JPG, PNG. M·x: 10MB.</p>
         <div class="upload-grid" id="uploadGrid"></div>
       </section>
 
       <section class="pane" data-pane="7">
-        <h2>üßæ Revis√£o</h2>
+        <h2>?? Revis„o</h2>
         <pre id="reviewJson"></pre>
       </section>
 
       <footer class="wizard-actions">
         <button type="button" id="prevBtn" class="btn-secondary">Anterior</button>
-        <button type="button" id="nextBtn" class="btn-secondary">Pr√≥ximo</button>
+        <button type="button" id="nextBtn" class="btn-secondary">PrÛximo</button>
         <button type="submit" id="saveBtn" class="btn-primary-solid">Salvar Geradora</button>
       </footer>
     </form>
@@ -227,6 +227,21 @@
 
   <script type="module" src="access-control.js"></script>
   <script type="module" src="geradora-wizard.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+

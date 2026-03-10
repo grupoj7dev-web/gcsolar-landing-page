@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -21,9 +21,9 @@
                 <img src="image_copy-bg.png" alt="Logo GC Solar" class="brand-logo">
             </div>
             <p class="brand-kicker">GC Solar</p>
-            <h1>Gest√£o inteligente de cr√©ditos de energia</h1>
+            <h1>Gest„o inteligente de crÈditos de energia</h1>
             <p class="brand-copy">
-                Entre para acompanhar assinantes, geradoras, rateio e faturamento em um s√≥ lugar.
+                Entre para acompanhar assinantes, geradoras, rateio e faturamento em um sÛ lugar.
             </p>
         </section>
 
@@ -57,9 +57,24 @@
     </main>
 
     <script type="module" src="login.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+
 
 
 

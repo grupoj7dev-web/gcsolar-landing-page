@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GC Solar | Nova Proposta</title>
-    <meta name="description" content="Tela de geraÃ§Ã£o de proposta de desconto.">
+    <meta name="description" content="Tela de geração de proposta de desconto.">
     <script>
         (function () {
             try {
@@ -42,7 +42,7 @@
                 <a href="calcular-desconto.html" class="nav-item active"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
                 <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
                 <a href="fatura-manual.html" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
-                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>ProcuraÃ§Ã£o</span></a>
+                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
                 <a href="faturas-validacao.html" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validacao</span></a>
                 <a href="faturas-emitidas.html" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
                 <a href="whatsapp.html" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
@@ -59,7 +59,7 @@
                     <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
                         <i class="ph ph-moon"></i>
                     </button>
-                    <a class="settings-btn" href="asaas-config.html" aria-label="ConfiguraÃ§Ãµes ASAAS">
+                    <a class="settings-btn" href="asaas-config.html" aria-label="Configurações ASAAS">
                         <i class="ph ph-gear-six"></i>
                     </a>
                     <button class="logout-btn" id="logoutBtn">Sair</button>
@@ -101,7 +101,7 @@
 
                 <form id="proposalForm" class="card proposal-form" novalidate>
                     <div class="field">
-                        <label for="proposalCodeInput">CÃ³digo da Proposta</label>
+                        <label for="proposalCodeInput">Código da Proposta</label>
                         <input id="proposalCodeInput" name="proposalCode" type="text" readonly>
                     </div>
                     <div class="field">
@@ -113,7 +113,7 @@
                         <input id="cnpjInput" name="cnpj" type="text" required>
                     </div>
                     <div class="field">
-                        <label for="installationIdInput">NÂº da InstalaÃ§Ã£o (UC)</label>
+                        <label for="installationIdInput">Nº da Instalação (UC)</label>
                         <input id="installationIdInput" name="installationId" type="text" required>
                     </div>
 
@@ -124,9 +124,9 @@
                     <div class="field">
                         <label for="networkTypeInput">Rede</label>
                         <select id="networkTypeInput" name="networkType">
-                            <option value="monofasico">MonofÃ¡sico</option>
-                            <option value="bifasico" selected>BifÃ¡sico</option>
-                            <option value="trifasico">TrifÃ¡sico</option>
+                            <option value="monofasico">Monofásico</option>
+                            <option value="bifasico" selected>Bifásico</option>
+                            <option value="trifasico">Trifásico</option>
                         </select>
                     </div>
                     <div class="field">
@@ -141,7 +141,7 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label for="generationModeInput">Modalidade de GeraÃ§Ã£o</label>
+                        <label for="generationModeInput">Modalidade de Geração</label>
                         <select id="generationModeInput" name="generationMode">
                             <option value="remoto" selected>Remoto (Mesma Titularidade)</option>
                             <option value="compartilhado">Compartilhado (Titularidade Diferente)</option>
@@ -152,15 +152,15 @@
                         <input id="monthlyConsumptionInput" name="monthlyConsumption" type="number" min="0" step="0.01" value="0" required>
                     </div>
                     <div class="field">
-                        <label for="currentRateInput">PreÃ§o Atual (R$/kWh)</label>
+                        <label for="currentRateInput">Preço Atual (R$/kWh)</label>
                         <input id="currentRateInput" name="currentRate" type="number" min="0" step="0.0001" value="0" required>
                     </div>
                     <div class="field">
-                        <label for="publicLightingInput">IluminaÃ§Ã£o PÃºblica (R$)</label>
+                        <label for="publicLightingInput">Iluminação Pública (R$)</label>
                         <input id="publicLightingInput" name="publicLighting" type="number" min="0" step="0.01" value="0" required>
                     </div>
                     <div class="field">
-                        <label for="minCostInput">Custo MÃ­nimo (R$)</label>
+                        <label for="minCostInput">Custo Mínimo (R$)</label>
                         <input id="minCostInput" name="minCost" type="number" min="0" step="0.01" value="0" readonly>
                     </div>
 
@@ -217,9 +217,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script type="module" src="access-control.js"></script>
     <script type="module" src="nova-proposta.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+
 
 
 

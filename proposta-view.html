@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GC Solar | Visualizar Proposta</title>
-    <meta name="description" content="VisualizaÃ§Ã£o e impressÃ£o de proposta de desconto.">
+    <meta name="description" content="Visualização e impressão de proposta de desconto.">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="proposta-view.css">
 </head>
@@ -17,9 +17,24 @@
 
     <script type="module" src="access-control.js"></script>
     <script type="module" src="proposta-view.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+
 
 
 

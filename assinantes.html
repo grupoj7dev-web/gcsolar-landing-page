@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GC Solar | Assinantes</title>
-    <meta name="description" content="GestÃ£o de assinantes da GC Solar.">
+    <meta name="description" content="Gestão de assinantes da GC Solar.">
     <script>
         (function () {
             try {
@@ -39,12 +39,12 @@
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
                 <a href="assinantes.html" class="nav-item active"><i class="ph ph-users-three"></i><span>Assinantes</span></a>
-                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>PrÃ©-assinante</span></a>
+                <a href="indicar-assinante.html" class="nav-item"><i class="ph ph-user-plus"></i><span>Pré-assinante</span></a>
                 <a href="cadastrar-rateio.html" class="nav-item"><i class="ph ph-share-network"></i><span>Cadastrar Rateio</span></a>
                 <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
                 <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
                 <a href="fatura-manual.html" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
-                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>ProcuraÃ§Ã£o</span></a>
+                <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
                 <a href="faturas-validacao.html" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validacao</span></a>
                 <a href="faturas-emitidas.html" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
                 <a href="whatsapp.html" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
@@ -61,7 +61,7 @@
                     <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
                         <i class="ph ph-moon"></i>
                     </button>
-                    <a class="settings-btn" href="asaas-config.html" aria-label="ConfiguraÃ§Ãµes ASAAS">
+                    <a class="settings-btn" href="asaas-config.html" aria-label="Configurações ASAAS">
                         <i class="ph ph-gear-six"></i>
                     </a>
                     <button class="logout-btn" id="logoutBtn">Sair</button>
@@ -90,7 +90,7 @@
                     <article class="stat-card">
                         <p class="stat-label">Total de Assinantes</p>
                         <p class="stat-value" id="statTotal">-</p>
-                        <p class="stat-meta" id="statTrend">+0% tendÃªncia</p>
+                        <p class="stat-meta" id="statTrend">+0% tendência</p>
                     </article>
                     <article class="stat-card">
                         <p class="stat-label">Assinantes Ativos</p>
@@ -98,9 +98,9 @@
                         <p class="stat-meta">Contratos vigentes</p>
                     </article>
                     <article class="stat-card">
-                        <p class="stat-label">Aguardando AtivaÃ§Ã£o</p>
+                        <p class="stat-label">Aguardando Ativação</p>
                         <p class="stat-value" id="statPendentes">-</p>
-                        <p class="stat-meta">Pendentes de aprovaÃ§Ã£o</p>
+                        <p class="stat-meta">Pendentes de aprovação</p>
                     </article>
                     <article class="stat-card">
                         <p class="stat-label">Inativos</p>
@@ -114,9 +114,9 @@
                         <div class="search-input-wrap">
                             <i class="ph ph-magnifying-glass"></i>
                             <input type="text" id="searchInput"
-                                placeholder="Buscar por Nome, CPF/CNPJ, Email ou nÃºmero da InstalaÃ§Ã£o (UC)">
+                                placeholder="Buscar por Nome, CPF/CNPJ, Email ou número da Instalação (UC)">
                         </div>
-                        <div class="view-switch" role="tablist" aria-label="Modo de visualizaÃ§Ã£o">
+                        <div class="view-switch" role="tablist" aria-label="Modo de visualização">
                             <button class="view-btn active" id="viewCardsBtn" type="button" aria-selected="true">
                                 <i class="ph ph-squares-four"></i>
                                 Cards
@@ -203,7 +203,7 @@
                                         <th>kWh Contratado</th>
                                         <th>Desconto</th>
                                         <th>Status</th>
-                                        <th>AÃ§Ãµes</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody id="subscribersTableBody">
@@ -224,7 +224,7 @@
                             </button>
                             <div class="pagination-pages" id="paginationPages"></div>
                             <button type="button" class="pagination-btn" id="paginationNext">
-                                PrÃ³xima
+                                Próxima
                                 <i class="ph ph-caret-right"></i>
                             </button>
                         </div>
@@ -241,12 +241,12 @@
                         <div class="field">
                             <label for="formHolderType">Tipo</label>
                             <select id="formHolderType" required>
-                                <option value="person">Pessoa FÃ­sica</option>
-                                <option value="company">Pessoa JurÃ­dica</option>
+                                <option value="person">Pessoa Física</option>
+                                <option value="company">Pessoa Jurídica</option>
                             </select>
                         </div>
                         <div class="field">
-                            <label for="formName">Nome / RazÃ£o Social</label>
+                            <label for="formName">Nome / Razão Social</label>
                             <input id="formName" type="text" required>
                         </div>
                         <div class="field">
@@ -266,7 +266,7 @@
                             <input id="formUc" type="text" required>
                         </div>
                         <div class="field">
-                            <label for="formPartner">NÃºmero Parceiro</label>
+                            <label for="formPartner">Número Parceiro</label>
                             <input id="formPartner" type="text">
                         </div>
                         <div class="field">
@@ -281,16 +281,16 @@
                             <label for="formStatus">Status</label>
                             <select id="formStatus" required>
                                 <option value="active">Ativo</option>
-                                <option value="pending">Aguardando AtivaÃ§Ã£o</option>
+                                <option value="pending">Aguardando Ativação</option>
                                 <option value="inactive">Inativo</option>
                             </select>
                         </div>
                         <div class="field field-span-2">
-                            <label for="formConcessionaria">ConcessionÃ¡ria</label>
+                            <label for="formConcessionaria">Concessionária</label>
                             <input id="formConcessionaria" type="text">
                         </div>
                         <div class="field field-span-2">
-                            <label for="formObs">ObservaÃ§Ãµes</label>
+                            <label for="formObs">Observações</label>
                             <textarea id="formObs" rows="3"></textarea>
                         </div>
 
@@ -307,10 +307,10 @@
         <div class="modal-card">
             <div class="modal-head">
                 <div>
-                    <h3 id="dossierTitle">DossiÃª Completo</h3>
-                    <p id="dossierStatusText">Em anÃ¡lise</p>
+                    <h3 id="dossierTitle">Dossiê Completo</h3>
+                    <p id="dossierStatusText">Em análise</p>
                 </div>
-                <button type="button" class="modal-close-btn" id="dossierCloseBtn" aria-label="Fechar dossiÃª">
+                <button type="button" class="modal-close-btn" id="dossierCloseBtn" aria-label="Fechar dossiê">
                     <i class="ph ph-x"></i>
                 </button>
             </div>
@@ -325,9 +325,24 @@
 
     <script type="module" src="access-control.js"></script>
     <script type="module" src="assinantes.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 
 </html>
+
 
 
 

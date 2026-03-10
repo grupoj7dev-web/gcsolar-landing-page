@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -40,7 +40,7 @@
         <a href="calcular-desconto.html" class="nav-item"><i class="ph ph-percent"></i><span>Calcular Desconto</span></a>
         <a href="geradoras.html" class="nav-item"><i class="ph ph-solar-panel"></i><span>Geradoras</span></a>
         <a href="fatura-manual.html" class="nav-item"><i class="ph ph-file-plus"></i><span>Fatura Manual</span></a>
-        <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>ProcuraÃ§Ã£o</span></a>
+        <a href="procuracao.html" class="nav-item"><i class="ph ph-file-text"></i><span>Procuração</span></a>
         <a href="faturas-validacao.html" class="nav-item"><i class="ph ph-seal-warning"></i><span>Faturas em Validacao</span></a>
         <a href="faturas-emitidas.html" class="nav-item"><i class="ph ph-receipt"></i><span>Faturas Emitidas</span></a>
         <a href="whatsapp.html" class="nav-item"><i class="ph ph-whatsapp-logo"></i><span>WhatsApp</span></a>
@@ -57,7 +57,7 @@
           <button class="settings-btn" id="themeBtn" aria-label="Alternar tema">
             <i class="ph ph-moon"></i>
           </button>
-          <a class="settings-btn" href="asaas-config.html" aria-label="ConfiguraÃ§Ãµes ASAAS">
+          <a class="settings-btn" href="asaas-config.html" aria-label="Configurações ASAAS">
             <i class="ph ph-gear-six"></i>
           </a>
           <button class="logout-btn" id="logoutBtn">Sair</button>
@@ -69,11 +69,11 @@
           <div>
             <a class="back-link" href="assinantes.html"><i class="ph ph-arrow-left"></i> Voltar para assinantes</a>
             <h1>Cadastro Corporativo de Assinante</h1>
-            <p>Processo estruturado em 9 etapas para garantir consistÃªncia cadastral e contratual.</p>
+            <p>Processo estruturado em 9 etapas para garantir consistência cadastral e contratual.</p>
           </div>
           <div class="head-badge">
             <span id="stepLabel">Etapa 1 de 9</span>
-            <strong id="stepTitle">ConcessionÃ¡ria</strong>
+            <strong id="stepTitle">Concessionária</strong>
           </div>
         </section>
 
@@ -86,12 +86,12 @@
 
         <form id="subscriberWizardForm" class="wizard-form card" novalidate>
           <section class="step-pane step-pane--concessionaria" data-step="1">
-            <h2>ConcessionÃ¡ria</h2>
+            <h2>Concessionária</h2>
             <div class="concessionaria-grid">
               <label class="field">
-                <span>ConcessionÃ¡ria *</span>
+                <span>Concessionária *</span>
                 <select id="concessionaria" required>
-                  <option value="equatorial-goias" selected>Equatorial GoiÃ¡s</option>
+                  <option value="equatorial-goias" selected>Equatorial Goiás</option>
                 </select>
               </label>
             </div>
@@ -104,7 +104,7 @@
                 <input type="radio" name="holderType" value="person" checked>
                 <i class="ph ph-user"></i>
                 <div>
-                  <strong>Pessoa FÃ­sica</strong>
+                  <strong>Pessoa Física</strong>
                   <p>Cadastro completo de titular PF.</p>
                 </div>
               </label>
@@ -112,7 +112,7 @@
                 <input type="radio" name="holderType" value="company">
                 <i class="ph ph-buildings"></i>
                 <div>
-                  <strong>Pessoa JurÃ­dica</strong>
+                  <strong>Pessoa Jurídica</strong>
                   <p>Cadastro completo de titular PJ.</p>
                 </div>
               </label>
@@ -124,19 +124,19 @@
               <h2>Dados Pessoais</h2>
               <div class="grid cols-3">
                 <label class="field"><span>CPF *</span><input id="personCpf" data-mask="cpf" required></label>
-                <label class="field"><span>NÃºmero Parceiro de NegÃ³cio *</span><input id="personPartner" required></label>
+                <label class="field"><span>Número Parceiro de Negócio *</span><input id="personPartner" required></label>
                 <label class="field"><span>Nome Completo *</span><input id="personName" required></label>
                 <label class="field"><span>Data de Nascimento *</span><input id="personBirth" type="date" required></label>
-                <label class="field"><span>Estado Civil</span><select id="personCivil"><option value="">Selecione</option><option>Solteiro</option><option>Casado</option><option>Divorciado</option><option>ViÃºvo</option><option>UniÃ£o EstÃ¡vel</option></select></label>
+                <label class="field"><span>Estado Civil</span><select id="personCivil"><option value="">Selecione</option><option>Solteiro</option><option>Casado</option><option>Divorciado</option><option>Viúvo</option><option>União Estável</option></select></label>
                 <label class="field"><span>Profissao</span><input id="personJob"></label>
                 <label class="field"><span>Telefone *</span><input id="personPhone" data-mask="phone" required></label>
                 <label class="field"><span>E-mail *</span><input id="personEmail" type="email" required></label>
               </div>
 
-              <h3>EndereÃ§o Residencial</h3>
+              <h3>Endereço Residencial</h3>
               <div class="grid cols-4" data-address="personAddress">
                 <label class="field"><span>CEP *</span><input data-address-field="cep" data-mask="cep" required></label>
-                <label class="field span-2"><span>EndereÃ§o *</span><input data-address-field="street" required></label>
+                <label class="field span-2"><span>Endereço *</span><input data-address-field="street" required></label>
                 <label class="field"><span>Numero *</span><input data-address-field="number" required></label>
                 <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
                 <label class="field"><span>Bairro *</span><input data-address-field="district" required></label>
@@ -145,7 +145,7 @@
               </div>
 
               <div class="grid cols-2">
-                <label class="field span-2"><span>ObservaÃ§Ãµes</span><textarea id="personObs" rows="3"></textarea></label>
+                <label class="field span-2"><span>Observações</span><textarea id="personObs" rows="3"></textarea></label>
               </div>
               <h3>Contatos Adicionais</h3>
               <div class="action-row"><button class="btn-secondary" type="button" id="addPersonContactBtn">Adicionar Contato</button></div>
@@ -156,18 +156,18 @@
               <h2>Dados da Empresa</h2>
               <div class="grid cols-3">
                 <label class="field"><span>CNPJ *</span><input id="companyCnpj" data-mask="cnpj"></label>
-                <label class="field"><span>NÃºmero do SÃ³cio</span><input id="companyPartnerSocio"></label>
-                <label class="field"><span>RazÃ£o Social *</span><input id="companyRazao"></label>
+                <label class="field"><span>Número do Sócio</span><input id="companyPartnerSocio"></label>
+                <label class="field"><span>Razão Social *</span><input id="companyRazao"></label>
                 <label class="field"><span>Nome Fantasia</span><input id="companyFantasy"></label>
                 <label class="field"><span>Telefone *</span><input id="companyPhone" data-mask="phone"></label>
                 <label class="field"><span>E-mail *</span><input id="companyEmail" type="email"></label>
               </div>
-              <label class="field"><span>ObservaÃ§Ãµes</span><textarea id="companyObs" rows="3"></textarea></label>
+              <label class="field"><span>Observações</span><textarea id="companyObs" rows="3"></textarea></label>
 
-              <h3>EndereÃ§o da Empresa</h3>
+              <h3>Endereço da Empresa</h3>
               <div class="grid cols-4" data-address="companyAddress">
                 <label class="field"><span>CEP *</span><input data-address-field="cep" data-mask="cep"></label>
-                <label class="field span-2"><span>EndereÃ§o *</span><input data-address-field="street"></label>
+                <label class="field span-2"><span>Endereço *</span><input data-address-field="street"></label>
                 <label class="field"><span>Numero *</span><input data-address-field="number"></label>
                 <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
                 <label class="field"><span>Bairro *</span><input data-address-field="district"></label>
@@ -185,16 +185,16 @@
                   <label class="field"><span>CPF do Administrador *</span><input id="adminCpf" data-mask="cpf"></label>
                   <label class="field"><span>Nome Completo *</span><input id="adminName"></label>
                   <label class="field"><span>Data de Nascimento *</span><input id="adminBirth" type="date"></label>
-                  <label class="field"><span>Estado Civil</span><select id="adminCivil"><option value="">Selecione</option><option>Solteiro</option><option>Casado</option><option>Divorciado</option><option>ViÃºvo</option><option>UniÃ£o EstÃ¡vel</option></select></label>
+                  <label class="field"><span>Estado Civil</span><select id="adminCivil"><option value="">Selecione</option><option>Solteiro</option><option>Casado</option><option>Divorciado</option><option>Viúvo</option><option>União Estável</option></select></label>
                   <label class="field"><span>Profissao</span><input id="adminJob"></label>
                   <label class="field"><span>Telefone *</span><input id="adminPhone" data-mask="phone"></label>
                   <label class="field"><span>E-mail *</span><input id="adminEmail" type="email"></label>
                 </div>
 
-                <h3>EndereÃ§o do Administrador</h3>
+                <h3>Endereço do Administrador</h3>
                 <div class="grid cols-4" data-address="adminAddress">
                   <label class="field"><span>CEP *</span><input data-address-field="cep" data-mask="cep"></label>
-                  <label class="field span-2"><span>EndereÃ§o *</span><input data-address-field="street"></label>
+                  <label class="field span-2"><span>Endereço *</span><input data-address-field="street"></label>
                   <label class="field"><span>Numero *</span><input data-address-field="number"></label>
                   <label class="field"><span>Complemento</span><input data-address-field="complement"></label>
                   <label class="field"><span>Bairro *</span><input data-address-field="district"></label>
@@ -215,20 +215,20 @@
           </section>
 
           <section class="step-pane hidden" data-step="5">
-            <h2>TransferÃªncia de Titularidade</h2>
+            <h2>Transferência de Titularidade</h2>
             <div class="transfer-choice">
-              <label class="radio-card compact-radio"><input type="radio" name="transferRequired" id="transferRequiredNo" value="no" checked><span>NÃ£o</span></label>
+              <label class="radio-card compact-radio"><input type="radio" name="transferRequired" id="transferRequiredNo" value="no" checked><span>Não</span></label>
               <label class="radio-card compact-radio"><input type="radio" name="transferRequired" id="transferRequiredYes" value="yes"><span>Sim</span></label>
             </div>
             <div id="transferDetails" class="hidden">
               <div class="grid cols-3">
-                <label class="field"><span>Tipo de Titular *</span><select id="transferHolderType"><option value="person">Pessoa FÃ­sica</option><option value="company">Pessoa JurÃ­dica</option></select></label>
+                <label class="field"><span>Tipo de Titular *</span><select id="transferHolderType"><option value="person">Pessoa Física</option><option value="company">Pessoa Jurídica</option></select></label>
                 <label class="field"><span>CPF ou CNPJ *</span><input id="transferDoc" data-mask="cpfcnpj"></label>
                 <label class="field"><span>Nome *</span><input id="transferName"></label>
                 <label class="field" id="transferBirthWrap"><span>Data de Nascimento</span><input id="transferBirth" type="date"></label>
                 <label class="field"><span>Numero do Parceiro</span><input id="transferPartner"></label>
-                <label class="field"><span>Troca ConcluÃ­da?</span><select id="transferDone"><option value="no">NÃ£o</option><option value="yes">Sim</option></select></label>
-                <label class="field hidden" id="transferDateWrap"><span>Data da TransferÃªncia</span><input id="transferDate" type="date"></label>
+                <label class="field"><span>Troca Concluída?</span><select id="transferDone"><option value="no">Não</option><option value="yes">Sim</option></select></label>
+                <label class="field hidden" id="transferDateWrap"><span>Data da Transferência</span><input id="transferDate" type="date"></label>
               </div>
             </div>
           </section>
@@ -242,14 +242,14 @@
                   <p class="plan-subtitle">Defina faixa de consumo, fidelidade e modalidade com apoio visual para o desconto sugerido.</p>
                 </div>
                 <div class="plan-summary-chip">
-                  <span>SimulaÃ§Ã£o ativa</span>
+                  <span>Simulação ativa</span>
                   <strong id="discountPreview">Desconto sugerido automaticamente: 13.00%</strong>
                 </div>
               </div>
 
               <div class="grid cols-3 plan-grid">
-                <label class="field"><span>Plano Selecionado *</span><select id="planSelected"><option value="">Selecione</option><option value="basico">BÃ¡sico</option><option value="intermediario">Intermediario</option><option value="premium">Premium</option></select></label>
-                <label class="field"><span>Data de AdesÃ£o *</span><input id="planAdhesionDate" type="date"></label>
+                <label class="field"><span>Plano Selecionado *</span><select id="planSelected"><option value="">Selecione</option><option value="basico">Básico</option><option value="intermediario">Intermediario</option><option value="premium">Premium</option></select></label>
+                <label class="field"><span>Data de Adesão *</span><input id="planAdhesionDate" type="date"></label>
                 <label class="field"><span>kWh Informado pelo Vendedor *</span><input id="planSellerKwh" type="number" min="0" step="0.01"></label>
                 <label class="field"><span>kWh Contratado *</span><input id="planContractedKwh" type="number" min="0" step="0.01"></label>
                 <label class="field"><span>Fidelidade</span><select id="planFidelity"><option value="none">Sem Fidelidade</option><option value="12">12 Meses</option><option value="24">24 Meses</option></select></label>
@@ -257,10 +257,10 @@
               </div>
 
               <div class="plan-mode-block">
-                <span class="field">Modalidade de CompensaÃ§Ã£o *</span>
+                <span class="field">Modalidade de Compensação *</span>
                 <div class="radio-grid plan-mode-grid">
                   <label class="radio-card plan-mode-card"><input type="radio" name="compensationMode" value="autoconsumo-remoto" checked>Autoconsumo Remoto</label>
-                  <label class="radio-card plan-mode-card"><input type="radio" name="compensationMode" value="geracao-compartilhada">GeraÃ§Ã£o Compartilhada</label>
+                  <label class="radio-card plan-mode-card"><input type="radio" name="compensationMode" value="geracao-compartilhada">Geração Compartilhada</label>
                 </div>
               </div>
 
@@ -297,9 +297,9 @@
             <div class="detail-plan-shell">
               <div class="detail-plan-head">
                 <div>
-                  <p class="plan-kicker">ConfiguraÃ§Ã£o operacional</p>
+                  <p class="plan-kicker">Configuração operacional</p>
                   <h2>Detalhes do Plano</h2>
-                  <p class="plan-subtitle">Defina as regras financeiras complementares que impactam a operaÃ§Ã£o e a leitura do contrato.</p>
+                  <p class="plan-subtitle">Defina as regras financeiras complementares que impactam a operação e a leitura do contrato.</p>
                 </div>
               </div>
               <div class="detail-option-grid">
@@ -315,12 +315,12 @@
             <div class="notify-shell">
               <div class="notify-hero">
                 <div>
-                  <p class="plan-kicker">ComunicaÃ§Ã£o automÃ¡tica</p>
-                  <h2>ConfiguraÃ§Ãµes de NotificaÃ§Ã£o</h2>
-                  <p class="plan-subtitle">Defina quais mensagens serÃ£o disparadas por canal e em cada momento da jornada de cobranÃ§a.</p>
+                  <p class="plan-kicker">Comunicação automática</p>
+                  <h2>Configurações de Notificação</h2>
+                  <p class="plan-subtitle">Defina quais mensagens serão disparadas por canal e em cada momento da jornada de cobrança.</p>
                 </div>
                 <div class="notify-badge">
-                  <span>AutomaÃ§Ã£o</span>
+                  <span>Automação</span>
                   <strong>WhatsApp + E-mail</strong>
                   <small>Configure avisos antes e depois do vencimento</small>
                 </div>
@@ -335,19 +335,19 @@
                 <div>
                   <p class="plan-kicker">Checklist documental</p>
                   <h2>Anexos</h2>
-                  <p class="plan-subtitle">Organize aqui os documentos obrigatÃ³rios e complementares para finalizar o cadastro sem retrabalho.</p>
+                  <p class="plan-subtitle">Organize aqui os documentos obrigatórios e complementares para finalizar o cadastro sem retrabalho.</p>
                 </div>
                 <div class="attachments-badge">
                   <span>Envio seguro</span>
                   <strong>PDF, DOC, DOCX, JPG e PNG</strong>
-                  <small>MÃ¡ximo de 10MB por arquivo</small>
+                  <small>Máximo de 10MB por arquivo</small>
                 </div>
               </div>
 
               <div class="attachments-grid">
                 <label class="field upload-card upload-card-required">
                   <span>Contrato *</span>
-                  <small>Arquivo principal formalizando a adesÃ£o do assinante.</small>
+                  <small>Arquivo principal formalizando a adesão do assinante.</small>
                   <input type="file" id="fileContractRequired" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                 </label>
                 <label class="field upload-card upload-card-required">
@@ -357,36 +357,36 @@
                 </label>
                 <label class="field upload-card" id="fileCnhWrap">
                   <span>CNH do Assinante (PF)</span>
-                  <small>Documento de identificaÃ§Ã£o do titular pessoa fÃ­sica.</small>
+                  <small>Documento de identificação do titular pessoa física.</small>
                   <input type="file" id="fileCnh" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                 </label>
                 <label class="field upload-card hidden" id="fileContractSocialWrap">
                   <span>Contrato Social da Empresa (PJ)</span>
-                  <small>Documento societÃ¡rio necessÃ¡rio para titular pessoa jurÃ­dica.</small>
+                  <small>Documento societário necessário para titular pessoa jurídica.</small>
                   <input type="file" id="fileContractSocial" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                 </label>
                 <label class="field upload-card">
-                  <span>ProcuraÃ§Ã£o do Assinante</span>
-                  <small>ProcuraÃ§Ã£o assinada, quando aplicÃ¡vel ao processo operacional.</small>
+                  <span>Procuração do Assinante</span>
+                  <small>Procuração assinada, quando aplicável ao processo operacional.</small>
                   <input type="file" id="fileProcuracao" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                 </label>
                 <label class="field upload-card hidden" id="fileTransferProtocolWrap">
-                  <span>Protocolo de TransferÃªncia</span>
+                  <span>Protocolo de Transferência</span>
                   <small>Comprovante da troca de titularidade, quando existir.</small>
                   <input type="file" id="fileTransferProtocol" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                 </label>
               </div>
 
               <div class="attachments-note">
-                <strong>OrientaÃ§Ãµes de envio</strong>
-                <span>Use arquivos legÃ­veis, preferencialmente em PDF, e evite fotos cortadas ou com reflexo.</span>
+                <strong>Orientações de envio</strong>
+                <span>Use arquivos legíveis, preferencialmente em PDF, e evite fotos cortadas ou com reflexo.</span>
               </div>
             </div>
           </section>
 
           <div class="wizard-actions">
             <button type="button" class="btn-secondary" id="prevStepBtn" disabled>Anterior</button>
-            <button type="button" class="btn-secondary" id="nextStepBtn">PrÃ³xima</button>
+            <button type="button" class="btn-secondary" id="nextStepBtn">Próxima</button>
             <button type="submit" class="btn-primary-solid hidden" id="saveWizardBtn">Salvar Assinante</button>
           </div>
         </form>
@@ -396,5 +396,20 @@
 
   <script type="module" src="access-control.js"></script>
   <script type="module" src="assinante-cadastro.js"></script>
-</body>
+<script>
+  (function(d,t) {
+    var BASE_URL="https://crm.iasolar.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script></body>
 </html>
+
