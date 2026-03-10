@@ -1,30 +1,490 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GC Solar | Redirecionando</title>
-  <meta http-equiv="refresh" content="0; url=login.html">
-  <script>
-    window.location.replace("login.html");
-  </script>
-</head>
-<body>
-  <p>Redirecionando para <a href="login.html">login.html</a>...</p>
-<script>
-  (function(d,t) {
-    var BASE_URL="https://crm.iasolar.io";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.async = true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
-</script></body>
-</html>
+<html lang="pt-BR" data-theme="dark">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC SOLAR - Gestão de Créditos de Energia Solar</title>
+    <meta name="description"
+        content="GC SOLAR é um sistema inteligente que gerencia a compensação de créditos de energia em usinas fotovoltaicas remotas e compartilhadas.">
+
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-nav">
+        <div class="scroll-progress-container">
+            <div class="scroll-progress" id="scrollProgress"></div>
+        </div>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img id="mainLogo" src="image_copy-bg.png" alt="GC SOLAR Logo" class="logo-img"
+                    style="height: 50px; border-radius: 8px;">
+            </a>
+
+            <div class="nav-links">
+                <a href="#solucao" class="nav-link">Solução</a>
+                <a href="#funcionalidades" class="nav-link">Funcionalidades</a>
+                <a href="#como-funciona" class="nav-link">Como Funciona</a>
+                <a href="#planos" class="nav-link">Planos</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">
+                    <i class="ph ph-sun"></i>
+                </button>
+                <a href="https://wa.me/5562981270550" class="btn btn-primary glow-effect">
+                    <span>Falar com Especialista</span>
+                    <i class="ph ph-whatsapp-logo"></i>
+                </a>
+                <button class="mobile-menu-btn" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <!-- High quality solar energy background from Unsplash -->
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop"
+                alt="Energia Solar" class="hero-image parallax">
+            <div class="hero-overlay"></div>
+            <div class="particles" id="particles"></div>
+        </div>
+
+        <div class="container hero-content reveal">
+            <div class="hero-badge">A Revolução da Geração Distribuída</div>
+            <h1 class="hero-title">
+                A Nova Moeda: Como a Energia Virou <span class="text-gradient-gold">Liberdade Econômica</span>
+            </h1>
+            <p class="hero-subtitle">
+                Sistema Inteligente para Gestão de Créditos de Energia Solar. A união perfeita entre eficiência
+                operacional, compliance regulatório e facilidade.
+            </p>
+            <div class="hero-cta">
+                <a href="#funcionalidades" class="btn btn-primary btn-lg glow-effect">
+                    <span>Conhecer o Sistema</span>
+                    <i class="ph ph-arrow-right"></i>
+                </a>
+                <a href="#como-funciona" class="btn btn-outline btn-lg">
+                    <span>Como Funciona</span>
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value"><span class="counter" data-target="100">0</span>%</span>
+                    <span class="stat-label">Automatizado</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value"><span class="counter" data-target="80">0</span>%</span>
+                    <span class="stat-label">Menos tempo operacional</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value"><span class="counter" data-target="30">0</span>d</span>
+                    <span class="stat-label">Para implantação</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="#solucao" class="scroll-indicator">
+            <span>Role para descobrir</span>
+            <i class="ph ph-caret-double-down bouncy-icon"></i>
+        </a>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="section problems" id="solucao">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">As 6 Dores que <span class="text-gradient-gold">Resolvemos</span></h2>
+                <p class="section-description">A transição energética está mudando as regras do jogo. A energia deixou
+                    de ser só custo, virou renda, patrimônio e poder.</p>
+            </div>
+
+            <div class="grid cards-grid">
+                <div class="card glass-card reveal stagger-1">
+                    <div class="card-icon error"><i class="ph ph-x-circle"></i></div>
+                    <h3>Rateio Manual</h3>
+                    <p>Fim do rateio manual suscetível a erros humanos e retrabalho constante.</p>
+                </div>
+                <div class="card glass-card reveal stagger-2">
+                    <div class="card-icon error"><i class="ph ph-files"></i></div>
+                    <h3>Faturas Descentralizadas</h3>
+                    <p>Organizamos as faturas que antes eram difíceis de auditar e gerenciar.</p>
+                </div>
+                <div class="card glass-card reveal stagger-3">
+                    <div class="card-icon error"><i class="ph ph-warning-circle"></i></div>
+                    <h3>Inadimplência</h3>
+                    <p>Cobrança e controle inteligente para acabar com a falta de previsibilidade.</p>
+                </div>
+                <div class="card glass-card reveal stagger-4">
+                    <div class="card-icon error"><i class="ph ph-eye-closed"></i></div>
+                    <h3>Falta de Transparência</h3>
+                    <p>Visibilidade total para assinantes e investidores, fortalecendo a confiança.</p>
+                </div>
+                <div class="card glass-card reveal stagger-5">
+                    <div class="card-icon error"><i class="ph ph-trend-down"></i></div>
+                    <h3>Baixa Previsibilidade</h3>
+                    <p>Projeções financeiras claras para o seu fluxo de caixa e operação.</p>
+                </div>
+                <div class="card glass-card reveal stagger-6">
+                    <div class="card-icon error"><i class="ph ph-arrows-clockwise"></i></div>
+                    <h3>Retrabalho</h3>
+                    <p>Fim do retrabalho constante com distribuidoras e concessionárias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big Promises Section -->
+    <section class="section promises dark-section">
+        <div class="container">
+            <div class="promises-wrapper reveal">
+                <div class="promise-content">
+                    <h2 class="section-title">O que entregamos para você</h2>
+                    <ul class="promise-list">
+                        <li class="promise-item">
+                            <div class="promise-icon"><i class="ph ph-check-circle fill-gold"></i></div>
+                            <div>
+                                <h4>Fluxo de caixa estável e sob controle</h4>
+                                <p>Rateio, faturamento e recebíveis rodando de forma consistente.</p>
+                            </div>
+                        </li>
+                        <li class="promise-item">
+                            <div class="promise-icon"><i class="ph ph-check-circle fill-gold"></i></div>
+                            <div>
+                                <h4>Automação de ponta a ponta</h4>
+                                <p>Da fatura da distribuidora ao rateio, da cobrança ao acompanhamento.</p>
+                            </div>
+                        </li>
+                        <li class="promise-item">
+                            <div class="promise-icon"><i class="ph ph-check-circle fill-gold"></i></div>
+                            <div>
+                                <h4>Transparência Total</h4>
+                                <p>Visibilidade clara e auditável para gestor, assinante e investidor com dashboards
+                                    completos.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="promise-image-container glass-panel spotlight">
+                    <img src="printsistema.png" alt="Dashboard GC SOLAR Preview" class="dashboard-preview"
+                        style="border-radius: 12px; width: 100%; height: auto;">
+                    <div class="floating-badge top-right">
+                        <i class="ph ph-chart-line-up"></i>
+                        <span>Dashboard Integrado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="funcionalidades">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Funcionalidades <span class="text-gradient-gold">Completas</span></h2>
+                <p class="section-description">A tecnologia por trás do GC SOLAR. Desenvolvido para escalar a sua
+                    operação de Geração Distribuída.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card reveal stagger-1">
+                    <div class="feature-icon"><i class="ph ph-download-simple"></i></div>
+                    <div class="feature-text">
+                        <h3>Captura Automática</h3>
+                        <p>Download automático de faturas da distribuidora, com extração de dados e auditoria
+                            inteligente.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-2">
+                    <div class="feature-icon"><i class="ph ph-calculator"></i></div>
+                    <div class="feature-text">
+                        <h3>Rateio Inteligente</h3>
+                        <p>Algoritmos que sugerem rateios com precisão, respeitando contratos, perfis e regulamentações.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-3">
+                    <div class="feature-icon"><i class="ph ph-projector-screen-chart"></i></div>
+                    <div class="feature-text">
+                        <h3>Simulação de Economia</h3>
+                        <p>Simulação de economia antes da contratação, com geração automática de propostas comerciais.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-4">
+                    <div class="feature-icon"><i class="ph ph-invoice"></i></div>
+                    <div class="feature-text">
+                        <h3>Faturamento Ágil</h3>
+                        <p>Emissão de faturas personalizadas, integração com Pix/WhatsApp e notificações multicanal.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-5">
+                    <div class="feature-icon"><i class="ph ph-credit-card"></i></div>
+                    <div class="feature-text">
+                        <h3>Gestão de Pagamentos</h3>
+                        <p>Monitoramento de status em tempo real e régua de cobrança automatizada.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-6">
+                    <div class="feature-icon"><i class="ph ph-chart-pie-slice"></i></div>
+                    <div class="feature-text">
+                        <h3>Relatórios Completos</h3>
+                        <p>Dashboards interativos, PDFs e área exclusiva para clientes e investidores acompanhar o ROI.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-7">
+                    <div class="feature-icon"><i class="ph ph-shield-check"></i></div>
+                    <div class="feature-text">
+                        <h3>Resolução Proativa</h3>
+                        <p>Auditoria antecipada para identificar problemas com a concessionária antes que afetem o
+                            faturamento.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal stagger-8">
+                    <div class="feature-icon"><i class="ph ph-signature"></i></div>
+                    <div class="feature-text">
+                        <h3>Assinatura Digital</h3>
+                        <p>Assinatura digital de contratos online, compliance com LGPD e sem burocracia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works (6 Steps) -->
+    <section class="section how-it-works" id="como-funciona">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Como Funciona em <span class="text-gradient-gold">6 Passos</span></h2>
+                <p class="section-description">O fluxo desenhado para máxima eficiência e transparência do início ao
+                    fim.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Onboarding Ágil</h3>
+                        <p>O lead simula sua economia, o sistema gera a proposta e o contrato é assinado digitalmente.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Captura Automática</h3>
+                        <p>O sistema baixa as faturas da distribuidora (usina e UCs), extrai os dados e realiza a
+                            auditoria.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Rateio Inteligente</h3>
+                        <p>Algoritmos processam a distribuição dos créditos com precisão baseada nas regras definidas.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Faturamento Ágil</h3>
+                        <p>Emissão das faturas personalizadas e envio com integração de cobrança via Pix e WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">5</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Gestão de Pagamentos</h3>
+                        <p>Monitoramento do status financeiro, ativação da régua de cobrança e notificações automáticas.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot">6</div>
+                    <div class="timeline-content glass-card">
+                        <h3>Transparência Total</h3>
+                        <p>Dados atualizados nos dashboards gerenciais e no portal do cliente/investidor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing" id="planos">
+        <div class="pricing-bg-element"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Proposta <span class="text-gradient-gold">Comercial</span></h2>
+                <p class="section-description">Modelo SaaS desenhado para crescer com a sua operação de energia solar.
+                </p>
+            </div>
+
+            <div class="pricing-card glass-card reveal spotlight">
+                <div class="pricing-header">
+                    <h3>Plano SaaS GC SOLAR</h3>
+                    <div class="pricing-value">
+                        <span class="amount" style="font-size: 2.2rem;">Preço sob consulta</span>
+                    </div>
+                </div>
+                <div class="pricing-body">
+                    <ul class="pricing-features">
+                        <li><i class="ph ph-check"></i> Prazo de implantação em apenas 30 dias</li>
+                        <li><i class="ph ph-check"></i> Operação assistida no 1º mês</li>
+                        <li><i class="ph ph-check"></i> Personalização da identidade visual</li>
+                        <li><i class="ph ph-check"></i> Suporte SLA via E-mail e WhatsApp</li>
+                        <li><i class="ph ph-check"></i> Compliance total com LGPD</li>
+                    </ul>
+                </div>
+                <div class="pricing-footer">
+                    <a href="https://wa.me/5562981270550" class="btn btn-primary btn-full glow-effect">Contratar
+                        Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Perguntas <span class="text-gradient-gold">Frequentes</span></h2>
+            </div>
+
+            <div class="accordion reveal">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        O sistema integra com a distribuidora?
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sim, fazemos o download automático das faturas e realizamos a auditoria dos créditos
+                            diretamente da concessionária (compatível com Celesc, Copel, Cemig, Enel, Energisa, etc).
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Posso personalizar as faturas?
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sim, a identidade visual, os textos e os templates são 100% customizáveis para a sua marca,
+                            oferecendo uma experiência premium para o seu cliente.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        E se eu tiver problemas com faturas da concessionária?
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>O sistema audita e sinaliza inconsistências antes que elas virem retrabalho, permitindo que
+                            você resolva proativamente antes do fechamento do ciclo de faturamento.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Posso testar antes de contratar?
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sim, oferecemos demonstrações específicas e simulações utilizando os seus dados e cenários
+                            reais para você validar a eficiência da plataforma.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container reveal">
+            <div class="cta-box glass-card spotlight">
+                <h2>Pronto para assumir o controle da sua energia?</h2>
+                <p>Economize até 80% do tempo operacional com o sistema mais completo para Gestão de GD.</p>
+                <a href="https://wa.me/5562981270550" class="btn btn-primary btn-lg glow-effect pulse-anim">
+                    <span>Agendar Demonstração</span>
+                    <i class="ph ph-calendar-plus"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">GC SOLAR</h3>
+                    <p>A nova era da energia chegou. Patrimônio, liberdade econômica e tecnologia inteligente.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <a href="#solucao">Solução</a>
+                    <a href="#funcionalidades">Funcionalidades</a>
+                    <a href="#como-funciona">Como funciona</a>
+                    <a href="#planos">Planos</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="ph ph-buildings"></i> J7 Tecnologia</p>
+                    <p><i class="ph ph-user"></i> Eng. Jheferson Fernandes</p>
+                    <p><i class="ph ph-envelope"></i> contato@j7tecnologia.com.br</p>
+                    <p><i class="ph ph-phone"></i> (62) 98127-0550 / 3140-7070</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GC SOLAR por J7 Tecnologia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <a href="#inicio" class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        <i class="ph ph-arrow-up"></i>
+    </a>
+
+    <script src="script.js"></script>
+    <script>
+        (function (d, t) {
+            var BASE_URL = "https://crm.iasolar.io";
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = BASE_URL + "/packs/js/sdk.js";
+            g.async = true;
+            s.parentNode.insertBefore(g, s);
+            g.onload = function () {
+                window.chatwootSDK.run({
+                    websiteToken: 'pzehqfPmoUJqsmNUvKStcyWx',
+                    baseUrl: BASE_URL
+                })
+            }
+        })(document, "script");
+    </script>
+</body>
+
+</html>
